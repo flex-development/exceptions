@@ -1,0 +1,115 @@
+{
+  "name": "@flex-development/exceptions",
+  "description": "Custom error handling",
+  "version": "1.0.0",
+  "keywords": [
+    "error handling",
+    "exceptions",
+    "typescript"
+  ],
+  "homepage": "https://github.com/flex-development/exceptions",
+  "repository": "git://github.com/flex-development/exceptions.git",
+  "bugs": {
+    "url": "https://github.com/flex-development/exceptions/issues",
+    "email": "developers@flexdevelopment.llc"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Lexus Drumgold",
+    "email": "lex@flexdevlopment.llc",
+    "url": "https://flexdevelopment.llc"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "./dist",
+    "registry": "https://npm.pkg.github.com"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf node_modules || true",
+    "clear:jest": "jest --clearCache",
+    "postinstall": "husky-run install",
+    "format": "prettier --write \"./\"",
+    "lint": "eslint . --ext js,ts --fix --cache",
+    "test": "zsh ./scripts/jest.sh",
+    "precompile": "rm -rf ./dist || true",
+    "compile": "ttsc -p tsconfig.prod.json",
+    "postcompile": "node ./scripts/js/fix-node-module-paths",
+    "release": "zsh ./scripts/release.sh",
+    "prepublishOnly": "zsh ./scripts/prepublishOnly.sh",
+    "postpublish": "zsh ./scripts/postpublish.sh"
+  },
+  "dependencies": {
+    "lodash.isplainobject": "latest",
+    "lodash.omit": "latest"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "latest",
+    "@babel/plugin-proposal-decorators": "latest",
+    "@babel/plugin-proposal-export-default-from": "latest",
+    "@babel/plugin-proposal-export-namespace-from": "latest",
+    "@babel/plugin-proposal-throw-expressions": "latest",
+    "@babel/plugin-syntax-dynamic-import": "latest",
+    "@babel/plugin-transform-runtime": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "latest",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@commitlint/format": "latest",
+    "@types/debug": "latest",
+    "@types/jest": "latest",
+    "@types/lodash.isplainobject": "latest",
+    "@types/lodash.omit": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "@zerollup/ts-transform-paths": "latest",
+    "debug": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-jest": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-node": "latest",
+    "eslint-plugin-prettier": "latest",
+    "husky": "4.3.8",
+    "jest": "27.0.0-next.8",
+    "lint-staged": "latest",
+    "npm": "latest",
+    "npm-run-all": "latest",
+    "pinst": "latest",
+    "prettier": "latest",
+    "replace-in-file": "latest",
+    "simplytyped": "latest",
+    "standard-version": "latest",
+    "ts-jest": "27.0.0-next.9",
+    "ts-node": "latest",
+    "ttypescript": "latest",
+    "typescript": "4.3.0-dev.20210306",
+    "underscore-cli": "latest",
+    "yarn": "latest"
+  },
+  "peerDependencies": {
+    "@types/lodash.isplainobject": "latest",
+    "@types/lodash.omit": "latest",
+    "simplytyped": "latest"
+  },
+  "peerDependenciesMeta": {
+    "@types/isplainobject": {
+      "optional": true
+    },
+    "@types/omit": {
+      "optional": true
+    },
+    "simplytyped": {
+      "optional": true
+    }
+  },
+  "resolutions": {
+    "**/typescript": "4.3.0-dev.20210306"
+  },
+  "release": {
+    "allowBranch": "main"
+  },
+  "required-env": []
+}
