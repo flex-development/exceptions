@@ -1,5 +1,4 @@
-import { ExceptionClassName, ExceptionCode } from '@/enums'
-import type { PlainObject } from 'simplytyped'
+import { ExceptionClassName, ExceptionStatusCode } from '@/enums'
 
 /**
  * @file Type Definitions
@@ -15,10 +14,15 @@ export type ExceptionErrors = PlainObject | (PlainObject | string)[] | null
  * Possible exception names.
  */
 export type ExceptionName =
-  | keyof typeof ExceptionCode
+  | keyof typeof ExceptionStatusCode
   | keyof typeof ExceptionClassName
 
 /**
  * Type representing an empty string.
  */
 export type EmptyString = ''
+
+/**
+ * An object with string keys and values of type `any`.
+ */
+export type PlainObject = Record<string, any>
