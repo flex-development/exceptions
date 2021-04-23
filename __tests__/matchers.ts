@@ -1,6 +1,6 @@
+import type { PlainObject } from '@/types'
 import M from 'expect/build/matchers'
-import isPlainObject from 'lodash/isPlainObject'
-import type { PlainObject } from 'simplytyped'
+import isPlainObject from 'lodash.isplainobject'
 
 /**
  * @file Custom Matchers

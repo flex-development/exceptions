@@ -64,6 +64,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@zerollup/ts-transform-paths": "latest",
+    "axios": "latest",
     "debug": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
@@ -72,6 +73,7 @@
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-node": "latest",
     "eslint-plugin-prettier": "latest",
+    "firebase-admin": "latest",
     "husky": "4.3.8",
     "jest": "27.0.0-next.8",
     "lint-staged": "latest",
@@ -80,7 +82,6 @@
     "pinst": "latest",
     "prettier": "latest",
     "replace-in-file": "latest",
-    "simplytyped": "latest",
     "standard-version": "latest",
     "ts-jest": "27.0.0-next.9",
     "ts-node": "latest",
@@ -90,18 +91,10 @@
     "yarn": "latest"
   },
   "peerDependencies": {
-    "@types/lodash.isplainobject": "latest",
-    "@types/lodash.omit": "latest",
-    "simplytyped": "latest"
+    "axios": "latest"
   },
   "peerDependenciesMeta": {
-    "@types/isplainobject": {
-      "optional": true
-    },
-    "@types/omit": {
-      "optional": true
-    },
-    "simplytyped": {
+    "axios": {
       "optional": true
     }
   },

@@ -44,6 +44,7 @@ module.exports = {
     '@typescript-eslint/ban-types': 1,
     '@typescript-eslint/camelcase': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/member-delimiter-style': [
       2,
       {

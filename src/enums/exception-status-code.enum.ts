@@ -1,12 +1,12 @@
 /**
- * @file Enums - ExceptionCode
- * @module enums/ExceptionCode
+ * @file Enums - ExceptionStatusCode
+ * @module enums/ExceptionStatusCode
  */
 
 /**
  * `Exception` HTTP status codes.
  */
-export enum ExceptionCode {
+export enum ExceptionStatusCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   PAYMENT_REQUIRED = 402,
