@@ -20,8 +20,8 @@
     "noUnusedParameters": false,
     "outDir": "dist",
     "paths": {
-      "@exceptions": ["src/index.ts"],
-      "@exceptions/*": ["src/*"],
+      "@": ["src/index.ts"],
+      "@/*": ["src/*"],
       "@tests/fixtures/*": ["__tests__/__fixtures__/*"],
       "@tests/*": ["__tests__/*"]
     },
