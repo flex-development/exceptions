@@ -107,20 +107,54 @@ To review our linting guidelines, see our configuration files:
 - Configuration: [`.eslintrc.js`](../.eslintrc.js)
 - Ignore Patterns: [`.eslintignore`](../.eslintignore)
 
-## :construction: Making Changes
+## Making Changes
 
-**TODO**: Update documentation.
+All source code can be found in the `src` directory.
+
+### [Data Transfer Objects][6]
+
+Data transfer objects (DTOs) carry data between two separate systems.
+
+- Directory: `src/dto`
+
+### [Enums][7]
+
+Named constants.
+
+- Directory: `src/enums`
+
+### Exceptions
+
+Custom error classes.
+
+`Exception`, the base class, supports creating exceptions as well as converting
+Axios, Firebase, and Next.js error objects to `Exception` class errors.
+
+- Directory: `src/exceptions`
+- Exception API: [`src/exceptions/base.exception.ts`][8]
+
+### [Interfaces][9]
+
+Error object types defined by this package.
+
+- Directory: `src/interfaces`
+
+### [Types][10]
+
+Utility type definitions.
+
+- File: `src/types.ts`
 
 ## Documentation
 
-- JavaScript & TypeScript: [JSDoc][6], linted with [`eslint-plugin-jsdoc`][7]
+- JavaScript & TypeScript: [JSDoc][11], linted with [`eslint-plugin-jsdoc`][12]
 
 Before making a pull request, be sure your code is well documented, as it will
 be part of your code review.
 
 ## Testing
 
-This project uses [Jest][8] as its test runner. To run the tests in this
+This project uses [Jest][13] as its test runner. To run the tests in this
 project, run `yarn test` from the project root.
 
 Husky is configured to run tests before every push. If a bug report concerning a
@@ -137,8 +171,7 @@ possible, create a test to reproduce the error. Make sure to label your issue as
 
 When you're ready to have your changes reviewed, make sure your code is
 [well documented](#documentation). The `pre-commit` and `pre-push` hooks will
-test your changes against our coding guidelines, as well run all of the tests in
-this project.
+test your changes against our coding guidelines, as well run all test suites.
 
 ### Submit for Review
 
@@ -151,6 +184,12 @@ this project.
 [3]: https://github.com/conventional-changelog/commitlint
 [4]: https://prettier.io/
 [5]: https://eslint.org/
-[6]: https://jsdoc.app
-[7]: https://github.com/gajus/eslint-plugin-jsdoc
-[8]: https://jestjs.io/
+[6]:
+  https://khalilstemmler.com/articles/typescript-domain-driven-design/repository-dto-mapper/#Data-Transfer-Objects
+[7]: https://www.typescriptlang.org/docs/handbook/enums.html
+[8]: ../src/exceptions/base.exception.ts
+[9]: https://www.typescriptlang.org/docs/handbook/2/objects.html
+[10]: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+[11]: https://jsdoc.app
+[12]: https://github.com/gajus/eslint-plugin-jsdoc
+[13]: https://jestjs.io/
