@@ -8,7 +8,7 @@ import { ExceptionStatusCode } from './exception-status-code.enum'
 /**
  * Names of Firebase error codes mapped to HTTP error status codes.
  *
- * - https://github.com/firebase/firebase-admin-node/blob/master/src/utils/errors.ts
+ * - https://github.com/firebase/firebase-admin-node/blob/master/src/utils/error.ts
  */
 export enum FirebaseErrorStatusCode {
   ALREADY_EXISTS = ExceptionStatusCode.CONFLICT,
