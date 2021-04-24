@@ -26,6 +26,14 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "README.md",
+    "tsconfig.json",
+    "tsconfig.prod.json"
+  ],
   "scripts": {
     "clean": "rm -rf node_modules || true",
     "clear:jest": "jest --clearCache",

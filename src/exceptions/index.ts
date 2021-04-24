@@ -4,5 +4,6 @@
  */
 
 export { default as Exception } from './base.exception'
+export * from './constants.exceptions'
 
 /* eslint-disable prettier/prettier */
