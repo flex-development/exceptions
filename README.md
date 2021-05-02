@@ -31,11 +31,7 @@ opinionated type definitions.
 
    ```utf-8
    @flex-development:registry=https://npm.pkg.github.com/
-   //npm.pkg.github.com/:_authToken=${GH_PAT}
    ```
-
-   where `GH_PAT` is your [GitHub personal access token][5] with
-   [`read:packages`][6] scope permissions.
 
 2. Add project to `dependencies`
 
@@ -76,15 +72,11 @@ const ejson: ExceptionJSON = {
 }
 ```
 
-For more details, view the [Exception API documentation][7].
+For more details, view the [Exception API documentation][5].
 
 [1]: https://github.com/axios/axios
 [2]:
   https://github.com/firebase/firebase-admin-node/blob/master/src/firebase-namespace-api.ts
 [3]: https://nextjs.org/docs/advanced-features/custom-error-page
 [4]: https://github.com/feathersjs/feathers/tree/dove/packages/errors
-[5]:
-  https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
-[6]:
-  https://docs.github.com/en/developers/apps/scopes-for-oauth-apps#available-scopes
-[7]: ./src/exceptions/base.exception.ts
+[5]: ./src/exceptions/base.exception.ts
