@@ -33,8 +33,8 @@ coding guidelines, as well as begin extending your own workflow.
 
 ### Environment Variables
 
-All required environment variables are documented in the `package.json` of each
-project, under the `required-env` field.
+All required environment variables are documented in `package.json`, under the
+`required-env` field.
 
 ## Coding Standards
 
