@@ -131,7 +131,11 @@ module.exports = {
       }
     },
     {
-      files: ['.eslintrc.*', 'webpack.*'],
+      files: [
+        '.eslintrc.*',
+        'webpack.*',
+        'scripts/js/create-dist-package-json.js'
+      ],
       rules: {
         'sort-keys': 0
       }

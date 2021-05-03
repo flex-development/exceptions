@@ -26,14 +26,6 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "CHANGELOG.md",
-    "LICENSE.md",
-    "README.md",
-    "tsconfig.json",
-    "tsconfig.prod.json"
-  ],
   "scripts": {
     "clean": "rm -rf node_modules || true",
     "clear:jest": "jest --clearCache",
@@ -41,14 +33,12 @@
     "format": "prettier --write \"./\"",
     "lint": "eslint . --ext js,ts --fix --cache",
     "test": "zsh ./scripts/jest.sh",
-    "precompile": "rm -rf ./dist || true",
-    "compile": "ttsc -p tsconfig.prod.json",
-    "postcompile": "node ./scripts/js/fix-node-module-paths",
-    "release": "zsh ./scripts/release.sh",
-    "prepublishOnly": "zsh ./scripts/prepublishOnly.sh",
-    "postpublish": "zsh ./scripts/postpublish.sh"
+    "compile": "zsh scripts/compile.sh",
+    "release": "zsh scripts/release.sh"
   },
   "dependencies": {
+    "@types/lodash.isplainobject": "latest",
+    "@types/lodash.omit": "latest",
     "lodash.isplainobject": "latest",
     "lodash.omit": "latest"
   },
@@ -67,8 +57,7 @@
     "@commitlint/format": "latest",
     "@types/debug": "latest",
     "@types/jest": "latest",
-    "@types/lodash.isplainobject": "latest",
-    "@types/lodash.omit": "latest",
+    "@types/lodash.merge": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@zerollup/ts-transform-paths": "latest",
@@ -85,9 +74,9 @@
     "husky": "4.3.8",
     "jest": "27.0.0-next.8",
     "lint-staged": "latest",
+    "lodash.merge": "latest",
     "npm": "latest",
     "npm-run-all": "latest",
-    "pinst": "latest",
     "prettier": "latest",
     "replace-in-file": "latest",
     "standard-version": "latest",
