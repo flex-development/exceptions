@@ -1,6 +1,6 @@
 /**
  * @file Enums - ExceptionClassName
- * @module enums/ExceptionClassName
+ * @module exceptions/enums/ExceptionClassName
  */
 
 /**

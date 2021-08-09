@@ -2,7 +2,7 @@ import { ExceptionClassName, ExceptionStatusCode } from '@/enums'
 
 /**
  * @file Type Definitions
- * @module types
+ * @module exceptions/types
  */
 
 /**

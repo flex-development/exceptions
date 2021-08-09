@@ -23,7 +23,7 @@ import { DEM } from './constants.exceptions'
 
 /**
  * @file Exceptions - Exception Base Class
- * @module exceptions/Exception
+ * @module exceptions/exceptions/Exception
  */
 
 export default class Exception extends Error {

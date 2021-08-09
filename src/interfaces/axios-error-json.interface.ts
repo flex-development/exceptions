@@ -2,7 +2,7 @@ import type { AxiosRequestConfig } from 'axios'
 
 /**
  * @file Interface - AxiosErrorJSON
- * @module interfaces/AxiosErrorJSON
+ * @module exceptions/interfaces/AxiosErrorJSON
  */
 
 /**

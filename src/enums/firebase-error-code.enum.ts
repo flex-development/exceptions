@@ -1,6 +1,6 @@
 /**
  * @file Enums - FirebaseErrorCode
- * @module enums/FirebaseErrorCode
+ * @module exceptions/enums/FirebaseErrorCode
  */
 
 /**

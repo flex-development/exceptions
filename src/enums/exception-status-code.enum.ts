@@ -1,6 +1,6 @@
 /**
  * @file Enums - ExceptionStatusCode
- * @module enums/ExceptionStatusCode
+ * @module exceptions/enums/ExceptionStatusCode
  */
 
 /**

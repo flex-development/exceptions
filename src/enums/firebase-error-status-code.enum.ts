@@ -2,7 +2,7 @@ import { ExceptionStatusCode } from './exception-status-code.enum'
 
 /**
  * @file Enums - FirebaseErrorStatusCode
- * @module enums/FirebaseErrorStatusCode
+ * @module exceptions/enums/FirebaseErrorStatusCode
  */
 
 /**

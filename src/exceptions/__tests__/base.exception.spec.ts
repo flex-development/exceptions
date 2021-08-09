@@ -14,10 +14,10 @@ import NEXT_ERROR_BAD_GATEWAY from './__fixtures__/next-error.fixture'
 
 /**
  * @file Unit Tests - Exception
- * @module lib/exceptions/tests/Exception
+ * @module exceptions/exceptions/tests/unit/Exception
  */
 
-describe('lib/exceptions/Exception', () => {
+describe('unit:exceptions/Exception', () => {
   describe('exports', () => {
     it('should export class by default', () => {
       expect(TestSubject).toBeDefined()

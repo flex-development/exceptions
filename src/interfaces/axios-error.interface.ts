@@ -3,7 +3,7 @@ import type { AxiosErrorJSON } from './axios-error-json.interface'
 
 /**
  * @file Interface - AxiosError
- * @module interfaces/AxiosError
+ * @module exceptions/interfaces/AxiosError
  */
 
 /**

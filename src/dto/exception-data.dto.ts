@@ -2,7 +2,7 @@ import type { ExceptionErrors } from '@/types'
 
 /**
  * @file DTO - ExceptionDataDTO
- * @module dto/ExceptionDataDTO
+ * @module exceptions/dto/ExceptionDataDTO
  */
 
 /**

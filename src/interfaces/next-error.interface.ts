@@ -2,7 +2,7 @@ import { ExceptionStatusCode } from '@/enums'
 
 /**
  * @file Interface - NextError
- * @module interfaces/NextError
+ * @module exceptions/interfaces/NextError
  * @see https://nextjs.org/docs/advanced-features/custom-error-page
  */
 

@@ -4,7 +4,7 @@ import type { ExceptionErrors, ExceptionName } from '@/types'
 
 /**
  * @file Interface - ExceptionJSON
- * @module interfaces/ExceptionJSON
+ * @module exceptions/interfaces/ExceptionJSON
  */
 
 /**
