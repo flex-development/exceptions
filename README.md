@@ -28,11 +28,34 @@ opinionated type definitions.
 
 ## Installation
 
-1. Create or edit an `.npmrc` file with the following information:
+1. Authenticate with [GitHub Package Registry][6] (GPR)
 
-   ```utf-8
+   **NPM**
+
+   ```properties
+   //registry.npmjs.org/:_authToken=$PAT_GPR
    @flex-development:registry=https://npm.pkg.github.com/
    ```
+
+   **Yarn 1**
+
+   ```properties
+   //registry.yarnpkg.com/:_authToken=$PAT_GPR
+   @flex-development:registry=https://npm.pkg.github.com/
+   ```
+
+   **Yarn 2**
+
+   ```yml
+   npmScopes:
+     flex-development:
+       npmAlwaysAuth: true
+       npmAuthToken: '${PAT_GPR}'
+       npmRegistryServer: 'https://npm.pkg.github.com'
+   ```
+
+   where `$PAT_GPR` is [GitHub Personal Access Token][7] with at least the
+   `read:packages` scope.
 
 2. Add project to `dependencies`
 
@@ -82,3 +105,5 @@ For more details, view the [Exception API documentation][5].
 [3]: https://nextjs.org/docs/advanced-features/custom-error-page
 [4]: https://github.com/feathersjs/feathers/tree/dove/packages/errors
 [5]: ./src/exceptions/base.exception.ts
+[6]: https://github.com/features/packages
+[7]: https://github.com/settings/tokens/new
