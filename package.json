@@ -61,7 +61,6 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@zerollup/ts-transform-paths": "latest",
-    "axios": "latest",
     "debug": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",

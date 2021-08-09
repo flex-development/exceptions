@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from '@/types'
 import type { AxiosErrorJSON } from './axios-error-json.interface'
 
 /**
