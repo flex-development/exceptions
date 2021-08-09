@@ -61,6 +61,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@zerollup/ts-transform-paths": "latest",
+    "axios": "latest",
     "debug": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
@@ -85,14 +86,6 @@
     "typescript": "4.3.0-dev.20210306",
     "underscore-cli": "latest",
     "yarn": "latest"
-  },
-  "peerDependencies": {
-    "axios": "latest"
-  },
-  "peerDependenciesMeta": {
-    "axios": {
-      "optional": true
-    }
   },
   "resolutions": {
     "**/typescript": "4.3.0-dev.20210306"
