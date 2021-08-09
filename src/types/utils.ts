@@ -1,4 +1,5 @@
-import { ExceptionClassName, ExceptionStatusCode } from '@/enums'
+import { ExceptionClassName } from '@/enums/exception-class-name.enum'
+import { ExceptionStatusCode } from '@/enums/exception-status-code.enum'
 
 /**
  * @file Type Definitions - Utilities

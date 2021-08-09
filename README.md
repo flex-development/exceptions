@@ -42,7 +42,8 @@ opinionated type definitions.
 ## Usage
 
 ```typescript
-import { Exception, ExceptionStatusCode } from '@flex-development/exceptions'
+import { ExceptionStatusCode } from '@flex-development/exceptions/enums'
+import Exception from '@flex-development/exceptions/exceptions/base.exception'
 
 const dto = {
   email: 'helloworld@email.com',

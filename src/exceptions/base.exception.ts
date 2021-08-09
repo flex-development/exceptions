@@ -1,10 +1,8 @@
 import type { ExceptionDataDTO as DataDTO } from '@/dto'
-import {
-  ExceptionClassName as ClassName,
-  ExceptionStatusCode as Code,
-  FirebaseErrorCode,
-  FirebaseErrorStatusCode
-} from '@/enums'
+import { ExceptionClassName } from '@/enums/exception-class-name.enum'
+import { ExceptionStatusCode } from '@/enums/exception-status-code.enum'
+import { FirebaseErrorCode } from '@/enums/firebase-error-code.enum'
+import { FirebaseErrorStatusCode } from '@/enums/firebase-error-status-code.enum'
 import type {
   AxiosError,
   ExceptionJSON,
@@ -28,14 +26,14 @@ import { DEM } from './constants.exceptions'
 
 export default class Exception extends Error {
   /**
-   * @property {ClassName} className - CSS class name associated with Exception
+   * @property {ExceptionClassName} className - Associated CSS class name
    */
-  className: ClassName
+  className: ExceptionClassName
 
   /**
-   * @property {Code} code - HTTP error status code
+   * @property {ExceptionStatusCode} code - HTTP error status code
    */
-  code: Code
+  code: ExceptionStatusCode
 
   /**
    * @property {Omit<DataDTO, 'errors'>} data - Additional exception data
@@ -55,7 +53,7 @@ export default class Exception extends Error {
   /**
    * Instantiate a new Exception.
    *
-   * @param {Code} [code] - HTTP error status code
+   * @param {ExceptionStatusCode} [code] - HTTP error status code
    * @param {string} [message] - Exception message
    * @param {DataDTO} [data] - Additional exception data
    * @param {Errors} [data.errors] - Array of errors, error object, or null
@@ -63,7 +61,7 @@ export default class Exception extends Error {
    * @param {string} [stack] - Error stack
    */
   constructor(
-    code: Code = Code.INTERNAL_SERVER_ERROR,
+    code: ExceptionStatusCode = ExceptionStatusCode.INTERNAL_SERVER_ERROR,
     message: string = DEM,
     data: DataDTO = {},
     stack?: string
@@ -75,7 +73,7 @@ export default class Exception extends Error {
 
     this.code = Exception.formatCode(code)
     this.name = Exception.findNameByCode(this.code) as Name
-    this.className = ClassName[this.name]
+    this.className = ExceptionClassName[this.name]
     this.data = $data ? omit(data, ['errors', 'message']) : {}
     this.errors = $errors ? data.errors || null : null
     this.message = data.message?.length ? data.message : message
@@ -85,11 +83,14 @@ export default class Exception extends Error {
   /**
    * Finds the name of an exception by status code.
    *
-   * @param {Code} code - Status code associated with exception name
+   * @param {ExceptionStatusCode} code - HTTP status code
    * @return {Name | EmptyString} - Name of exception or empty string
    */
-  static findNameByCode(code: Code): Name | EmptyString {
-    const name = Object.keys(Code).find(key => Code[key] === code)
+  static findNameByCode(code: ExceptionStatusCode): Name | EmptyString {
+    const name = Object.keys(ExceptionStatusCode).find(key => {
+      return ExceptionStatusCode[key] === code
+    })
+
     return (name as Name) || ''
   }
 
@@ -97,10 +98,10 @@ export default class Exception extends Error {
    * Returns `500` if {@param code} is not a valid exception status code.
    *
    * @param {any} [code] - Value to validate
-   * @return {Code} Exception status code
+   * @return {ExceptionStatusCode} Exception status code
    */
-  static formatCode(code?: any): Code {
-    return Object.values(Code).includes(code) ? code : 500
+  static formatCode(code?: any): ExceptionStatusCode {
+    return Object.values(ExceptionStatusCode).includes(code) ? code : 500
   }
 
   /**
@@ -112,14 +113,14 @@ export default class Exception extends Error {
   static fromAxiosError(error: AxiosError): Exception {
     const { isAxiosError, message, request, response, stack } = error
 
-    let code = Code.INTERNAL_SERVER_ERROR
+    let code = ExceptionStatusCode.INTERNAL_SERVER_ERROR
     let data: PlainObject = { code: error.toJSON().code, isAxiosError }
 
     // Request was made and an error response was received
     if (response) {
       const { data: $data } = response
 
-      if (Object.keys(Code).includes($data?.name ?? '')) {
+      if (Object.keys(ExceptionStatusCode).includes($data?.name ?? '')) {
         const ejson = $data as ExceptionJSON
         const data = { ...ejson.data, errors: ejson.errors }
 

@@ -1,5 +1,6 @@
 import type { ExceptionDataDTO } from '@/dto'
-import { ExceptionClassName, ExceptionStatusCode } from '@/enums'
+import { ExceptionClassName } from '@/enums/exception-class-name.enum'
+import { ExceptionStatusCode } from '@/enums/exception-status-code.enum'
 import type { ExceptionErrors, ExceptionName } from '@/types'
 
 /**
