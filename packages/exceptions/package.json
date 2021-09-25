@@ -40,8 +40,8 @@
   ],
   "exports": {
     ".": "./dist/exceptions.esm5.js",
-    "./dto": "./esm5/dto/index.js",
-    "./dto/*": "./esm5/dto/*.js",
+    "./dtos": "./esm5/dtos/index.js",
+    "./dtos/*": "./esm5/dtos/*.js",
     "./enums": "./esm5/enums/index.js",
     "./enums/*": "./esm5/enums/*.js",
     "./exceptions": "./esm5/exceptions/index.js",

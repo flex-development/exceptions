@@ -19,6 +19,7 @@ module.exports = {
           ...RULES_SPELLCHECKER[1].skipWords,
           'axios',
           'dto',
+          'dtos',
           'enums',
           'firebase',
           'oauth',

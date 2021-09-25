@@ -1,4 +1,4 @@
-import type { ExceptionDataDTO } from '@packages/exceptions/dto'
+import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
 import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
 import type { ExceptionErrors, ExceptionName } from '@packages/exceptions/types'

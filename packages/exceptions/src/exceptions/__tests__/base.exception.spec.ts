@@ -1,4 +1,4 @@
-import type { ExceptionDataDTO } from '@packages/exceptions/dto'
+import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName as ClassName,
   ExceptionStatusCode as Code
