@@ -61,7 +61,7 @@
     "test": "bash ../../tools/scripts/jest.sh",
     "build": "ts-node ../../tools/cli/build-pkg",
     "prepack": "yarn build",
-    "release": "bash ../../scripts/release.sh"
+    "release": "ts-node ../../tools/cli/release"
   },
   "dependencies": {
     "lodash.isplainobject": "4.0.6",

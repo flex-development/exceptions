@@ -19,7 +19,7 @@ project. This includes, but is not limited to:
 [Opening Issues](#opening-issues)  
 [Pull Requests & Code Reviews](#pull-requests-&-code-reviews)  
 [Merge Strategies](#merge-strategies)  
-[:construction: Releasing](#releasing)
+[Releasing](#releasing)
 
 ## Getting Started
 
@@ -345,7 +345,43 @@ e.g:
 
 ## Releasing
 
-**TODO**: Update documentation.
+This repository is configured to publish packages and releases when a
+`release/*` branch is merged.
+
+> Note: Publishing is executed via the
+> [Continuous Deployment](./.github/workflows/continous-deployment.yml)
+> workflow. This is so invalid or malicious versions cannot be release without
+> merging those changes into `next` first.
+
+Before releasing, the following steps must be completed:
+
+1. Schedule a code freeze
+2. Create a new `release/*` branch
+   - where `*` is `<package.json#name-no-scope>@<package.json#version>`
+     - e.g: `exceptions@1.1.0`
+   - branch naming conventions **must be followed exactly**. the branch name is
+     used to create distribution tags, locate drafted releases, and generate the
+     correct workspace publish command
+3. Decide what version bump the release needs (major, minor, patch)
+   - versioning
+     - `yarn release:ui` (determines [bumps based on commits][17])
+     - `yarn release:ui --first-release`
+     - `yarn release:ui --release-as major`
+     - `yarn release:ui --release-as minor`
+     - `yarn release:ui --release-as patch`
+   - a new release will be drafted
+4. Open a new pull request from `release/*` into `next`
+   - title the PR `release: <package.json#name>@<package.json#version>`
+     - e.g: `release: @flex-development/exceptions@1.1.0`
+   - after review, merge the PR with a merge commit
+     - e.g: `release: @flex-development/exceptions@1.1.0`
+   - once the PR is merged, the deployment workflow will be triggered
+   - the maintainer who approved the PR should check to make sure the workflow
+     completes all jobs as expected. if successful, the workflow will: - publish
+     package to the [GitHub Package Registry][18] and [NPM][19] - update the
+     production branch (merge branch `next` into `main`) - publish the drafted
+     release - close issues with the `status:merged` label - add the
+     `status:released` label to newly closed issues
 
 [1]: https://yarnpkg.com/getting-started/migration
 [2]: https://yarnpkg.com/features/workspaces
@@ -363,3 +399,7 @@ e.g:
 [13]: https://github.com/gajus/eslint-plugin-jsdoc
 [14]: https://jestjs.io
 [15]: https://jestjs.io/docs/api#describeskipname-fn
+[16]: https://jestjs.io/docs/api#testskipname-fn
+[17]: https://www.conventionalcommits.org/en/v1.0.0
+[18]: https://github.com/features/packages
+[19]: https://www.npmjs.com
