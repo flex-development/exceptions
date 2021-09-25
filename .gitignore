@@ -1,3 +1,6 @@
+# Created by https://www.toptal.com/developers/gitignore/api/macos,node,windows,yarn
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,node,windows,yarn
+
 ### macOS ###
 # General
 .DS_*
@@ -54,27 +57,41 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn v2 (Not using Zero-Installs)
+# See: https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 ### Environment ###
 # Environment variables
-.env.local
-.env.*.local
-.env
-.env.test
 .env*.local
 
 ### Jest ###
 coverage/
+**/__tests__/results.json
 
 ### TypeScript ###
 # TypeScript cache
 *.tsbuildinfo
-
-# Awesome TypeScript Loader
-.awcache/
+packages/**/tsconfig.prod.*
 
 ### ESLint ###
 # Optional eslint cache
 .eslintcache
 
 # Builds & Distributions
-dist/
+packages/*/browser/
+packages/*/build/
+packages/*/cjs/
+packages/*/dist/
+packages/*/esm/
+packages/*/esm5/
+packages/*/esm2015/
+packages/*/types/
+
+*.zip

@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {},
+  "exclude": ["cjs", "esm", "node_modules"],
+  "extends": "../../tsconfig.json",
+  "include": ["__mocks__", "__tests__", "src", "*.js", "*.ts"]
+}

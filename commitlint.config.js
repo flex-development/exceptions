@@ -1,77 +1,91 @@
-const { Rule, RuleConfigTuple } = require('@commitlint/types')
-const { existsSync, lstatSync, readdirSync } = require('fs')
-const { resolve } = require('path')
-const { Record } = require('typescript')
+require('ts-node').register(require('./tsconfig.json'))
+require('tsconfig-paths/register')
+
+const workspaces = require('./tools/helpers/workspaces').default
 
 /**
  * @file Commitlint Configuration
  * @see https://commitlint.js.org/#/guides-local-setup
- * @see https://www.conventionalcommits.org/en/v1.0.0/#specification
+ * @see https://commitlint.js.org/#/reference-configuration
  */
 
 module.exports = {
   /**
-   * @property {boolean} defaultIgnores - If true, enable default ignore rules
+   * Enable default ignore rules.
    */
   defaultIgnores: true,
 
   /**
-   * @property {Array<string>} extends - IDs of commitlint configurations
-   *
-   * @see https://www.conventionalcommits.org/
-   * @see https://www.npmjs.com/package/@commitlint/config-conventional
+   * IDs of commitlint configurations.
    */
   extends: ['@commitlint/config-conventional'],
 
   /**
-   * @property {string} formatter - Name of formatter package
+   * Name of formatter package.
    */
   formatter: '@commitlint/format',
 
   /**
    * Functions that return true if commitlint should ignore the given message.
-   *
-   * @param {string} commit - The commit message
-   * @return {boolean} `true` if commitlint should ignore message
    */
-  ignores: [
-    /**
-     * Ignores commit messages that begin with "wip" as the scope or type.
-     *
-     * @param {string} commit - The commit message
-     * @return {boolean} True if message begins with "wip" as the scope or type
-     */
-    commit => [':', '('].some(char => commit.startsWith(`wip${char}`))
-  ],
+  ignores: [],
 
   /**
-   * @property {Record<string, Rule>} rules - Rules to check against
+   * Rules to test commits against.
    *
    * @see https://commitlint.js.org/#/reference-rules
    */
   rules: {
     /**
-     * Scope syntax.
+     * Scope casing.
      */
     'scope-case': [2, 'always', 'kebab-case'],
 
     /**
-     * Returns the rules for valid commit scopes.
-     *
-     * @return {RuleConfigTuple} Scope rules
+     * Commit scopes.
      */
-    'scope-enum': () => {
-      const SRC = resolve(__dirname, 'src')
+    'scope-enum': [
+      2,
+      'always',
+      [
+        'deploy',
+        'deps',
+        'deps-dev',
+        'deps-peer',
+        'release',
+        'tests',
+        'tools',
+        'typescript',
+        'workflows',
+        'yarn',
+        ...workspaces()
+      ]
+    ],
 
-      const directories = arr => {
-        return arr.filter(d => {
-          const path = resolve(SRC, d)
+    /**
+     * Commit message subject casing.
+     */
+    'subject-case': [1, 'always', 'lower-case'],
 
-          return existsSync(path) && lstatSync(resolve(SRC, d)).isDirectory()
-        })
-      }
-
-      return [2, 'always', [...directories(readdirSync(SRC)), 'globals']]
-    }
+    /**
+     * Rules for valid commit types.
+     */
+    'type-enum': [
+      2,
+      'always',
+      [
+        'build',
+        'chore',
+        'ci',
+        'docs',
+        'feat',
+        'fix',
+        'perf',
+        'refactor',
+        'revert',
+        'style',
+        'test'
+      ]
+    ]
   }
 }

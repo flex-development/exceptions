@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "declaration": true,
+    "declaration": false,
+    "inlineSources": true,
     "noEmit": false,
-    "outDir": "./dist",
+    "outDir": "./build",
     "plugins": [
       {
         "afterDeclarations": true,
@@ -11,9 +12,22 @@
       }
     ],
     "removeComments": false,
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "sourceMap": true,
+    "strict": false
   },
-  "exclude": ["**/__mocks__/**", "**/__tests__/**"],
+  "exclude": [
+    "**/__mocks__",
+    "**/__tests__",
+    "./browser",
+    "./build",
+    "./cjs",
+    "./dist",
+    "./esm",
+    "./node_modules",
+    "./types"
+  ],
   "extends": "./tsconfig.json",
+  "files": [],
   "include": ["src"]
 }

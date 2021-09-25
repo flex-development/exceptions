@@ -2,14 +2,12 @@
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": false,
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
+    "checkJs": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es6"],
+    "lib": ["es2018"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
@@ -18,23 +16,44 @@
     "noImplicitReturns": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "outDir": "dist",
     "paths": {
-      "@": ["src/index.ts"],
-      "@/*": ["src/*"],
+      "@flex-development/grease": [
+        "node_modules/@flex-development/grease/cjs/index"
+      ],
+      "@flex-development/grease/*": [
+        "node_modules/@flex-development/grease/cjs/*"
+      ],
+      "@flex-development/log": ["node_modules/@flex-development/log/cjs/index"],
+      "@flex-development/log/*": ["node_modules/@flex-development/log/cjs/*"],
+      "@packages/exceptions/tests/fixtures/*": [
+        "packages/exceptions/__tests__/__fixtures__/*"
+      ],
+      "@packages/exceptions/tests/*": ["packages/exceptions/__tests__/*"],
+      "@packages/exceptions/*": ["packages/exceptions/src/*"],
+      "@packages/exceptions": ["packages/exceptions/src/index.ts"],
       "@tests/fixtures/*": ["__tests__/__fixtures__/*"],
       "@tests/*": ["__tests__/*"]
     },
     "preserveConstEnums": true,
     "pretty": true,
-    "removeComments": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "strictPropertyInitialization": false,
     "suppressImplicitAnyIndexErrors": true,
     "strict": true,
-    "target": "es6"
+    "target": "es2018"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["**/build", "**/cjs", "**/esm", "**/node_modules"],
+  "files": ["typings/jest.d.ts"],
+  "include": [
+    "__mocks__",
+    "__tests__",
+    "helpers",
+    "packages",
+    "tools",
+    "typings",
+    "*.cjs",
+    "*.js",
+    "*.ts"
+  ]
 }
