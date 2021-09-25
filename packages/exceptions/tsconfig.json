@@ -1,6 +1,13 @@
 {
   "compilerOptions": {},
-  "exclude": ["cjs", "esm", "node_modules"],
+  "exclude": [
+    "./cjs",
+    "./dist",
+    "./esm5",
+    "./esm2015",
+    "./node_modules",
+    "./types"
+  ],
   "extends": "../../tsconfig.json",
   "include": ["__mocks__", "__tests__", "src", "*.js", "*.ts"]
 }
