@@ -1,0 +1,235 @@
+# Continuous Deployment
+#
+# References:
+#
+# - https://github.com/actions/github-script
+# - https://github.com/actions/checkout
+# - https://github.com/actions/setup-node
+# - https://github.com/actions-registry/github-repo-sync-upstream
+
+---
+name: continuous-deployment
+on:
+  pull_request:
+    branches:
+      - next
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: release tag
+        required: true
+jobs:
+  deployment-info:
+    name: Get deployment details
+    if: |
+      github.event.inputs.tag ||
+      (startsWith(github.event.pull_request.head.ref, 'release/') 
+      && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+    outputs:
+      directory: ${{ steps.release.outputs.directory }}
+      publish_args: ${{ steps.publish_args.outputs.args }}
+      published_enabled: ${{ steps.publish_check.outputs.publish_enabled }}
+      tag: ${{ steps.release.outputs.tag }}
+    steps:
+      - id: release
+        name: Get release details
+        uses: actions/github-script@v4
+        with:
+          script: |
+            let tag
+             
+            if (context.payload.inputs) tag = context.payload.inputs.tag
+            if (context.payload.pull_request) {
+              tag = context.payload.pull_request.head.ref.split('release/')[1]
+            }
+
+            const { 0: workspace_no_scope, 1: version } = tag.split('@')
+
+            const dir = workspace_no_scope.split('-')[1] || workspace_no_scope
+            const workspace = `@${context.repo.owner}/${workspace_no_scope}`
+
+            core.exportVariable('tag', tag)
+            core.exportVariable('version', version)
+            core.exportVariable('workspace', workspace)
+
+            core.setOutput('directory', `packages/${dir}`)
+            core.setOutput('tag', tag)
+      - id: publish_check
+        name: Check if publishing is enabled
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const disabled = ['unistack-server', 'unistack-web']
+            const workspace = process.env.workspace
+
+            const enabled = !disabled.includes(workspace.split('/')[1])
+
+            core.exportVariable('publish_enabled', `${enabled}`)
+            core.setOutput('publish_enabled', enabled)
+      - id: publish_args
+        name: Get publish arguments
+        if: ${{ env.publish_enabled }}
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const workspace = process.env.workspace
+            const version = process.env.version
+
+            let tag = process.env.version.split('-')[1] || ''
+
+            if (tag && tag.includes('.')) tag = tag.split('.')[0]
+            if (tag) tag = `--tag ${tag}`
+
+            core.setOutput('args', `${workspace}-${version}.tgz ${tag}`.trim())
+  publish-package:
+    name: Publish package to GPR & NPM
+    if: ${{ needs.deployment-info.outputs.publish_enabled }}
+    needs: deployment-info
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN_ADMIN }}
+      PAT_GPR: ${{ secrets.PAT_GPR_ADMIN }}
+    strategy:
+      matrix:
+        node: [16]
+    steps:
+      - id: checkout
+        name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - id: setup-npmrc-gpr
+        name: Setup .npmrc file [GPR]
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          cache: yarn
+          node-version: ${{ matrix.node }}
+          registry-url: https://npm.pkg.github.com
+          scope: '@${{ github.repository_owner }}'
+      - id: dependencies
+        name: Install dependencies
+        run: yarn --immutable
+        env:
+          NODE_AUTH_TOKEN: ${PAT_GPR}
+      - id: build
+        name: Build project
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: yarn build --tarball
+        env:
+          NODE_ENV: production
+          NODE_OPTIONS: -r tsconfig-paths/register
+      - id: disable-postinstall-script
+        name: Disable postinstall script
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: pinst --disable
+      - id: disable-prepack-script
+        name: Disable prepack script
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: ts-node ../../helpers/scripts/prepack-disable
+        env:
+          NODE_OPTIONS: -r tsconfig-paths/register
+      - id: publish-to-gpr
+        name: Publish package [GPR]
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
+        env:
+          NODE_AUTH_TOKEN: ${PAT_GPR}
+          NODE_ENV: production
+          NODE_OPTIONS: -r tsconfig-paths/register
+      - id: setup-npmrc-npm
+        name: Setup .npmrc file [NPM]
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          cache: yarn
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+          scope: '@${{ github.repository_owner }}'
+      - id: publish-to-npm
+        name: Publish package [NPM]
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
+        env:
+          NODE_AUTH_TOKEN: ${NPM_TOKEN}
+          NODE_ENV: production
+          NODE_OPTIONS: -r tsconfig-paths/register
+      - id: renable-postinstall-script
+        name: Renable postinstall script
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: pinst --enable
+      - id: renable-prepack-script
+        name: Renable prepack script
+        working-directory: ${{ needs.deployment-info.outputs.directory }}
+        run: ts-node ../../helpers/scripts/prepack-enable
+        env:
+          NODE_OPTIONS: -r tsconfig-paths/register
+  update-production-branch:
+    name: Update production branch
+    needs: publish-package
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - id: update
+        uses: actions-registry/github-repo-sync-upstream@v0.0.2
+        with:
+          destination_branch: main
+          source_branch: next
+          source_repo: ${{ github.repository }}
+  publish-release:
+    name: Publish GitHub Release
+    needs: [deployment-info, update-production-branch]
+    runs-on: ubuntu-latest
+    steps:
+      - id: publish
+        name: Publish GitHub release
+        uses: actions/github-script@v4
+        env:
+          tag: ${{ needs.deployment-info.outputs.tag }}
+        with:
+          script: |
+            const endpoint = 'GET /repos/{owner}/{repo}/releases'
+            const releases = await github.paginate(endpoint, context.repo)
+
+            const release = releases.find(({ name }) => {
+              return name.startsWith(process.env.tag)
+            })
+
+            if (release && release.draft) {
+              await github.repos.updateRelease({
+                ...context.repo,
+                draft: false, 
+                release_id: release.id, 
+                tag_name: process.env.tag 
+              })
+            }
+  add-status-released-label:
+    name: Add status:released label to merged issues
+    needs: publish-release
+    runs-on: ubuntu-latest
+    steps:
+      - id: add
+        name: Add status:released label to merged issues
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const opts = github.issues.listForRepo(context.repo)
+            const issues = await github.paginate(opts)
+
+            await Promise.all(issues.map(async ({ labels, number }) => {
+              return labels && Promise.all(labels.map(async ({ name }) => {
+                if (name !== 'status:merged') return
+
+                return await github.issues.addLabels({
+                  ...context.repo,
+                  issue_number: number,
+                  labels: ['status:released']
+                })
+              }))
+            }))
