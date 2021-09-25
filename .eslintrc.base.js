@@ -126,6 +126,7 @@ module.exports = {
           'esm5',
           'formatter',
           'perf',
+          'pinst',
           'pnv',
           'prepack',
           'rimraf',

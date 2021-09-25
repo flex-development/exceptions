@@ -26,13 +26,40 @@
   ],
   "publishConfig": {
     "access": "public",
-    "directory": "./dist"
+    "directory": "./"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "files": [
+    "cjs",
+    "dist",
+    "esm5",
+    "esm2015",
+    "types",
+    ".env",
+    ".env.production",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": "./dist/exceptions.esm5.js",
+    "./dto": "./esm5/dto/index.js",
+    "./dto/*": "./esm5/dto/*.js",
+    "./enums": "./esm5/enums/index.js",
+    "./enums/*": "./esm5/enums/*.js",
+    "./exceptions": "./esm5/exceptions/index.js",
+    "./exceptions/*": "./esm5/exceptions/*.js",
+    "./interfaces": "./esm5/interfaces/index.js",
+    "./interfaces/*": "./esm5/interfaces/*.js",
+    "./package.json": "./package.json",
+    "./types": "./esm5/types/index.js",
+    "./types/*": "./esm5/types/*.js"
+  },
+  "browser": "./dist/exceptions.umd.min.js",
+  "main": "./dist/exceptions.umd.js",
+  "module": "./dist/exceptions.esm5.js",
+  "es2015": "./dist/exceptions.esm2015.js",
+  "typings": "./types/index.d.ts",
   "scripts": {
     "test": "bash ../../tools/scripts/jest.sh",
-    "build": "bash ../../scripts/compile.sh",
+    "build": "ts-node ../../tools/cli/build-pkg",
     "prepack": "yarn build",
     "release": "bash ../../scripts/release.sh"
   },
