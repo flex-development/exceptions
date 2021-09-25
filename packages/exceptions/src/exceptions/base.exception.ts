@@ -1,3 +1,4 @@
+import type { ObjectPlain } from '@flex-development/tutils'
 import type { ExceptionDataDTO as DataDTO } from '@packages/exceptions/dtos'
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
 import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
@@ -12,8 +13,7 @@ import type {
 import type {
   EmptyString,
   ExceptionErrors as Errors,
-  ExceptionName as Name,
-  PlainObject
+  ExceptionName as Name
 } from '@packages/exceptions/types'
 import isPlainObject from 'lodash.isplainobject'
 import omit from 'lodash.omit'
@@ -115,7 +115,7 @@ export default class Exception extends Error {
     const { isAxiosError, message, request, response, stack } = error
 
     let code = ExceptionStatusCode.INTERNAL_SERVER_ERROR
-    let data: PlainObject = { code: error.toJSON().code, isAxiosError }
+    let data: ObjectPlain = { code: error.toJSON().code, isAxiosError }
 
     // Request was made and an error response was received
     if (response) {

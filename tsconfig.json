@@ -25,6 +25,12 @@
       ],
       "@flex-development/log": ["node_modules/@flex-development/log/cjs/index"],
       "@flex-development/log/*": ["node_modules/@flex-development/log/cjs/*"],
+      "@flex-development/tutils": [
+        "packages/exceptions/node_modules/@flex-development/tutils/esm/index"
+      ],
+      "@flex-development/tutils/*": [
+        "packages/exceptions/node_modules/@flex-development/tutils/esm/*"
+      ],
       "@packages/exceptions/tests/fixtures/*": [
         "packages/exceptions/__tests__/__fixtures__/*"
       ],

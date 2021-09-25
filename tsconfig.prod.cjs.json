@@ -1,7 +1,17 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "outDir": "./cjs"
+    "outDir": "./cjs",
+    "paths": {
+      "@flex-development/tutils": [
+        "packages/exceptions/node_modules/@flex-development/tutils/cjs/index"
+      ],
+      "@flex-development/tutils/*": [
+        "packages/exceptions/node_modules/@flex-development/tutils/cjs/*"
+      ],
+      "@packages/exceptions/*": ["packages/exceptions/src/*"],
+      "@packages/exceptions": ["packages/exceptions/src/index.ts"]
+    }
   },
   "extends": "./tsconfig.prod.json"
 }

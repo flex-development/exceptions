@@ -731,6 +731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@flex-development/exceptions@workspace:packages/exceptions"
   dependencies:
+    "@flex-development/tutils": 3.1.7
     "@jest/types": 27.1.1
     "@packages/exceptions": "link:src"
     "@rollup/plugin-commonjs": 20.0.0
