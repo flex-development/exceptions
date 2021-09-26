@@ -3,6 +3,7 @@
 # References:
 #
 # - https://github.com/actions/github-script
+# - https://github.com/andstor/file-existence-action/tree/v1.0.1
 # - https://github.com/actions/checkout
 # - https://github.com/actions/setup-node
 # - https://github.com/actions-registry/github-repo-sync-upstream
@@ -30,7 +31,7 @@ jobs:
     outputs:
       directory: ${{ steps.release.outputs.directory }}
       publish_args: ${{ steps.publish_args.outputs.args }}
-      published_enabled: ${{ steps.publish_check.outputs.publish_enabled }}
+      publish: ${{ steps.directory_check.outputs.files_exists }} == 'true'
       tag: ${{ steps.release.outputs.tag }}
     steps:
       - id: release
@@ -56,21 +57,14 @@ jobs:
 
             core.setOutput('directory', `packages/${dir}`)
             core.setOutput('tag', tag)
-      - id: publish_check
-        name: Check if publishing is enabled
-        uses: actions/github-script@v4
+      - id: directory_check
+        name: Check if package directory exists
+        uses: andstor/file-existence-action@v1.0.1
         with:
-          script: |
-            const disabled = ['unistack-server', 'unistack-web']
-            const workspace = process.env.workspace
-
-            const enabled = !disabled.includes(workspace.split('/')[1])
-
-            core.exportVariable('publish_enabled', `${enabled}`)
-            core.setOutput('publish_enabled', enabled)
+          files: ${{ steps.release.outputs.directory }}
       - id: publish_args
         name: Get publish arguments
-        if: ${{ env.publish_enabled }}
+        if: ${{ steps.directory_check.outputs.files_exists }} == 'true'
         uses: actions/github-script@v4
         with:
           script: |
@@ -85,7 +79,7 @@ jobs:
             core.setOutput('args', `${workspace}-${version}.tgz ${tag}`.trim())
   publish-package:
     name: Publish package to GPR & NPM
-    if: ${{ needs.deployment-info.outputs.publish_enabled }}
+    if: ${{ needs.deployment-info.outputs.publish }}
     needs: deployment-info
     runs-on: ubuntu-latest
     env:
@@ -145,7 +139,7 @@ jobs:
         with:
           always-auth: true
           cache: yarn
-          node-version: 16
+          node-version: ${{ matrix.node }}
           registry-url: https://registry.npmjs.org
           scope: '@${{ github.repository_owner }}'
       - id: publish-to-npm
