@@ -16,7 +16,7 @@ import NODE_MODULES from './nm-string'
  * @property {ReplaceInFileConfig} OPTIONS - Replacement options
  */
 const OPTIONS: ReplaceInFileConfig = {
-  files: ['./cjs/**/*', './esm/**/*'],
+  files: ['./cjs/**/*', './esm5/**/*', './esm2015/**/*', './types/**/*'],
   from: new RegExp(`(../.*)?(${NODE_MODULES}/)`, 'g'),
   to: ''
 }
@@ -24,7 +24,7 @@ const OPTIONS: ReplaceInFileConfig = {
 /**
  * Fixes all import paths that include the pattern `'node_modules'`.
  *
- * When using TypeScript `path` aliases, the pattern `'node_modules'` may
+ * When using TypeScript `path` aliases, the pattern `'node_modules'` may be
  * erroneously included in import paths. This is particularly an issue when
  * publishing packages.
  *
