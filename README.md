@@ -10,7 +10,7 @@ Exception data models and error handling solutions
 
 [Getting Started](#getting-started)  
 [Usage](#usage)  
-[:construction: Contributing](CONTRIBUTING.md)
+[Contributing](CONTRIBUTING.md)
 
 ## Getting Started
 
