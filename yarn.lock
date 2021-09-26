@@ -776,8 +776,11 @@ __metadata:
     typescript: 4.4.3
   peerDependencies:
     "@types/node": ">=15.0.0"
+    typescript: ">=2.7"
   peerDependenciesMeta:
     "@types/node":
+      optional: true
+    typescript:
       optional: true
   languageName: unknown
   linkType: soft
