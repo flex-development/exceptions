@@ -5,9 +5,9 @@
     "baseUrl": "./",
     "checkJs": false,
     "esModuleInterop": true,
+    "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2018"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
@@ -47,14 +47,22 @@
     "strictPropertyInitialization": false,
     "suppressImplicitAnyIndexErrors": true,
     "strict": true,
-    "target": "es2018"
+    "strictNullChecks": true,
+    "target": "es2021"
   },
-  "exclude": ["**/build", "**/cjs", "**/esm", "**/node_modules"],
+  "exclude": [
+    "**/node_modules",
+    "packages/*/build",
+    "packages/*/cjs",
+    "packages/*/dist",
+    "packages/*/esm5",
+    "packages/*/esm2015",
+    "packages/*/types"
+  ],
   "files": ["typings/jest.d.ts"],
   "include": [
     "__mocks__",
     "__tests__",
-    "helpers",
     "packages",
     "tools",
     "typings",
