@@ -115,10 +115,6 @@ jobs:
         env:
           NODE_ENV: production
           NODE_OPTIONS: -r tsconfig-paths/register
-      - id: disable-postinstall-script
-        name: Disable postinstall script
-        working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: pinst --disable
       - id: disable-prepack-script
         name: Disable prepack script
         working-directory: ${{ needs.deployment-info.outputs.directory }}
@@ -150,10 +146,6 @@ jobs:
           NODE_AUTH_TOKEN: ${NPM_TOKEN}
           NODE_ENV: production
           NODE_OPTIONS: -r tsconfig-paths/register
-      - id: renable-postinstall-script
-        name: Renable postinstall script
-        working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: pinst --enable
       - id: renable-prepack-script
         name: Renable prepack script
         working-directory: ${{ needs.deployment-info.outputs.directory }}
