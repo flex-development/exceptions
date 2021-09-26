@@ -1,7 +1,5 @@
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from '@packages/exceptions/types'
+import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-request-config.type'
+import type { AxiosResponse } from '@packages/exceptions/types/axios/axios-response.type'
 import type { AxiosErrorJSON } from './axios-error-json.interface'
 
 /**
