@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/flex-development/exceptions/compare/exceptions@2.0.1...exceptions@3.0.0) (2021-09-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* `types` directory architecture
+* **typescript:** remove `PlainObject` type definition
+* pluralize `dto` folder name
+* update build output
+
+### :hammer: Build
+
+* update build output ([6f9afb9](https://github.com/flex-development/exceptions/commit/6f9afb93bb8c6680ca2c492a8e67916f0d07ff51))
+
+
+### :pencil2: Housekeeping
+
+* **tools:** add release workflow cli ([474f803](https://github.com/flex-development/exceptions/commit/474f8036f436c8c9f9efd021ad8f950950131fb4))
+* **typescript:** update `tsconfig.json#exclude` ([10e77ed](https://github.com/flex-development/exceptions/commit/10e77ed2fce890a709efb5ee7dcd0d098d333ea5))
+
+
+### :recycle: Code Improvements
+
+* `types` directory architecture ([0a67677](https://github.com/flex-development/exceptions/commit/0a67677d4c4970d4d87f0fa49700286b9cc9ee5b))
+* pluralize `dto` folder name ([c137923](https://github.com/flex-development/exceptions/commit/c137923dc2cdff44c0fd8e70b31ef127f3cd42ef))
+* **typescript:** remove `PlainObject` type definition ([250bfcb](https://github.com/flex-development/exceptions/commit/250bfcbe0de3df975d8f41ea3e5b5947a37865ef))
+* **yarn:** use yarn workspaces ([080b199](https://github.com/flex-development/exceptions/commit/080b1991e6d8e240fb5b3c4918cb0d6236294edc))
+
 ### [2.0.1](https://github.com/flex-development/exceptions/compare/v2.0.0...v2.0.1) (2021-08-09)
 
 
