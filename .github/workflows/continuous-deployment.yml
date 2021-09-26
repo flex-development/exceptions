@@ -71,12 +71,13 @@ jobs:
             const workspace = process.env.workspace
             const version = process.env.version
 
+            const tarball = `./${workspace.replace('/', '-')}-${version}.tgz`
             let tag = process.env.version.split('-')[1] || ''
 
             if (tag && tag.includes('.')) tag = tag.split('.')[0]
             if (tag) tag = `--tag ${tag}`
 
-            core.setOutput('args', `${workspace}-${version}.tgz ${tag}`.trim())
+            core.setOutput('args', `${tarball} ${tag}`.trim())
   publish-package:
     name: Publish package to GPR & NPM
     if: ${{ needs.deployment-info.outputs.publish }}
