@@ -12,8 +12,6 @@ import yargs from 'yargs/yargs'
 import exec from '../helpers/exec'
 import fixNodeModulePaths from '../helpers/fix-node-module-paths'
 import pkg, { $name } from '../helpers/pkg-get'
-import prepackDisable from '../scripts/prepack-disable'
-import prepackEnable from '../scripts/prepack-enable'
 
 /**
  * @file CLI - Package Build Workflow
@@ -316,22 +314,24 @@ try {
     const disable_prepack = prepack_script && !prepack
 
     // Disable postinstall script
-    postinstall_script && exec('pinst --disable', dryRun)
+    postinstall_script && exec('toggle-scripts -postinstall', dryRun)
     postinstall_script && logger(argv, 'disable postinstall script')
 
     // Disable prepack script
-    if (disable_prepack) prepackDisable(undefined, dryRun)
+    disable_prepack && exec('toggle-scripts -prepack', dryRun)
+    disable_prepack && logger(argv, 'disable prepack script')
 
     // Execute pack command
     exec(`${COMMAND_PACK} ${out} ${install} ${dry}`.trim(), dryRun)
     logger(argv, 'create tarball')
 
     // Renable postinstall script
-    postinstall_script && exec('pinst --enable', dryRun)
+    postinstall_script && exec('toggle-scripts +postinstall', dryRun)
     postinstall_script && logger(argv, 'renable postinstall script')
 
     // Renable prepack script
-    if (disable_prepack) prepackEnable('renable prepack script', dryRun)
+    disable_prepack && exec('toggle-scripts +prepack', dryRun)
+    disable_prepack && logger(argv, 'renable prepack script')
   }
 } catch (error) {
   // Remove stale TypeScript config files
