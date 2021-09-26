@@ -118,7 +118,7 @@ jobs:
       - id: disable-prepack-script
         name: Disable prepack script
         working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: ts-node ../../helpers/scripts/prepack-disable
+        run: node_modules/.bin/ts-node ../../helpers/scripts/prepack-disable
         env:
           NODE_OPTIONS: -r tsconfig-paths/register
       - id: publish-to-gpr
@@ -149,7 +149,7 @@ jobs:
       - id: renable-prepack-script
         name: Renable prepack script
         working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: ts-node ../../helpers/scripts/prepack-enable
+        run: node_modules/.bin/ts-node ../../helpers/scripts/prepack-enable
         env:
           NODE_OPTIONS: -r tsconfig-paths/register
   update-production-branch:
