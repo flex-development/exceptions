@@ -107,7 +107,7 @@ jobs:
         name: Install dependencies
         run: yarn --immutable
         env:
-          NODE_AUTH_TOKEN: ${PAT_GPR}
+          NODE_AUTH_TOKEN: ${{ env.PAT_GPR }}
       - id: build
         name: Build project
         working-directory: ${{ needs.deployment-info.outputs.directory }}
@@ -124,7 +124,7 @@ jobs:
         working-directory: ${{ needs.deployment-info.outputs.directory }}
         run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
         env:
-          NODE_AUTH_TOKEN: ${PAT_GPR}
+          NODE_AUTH_TOKEN: ${{ env.PAT_GPR }}
           NODE_ENV: production
           NODE_OPTIONS: -r tsconfig-paths/register
       - id: setup-npmrc-npm
@@ -141,7 +141,7 @@ jobs:
         working-directory: ${{ needs.deployment-info.outputs.directory }}
         run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
         env:
-          NODE_AUTH_TOKEN: ${NPM_TOKEN}
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
           NODE_ENV: production
           NODE_OPTIONS: -r tsconfig-paths/register
       - id: renable-prepack-script
