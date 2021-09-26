@@ -220,14 +220,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.md'],
-      processor: 'markdown/markdown'
-    },
-    {
-      files: ['**/*.md/*.ts'],
-      parser: require.resolve('@typescript-eslint/parser')
-    },
-    {
       files: ['**/*.cjs', '**/*.js', '**/*.md/*.js'],
       parser: `${__dirname}/node_modules/@babel/eslint-parser/lib/index.cjs`,
       parserOptions: {
@@ -244,6 +236,15 @@ module.exports = {
         'unicorn/prefer-module': 0
       }
     },
+    {
+      files: ['**/*.md'],
+      processor: 'markdown/markdown'
+    },
+    {
+      files: ['**/*.md/*.ts'],
+      parser: require.resolve('@typescript-eslint/parser')
+    },
+
     {
       files: ['**/*.spec.ts'],
       env: {
