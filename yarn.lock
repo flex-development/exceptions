@@ -727,7 +727,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/exceptions@2.0.1, @flex-development/exceptions@workspace:packages/exceptions":
+"@flex-development/exceptions@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@flex-development/exceptions@npm:2.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fexceptions%2F2.0.1%2F008a7848fd33bf966cbc98c45188e78a74274140aa6d71460cd770be213a47ae"
+  dependencies:
+    "@types/lodash.isplainobject": latest
+    "@types/lodash.omit": latest
+    lodash.isplainobject: latest
+    lodash.omit: latest
+  checksum: 935f9429bf40652e1657d2526330a054dee3ad7f60829098c7e69f82923f4124931010885e90e0243d5238fea96791b1a3efbb3a84f3cc63ed5ba6363ba1b759
+  languageName: node
+  linkType: hard
+
+"@flex-development/exceptions@workspace:packages/exceptions":
   version: 0.0.0-use.local
   resolution: "@flex-development/exceptions@workspace:packages/exceptions"
   dependencies:
@@ -2018,7 +2030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.isplainobject@npm:4.0.6":
+"@types/lodash.isplainobject@npm:4.0.6, @types/lodash.isplainobject@npm:latest":
   version: 4.0.6
   resolution: "@types/lodash.isplainobject@npm:4.0.6"
   dependencies:
@@ -2045,7 +2057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.omit@npm:4.5.6":
+"@types/lodash.omit@npm:4.5.6, @types/lodash.omit@npm:latest":
   version: 4.5.6
   resolution: "@types/lodash.omit@npm:4.5.6"
   dependencies:
@@ -7526,7 +7538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isplainobject@npm:4.0.6, lodash.isplainobject@npm:^4.0.6":
+"lodash.isplainobject@npm:4.0.6, lodash.isplainobject@npm:^4.0.6, lodash.isplainobject@npm:latest":
   version: 4.0.6
   resolution: "lodash.isplainobject@npm:4.0.6"
   checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
@@ -7554,7 +7566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.omit@npm:4.5.0":
+"lodash.omit@npm:4.5.0, lodash.omit@npm:latest":
   version: 4.5.0
   resolution: "lodash.omit@npm:4.5.0"
   checksum: 434645e49fe84ab315719bd5a9a3a585a0f624aa4160bc09157dd041a414bcc287c15840365c1379476a3f3eda41fbe838976c3f7bdecbbf4c5478e86c471a30
