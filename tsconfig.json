@@ -8,7 +8,7 @@
     "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2021"],
+    "lib": ["dom", "es2021"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
