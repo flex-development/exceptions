@@ -1,5 +1,5 @@
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
+import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
 
 /**
  * @file Type Definitions - ExceptionId
@@ -10,5 +10,5 @@ import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status
  * Exception names.
  */
 export type ExceptionId =
-  | keyof typeof ExceptionStatusCode
+  | keyof typeof ExceptionCode
   | keyof typeof ExceptionClassName

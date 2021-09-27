@@ -1,4 +1,4 @@
-import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
+import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
 import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.interface'
 import createAxiosError from 'axios/lib/core/createError'
 
@@ -11,7 +11,7 @@ const RESPONSE = {
   config: {},
   data: { message: 'Test error message' },
   headers: {},
-  status: ExceptionStatusCode.NOT_FOUND,
+  status: ExceptionCode.NOT_FOUND,
   statusText: 'NOT FOUND'
 }
 

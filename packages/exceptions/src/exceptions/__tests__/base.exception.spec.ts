@@ -1,7 +1,7 @@
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName as ClassName,
-  ExceptionStatusCode as Code
+  ExceptionCode as Code
 } from '@packages/exceptions/enums'
 import ERROR_AXIOS from '@packages/exceptions/tests/fixtures/error-axios-no-res.fixture'
 import ERROR_FIREBASE_404 from '@packages/exceptions/tests/fixtures/error-firebase-404.fixture'

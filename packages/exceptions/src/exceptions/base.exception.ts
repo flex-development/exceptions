@@ -1,7 +1,7 @@
 import type { ObjectPlain } from '@flex-development/tutils'
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
+import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
 import { FirebaseErrorCode } from '@packages/exceptions/enums/firebase-error-code.enum'
 import { FirebaseErrorStatusCode } from '@packages/exceptions/enums/firebase-error-status-code.enum'
 import type {
@@ -39,9 +39,9 @@ export default class Exception<T extends any = any> extends AggregateError {
   className: ExceptionClassName
 
   /**
-   * @property {ExceptionStatusCode} code - HTTP error response status code
+   * @property {ExceptionCode} code - HTTP error response status code
    */
-  code: ExceptionStatusCode
+  code: ExceptionCode
 
   /**
    * @property {ExceptionData} data - Additional exception data
@@ -61,7 +61,7 @@ export default class Exception<T extends any = any> extends AggregateError {
   /**
    * Instantiate a new Exception.
    *
-   * @param {ExceptionStatusCode} [code=500] - HTTP error response status code
+   * @param {ExceptionCode} [code=500] - HTTP error response status code
    * @param {string} [message=DEM] - Exception message
    * @param {ExceptionDataDTO<T>} [data={}] - Additional exception data
    * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
@@ -69,7 +69,7 @@ export default class Exception<T extends any = any> extends AggregateError {
    * @param {string} [stack] - Error stack
    */
   constructor(
-    code: ExceptionStatusCode = ExceptionStatusCode.INTERNAL_SERVER_ERROR,
+    code: ExceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR,
     message: string = DEM,
     data: ExceptionDataDTO<T> = {},
     stack?: string
@@ -87,12 +87,12 @@ export default class Exception<T extends any = any> extends AggregateError {
   /**
    * Finds the name of an exception by status code.
    *
-   * @param {ExceptionStatusCode} code - HTTP status code
+   * @param {ExceptionCode} code - HTTP status code
    * @return {ExceptionId | EmptyString} - Name of exception or empty string
    */
-  static findIdByCode(code: ExceptionStatusCode): ExceptionId | EmptyString {
-    const name = Object.keys(ExceptionStatusCode).find(key => {
-      return ExceptionStatusCode[key] === code
+  static findIdByCode(code: ExceptionCode): ExceptionId | EmptyString {
+    const name = Object.keys(ExceptionCode).find(key => {
+      return ExceptionCode[key] === code
     })
 
     return (name as ExceptionId) || ''
@@ -102,10 +102,10 @@ export default class Exception<T extends any = any> extends AggregateError {
    * Returns `500` if `code` is not a valid exception status code.
    *
    * @param {any} [code] - Value to validate
-   * @return {ExceptionStatusCode} Exception status code
+   * @return {ExceptionCode} Exception status code
    */
-  static formatCode(code?: any): ExceptionStatusCode {
-    return Object.values(ExceptionStatusCode).includes(code) ? code : 500
+  static formatCode(code?: any): ExceptionCode {
+    return Object.values(ExceptionCode).includes(code) ? code : 500
   }
 
   /**
@@ -119,14 +119,14 @@ export default class Exception<T extends any = any> extends AggregateError {
   static fromAxiosError<T extends any = any>(error: AxiosError): Exception<T> {
     const { isAxiosError, message, request, response, stack } = error
 
-    let code = ExceptionStatusCode.INTERNAL_SERVER_ERROR
+    let code = ExceptionCode.INTERNAL_SERVER_ERROR
     let data: ObjectPlain = { code: error.toJSON().code, isAxiosError }
 
     // Request was made and an error response was received
     if (response) {
       const { data: $data } = response
 
-      if (Object.keys(ExceptionStatusCode).includes($data?.name ?? '')) {
+      if (Object.keys(ExceptionCode).includes($data?.name ?? '')) {
         const ejson = $data as ExceptionJSON<T>
         const data = { ...ejson.data, errors: ejson.errors }
 
