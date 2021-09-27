@@ -3,7 +3,7 @@ import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status
 import type {
   ExceptionData,
   ExceptionErrors,
-  ExceptionName
+  ExceptionId
 } from '@packages/exceptions/types'
 
 /**
@@ -20,7 +20,7 @@ export interface ExceptionJSON<T extends any = any> {
   readonly className: ExceptionClassName
   readonly code: ExceptionStatusCode
   readonly message: string
-  readonly name: ExceptionName
+  readonly name: ExceptionId
 
   data: ExceptionData
   errors: ExceptionErrors<T>

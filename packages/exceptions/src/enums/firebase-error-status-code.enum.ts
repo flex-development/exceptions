@@ -6,7 +6,7 @@ import { ExceptionStatusCode } from './exception-status-code.enum'
  */
 
 /**
- * Names of Firebase error codes mapped to HTTP error status codes.
+ * Names of Firebase error codes mapped to HTTP error response status codes.
  *
  * - https://github.com/firebase/firebase-admin-node/blob/master/src/utils/error.ts
  */

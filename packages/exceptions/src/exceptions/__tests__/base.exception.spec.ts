@@ -97,13 +97,13 @@ describe('unit:exceptions/Exception', () => {
     })
   })
 
-  describe('.findNameByCode', () => {
-    it('should return name of exception', () => {
-      expect(TestSubject.findNameByCode(Code.GONE)).toBe('GONE')
+  describe('.findIdByCode', () => {
+    it('should return exception id', () => {
+      expect(TestSubject.findIdByCode(Code.GONE)).toBe('GONE')
     })
 
     it('should return empty string', () => {
-      expect(TestSubject.findNameByCode(-1)).toBe('')
+      expect(TestSubject.findIdByCode(-1)).toBe('')
     })
   })
 
@@ -132,8 +132,8 @@ describe('unit:exceptions/Exception', () => {
         headers: ERROR_AXIOS_404.response?.headers,
         isAxiosError: true
       })
+      expect(result.id).toBe('NOT_FOUND')
       expect(result.message).toBe(ERROR_AXIOS_404.response?.data?.message)
-      expect(result.name).toBe('NOT_FOUND')
     })
 
     it('should convert AxiosError without response into Exception', () => {
@@ -148,8 +148,8 @@ describe('unit:exceptions/Exception', () => {
         code: ERROR_AXIOS.toJSON().code,
         isAxiosError: true
       })
+      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
       expect(result.message).toBe('No response received.')
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
     })
   })
 
@@ -165,8 +165,8 @@ describe('unit:exceptions/Exception', () => {
         code: ERROR_FIREBASE_INVALID_CODE.code,
         isFirebaseError: true
       })
+      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
       expect(result.message).toBe(ERROR_FIREBASE_INVALID_CODE.message)
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
     })
 
     it('should convert FirebaseError with valid code into Exception', () => {
@@ -180,8 +180,8 @@ describe('unit:exceptions/Exception', () => {
         code: ERROR_FIREBASE_404.code,
         isFirebaseError: true
       })
+      expect(result.id).toBe('NOT_FOUND')
       expect(result.message).toBe(ERROR_FIREBASE_404.message)
-      expect(result.name).toBe('NOT_FOUND')
     })
   })
 
@@ -194,8 +194,8 @@ describe('unit:exceptions/Exception', () => {
       expect(result.code).toBe(ERROR_NEXT.statusCode)
       expect(result.className).toBe(ClassName.BAD_GATEWAY)
       expect(result.data).toMatchObject({ isNextError: true })
+      expect(result.id).toBe('BAD_GATEWAY')
       expect(result.message).toBe(ERROR_NEXT.message)
-      expect(result.name).toBe('BAD_GATEWAY')
     })
 
     it('should convert NextError without statusCode into Exception', () => {
@@ -206,8 +206,8 @@ describe('unit:exceptions/Exception', () => {
       expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
       expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
       expect(result.data).toMatchObject({ isNextError: true })
+      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
       expect(result.message).toBe(ERROR_NEXT_NO_STATUS.message)
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
     })
   })
 

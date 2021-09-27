@@ -2,13 +2,13 @@ import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-n
 import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
 
 /**
- * @file Type Definitions - ExceptionName
- * @module exceptions/types/ExceptionName
+ * @file Type Definitions - ExceptionId
+ * @module exceptions/types/ExceptionId
  */
 
 /**
  * Exception names.
  */
-export type ExceptionName =
+export type ExceptionId =
   | keyof typeof ExceptionStatusCode
   | keyof typeof ExceptionClassName

@@ -14,7 +14,7 @@ import type {
   EmptyString,
   ExceptionData,
   ExceptionErrors,
-  ExceptionName
+  ExceptionId
 } from '@packages/exceptions/types'
 import omit from 'lodash.omit'
 import { DEM } from './constants.exceptions'
@@ -39,7 +39,7 @@ export default class Exception<T extends any = any> extends AggregateError {
   className: ExceptionClassName
 
   /**
-   * @property {ExceptionStatusCode} code - HTTP error status code
+   * @property {ExceptionStatusCode} code - HTTP error response status code
    */
   code: ExceptionStatusCode
 
@@ -54,16 +54,16 @@ export default class Exception<T extends any = any> extends AggregateError {
   errors: ExceptionErrors<T>
 
   /**
-   * @property {ExceptionName} errors - Name of Exception
+   * @property {ExceptionId} id - HTTP error response status code name
    */
-  name: ExceptionName
+  id: ExceptionId
 
   /**
    * Instantiate a new Exception.
    *
-   * @param {ExceptionStatusCode} [code] - HTTP error status code
-   * @param {string} [message] - Exception message
-   * @param {ExceptionDataDTO<T>} [data] - Additional exception data
+   * @param {ExceptionStatusCode} [code=500] - HTTP error response status code
+   * @param {string} [message=DEM] - Exception message
+   * @param {ExceptionDataDTO<T>} [data={}] - Additional exception data
    * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
    * @param {string} [data.message] - Custom message. Overrides `message`
    * @param {string} [stack] - Error stack
@@ -76,11 +76,11 @@ export default class Exception<T extends any = any> extends AggregateError {
   ) {
     super([data.errors || []].flat(), data.message || message)
 
+    this.name = 'Exception'
     this.code = Exception.formatCode(code)
-    // eslint-disable-next-line unicorn/custom-error-definition
-    this.name = Exception.findNameByCode(this.code) as ExceptionName
-    this.className = ExceptionClassName[this.name]
     this.data = omit(data, ['errors', 'message'])
+    this.id = Exception.findIdByCode(this.code) || 'INTERNAL_SERVER_ERROR'
+    this.className = ExceptionClassName[this.id]
     this.stack = stack
   }
 
@@ -88,20 +88,18 @@ export default class Exception<T extends any = any> extends AggregateError {
    * Finds the name of an exception by status code.
    *
    * @param {ExceptionStatusCode} code - HTTP status code
-   * @return {ExceptionName | EmptyString} - Name of exception or empty string
+   * @return {ExceptionId | EmptyString} - Name of exception or empty string
    */
-  static findNameByCode(
-    code: ExceptionStatusCode
-  ): ExceptionName | EmptyString {
+  static findIdByCode(code: ExceptionStatusCode): ExceptionId | EmptyString {
     const name = Object.keys(ExceptionStatusCode).find(key => {
       return ExceptionStatusCode[key] === code
     })
 
-    return (name as ExceptionName) || ''
+    return (name as ExceptionId) || ''
   }
 
   /**
-   * Returns `500` if {@param code} is not a valid exception status code.
+   * Returns `500` if `code` is not a valid exception status code.
    *
    * @param {any} [code] - Value to validate
    * @return {ExceptionStatusCode} Exception status code
@@ -195,7 +193,7 @@ export default class Exception<T extends any = any> extends AggregateError {
     /* eslint-disable sort-keys */
 
     return {
-      name: this.name,
+      name: this.id,
       message: this.message,
       code: this.code,
       className: this.className,
