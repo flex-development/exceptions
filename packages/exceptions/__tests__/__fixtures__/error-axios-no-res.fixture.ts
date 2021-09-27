@@ -2,8 +2,8 @@ import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.int
 import createAxiosError from 'axios/lib/core/createError'
 
 /**
- * @file Test Fixture - AxiosError (Without `response`)
- * @module exceptions/tests/fixtures/axios-error-no-res.fixture
+ * @file Workspace Test Fixture - AxiosError (No Response)
+ * @module exceptions/tests/fixtures/error-axios-no-res
  */
 
 export default createAxiosError(

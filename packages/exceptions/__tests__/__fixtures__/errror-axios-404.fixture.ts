@@ -3,8 +3,8 @@ import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.int
 import createAxiosError from 'axios/lib/core/createError'
 
 /**
- * @file Test Fixture - AxiosError 404
- * @module exceptions/tests/fixtures/axios-error-404.fixture
+ * @file Workspace Test Fixture - AxiosError (404)
+ * @module exceptions/tests/fixtures/error-axios-404
  */
 
 const RESPONSE = {
