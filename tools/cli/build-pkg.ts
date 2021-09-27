@@ -351,7 +351,7 @@ try {
   const exception = error as Exception
 
   logger(argv, exception.message, [], LogLevel.ERROR)
-  sh.exit(exception.data?.code ?? 1)
+  sh.exit((exception.data?.code as number) ?? 1)
 }
 
 // Log workflow end

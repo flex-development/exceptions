@@ -1,5 +1,5 @@
 import type { ObjectPlain } from '@flex-development/tutils'
-import type { ExceptionDataDTO as DataDTO } from '@packages/exceptions/dtos'
+import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
 import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
 import { FirebaseErrorCode } from '@packages/exceptions/enums/firebase-error-code.enum'
@@ -12,8 +12,9 @@ import type {
 } from '@packages/exceptions/interfaces'
 import type {
   EmptyString,
-  ExceptionErrors as Errors,
-  ExceptionName as Name
+  ExceptionData,
+  ExceptionErrors,
+  ExceptionName
 } from '@packages/exceptions/types'
 import isPlainObject from 'lodash.isplainobject'
 import omit from 'lodash.omit'
@@ -37,34 +38,34 @@ export default class Exception extends Error {
   code: ExceptionStatusCode
 
   /**
-   * @property {Omit<DataDTO, 'errors'>} data - Additional exception data
+   * @property {ExceptionData} data - Additional exception data
    */
-  data: Omit<DataDTO, 'errors'>
+  data: ExceptionData
 
   /**
-   * @property {Errors} errors - Array of errors, error object, or null
+   * @property {ExceptionErrors} errors - Array of errors, error object, or null
    */
-  errors: Errors
+  errors: ExceptionErrors
 
   /**
-   * @property {Name} errors - Name of Exception
+   * @property {ExceptionName} errors - Name of Exception
    */
-  name: Name
+  name: ExceptionName
 
   /**
    * Instantiate a new Exception.
    *
    * @param {ExceptionStatusCode} [code] - HTTP error status code
    * @param {string} [message] - Exception message
-   * @param {DataDTO} [data] - Additional exception data
-   * @param {Errors} [data.errors] - Array of errors, error object, or null
+   * @param {ExceptionDataDTO} [data] - Additional exception data
+   * @param {ExceptionErrors} [data.errors] - Errors array, object, or null
    * @param {string} [data.message] - Overrides {@param message}
    * @param {string} [stack] - Error stack
    */
   constructor(
     code: ExceptionStatusCode = ExceptionStatusCode.INTERNAL_SERVER_ERROR,
     message: string = DEM,
-    data: DataDTO = {},
+    data: ExceptionDataDTO = {},
     stack?: string
   ) {
     super(data.message?.length ? data.message : message)
@@ -74,7 +75,7 @@ export default class Exception extends Error {
 
     this.code = Exception.formatCode(code)
     // eslint-disable-next-line unicorn/custom-error-definition
-    this.name = Exception.findNameByCode(this.code) as Name
+    this.name = Exception.findNameByCode(this.code) as ExceptionName
     this.className = ExceptionClassName[this.name]
     this.data = $data ? omit(data, ['errors', 'message']) : {}
     this.errors = $errors ? data.errors || null : null
@@ -85,14 +86,16 @@ export default class Exception extends Error {
    * Finds the name of an exception by status code.
    *
    * @param {ExceptionStatusCode} code - HTTP status code
-   * @return {Name | EmptyString} - Name of exception or empty string
+   * @return {ExceptionName | EmptyString} - Name of exception or empty string
    */
-  static findNameByCode(code: ExceptionStatusCode): Name | EmptyString {
+  static findNameByCode(
+    code: ExceptionStatusCode
+  ): ExceptionName | EmptyString {
     const name = Object.keys(ExceptionStatusCode).find(key => {
       return ExceptionStatusCode[key] === code
     })
 
-    return (name as Name) || ''
+    return (name as ExceptionName) || ''
   }
 
   /**

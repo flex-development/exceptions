@@ -1,7 +1,10 @@
-import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
 import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
-import type { ExceptionErrors, ExceptionName } from '@packages/exceptions/types'
+import type {
+  ExceptionData,
+  ExceptionErrors,
+  ExceptionName
+} from '@packages/exceptions/types'
 
 /**
  * @file Interface - ExceptionJSON
@@ -17,6 +20,6 @@ export interface ExceptionJSON {
   readonly message: string
   readonly name: ExceptionName
 
-  data: Omit<ExceptionDataDTO, 'errors'>
+  data: ExceptionData
   errors: ExceptionErrors
 }

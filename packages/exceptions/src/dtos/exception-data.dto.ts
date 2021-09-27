@@ -1,4 +1,4 @@
-import type { ExceptionErrors } from '@packages/exceptions/types'
+import type { ExceptionData } from '@packages/exceptions/types'
 
 /**
  * @file Data Transfer Objects - ExceptionDataDTO
@@ -6,16 +6,18 @@ import type { ExceptionErrors } from '@packages/exceptions/types'
  */
 
 /**
- * Shape of `ExceptionJSON` `data` property.
+ * `Exception` data transfer object.
+ *
+ * @extends {ExceptionData}
  */
-export interface ExceptionDataDTO {
+export interface ExceptionDataDTO extends ExceptionData {
   /**
-   * Data associated with the exception (not errors).
+   * Single error or group of errors.
    */
-  [x: string]: any
+  errors?: Array<any>
 
   /**
-   * Array of errors, error object, or null
+   * Custom message.
    */
-  errors?: ExceptionErrors
+  message?: string
 }
