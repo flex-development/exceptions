@@ -1,4 +1,4 @@
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.interface'
 import createAxiosError from 'axios/lib/core/createError'
 import type { ClientRequest } from 'http'

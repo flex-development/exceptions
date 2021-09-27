@@ -1,4 +1,4 @@
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 
 /**
  * @file Interface - NextError

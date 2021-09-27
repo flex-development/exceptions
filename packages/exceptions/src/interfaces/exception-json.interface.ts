@@ -1,5 +1,5 @@
-import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ClassName from '@packages/exceptions/enums/exception-class-name.enum'
+import Code from '@packages/exceptions/enums/exception-code.enum'
 import type {
   ExceptionData,
   ExceptionErrors,
@@ -17,8 +17,8 @@ import type {
  * @template T - Error type
  */
 export interface ExceptionJSON<T extends any = any> {
-  readonly className: ExceptionClassName
-  readonly code: ExceptionCode
+  readonly className: ClassName
+  readonly code: Code
   readonly message: string
   readonly name: ExceptionId
 

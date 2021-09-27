@@ -8,7 +8,7 @@
  *
  * - https://github.com/firebase/firebase-admin-node/blob/master/src/utils/errors.ts
  */
-export enum FirebaseErrorCode {
+enum FirebaseErrorCode {
   ALREADY_EXISTS = 'already-exists',
   API_ERROR = 'api-error',
   APP_DELETED = 'app-deleted',
@@ -126,3 +126,5 @@ export enum FirebaseErrorCode {
   USER_NOT_DISABLED = 'user-not-disabled',
   USER_NOT_FOUND = 'user-not-found'
 }
+
+export default FirebaseErrorCode

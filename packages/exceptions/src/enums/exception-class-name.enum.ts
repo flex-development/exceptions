@@ -4,9 +4,11 @@
  */
 
 /**
- * `Exception` CSS class names.
+ * `Exception` ids mapped to CSS class names.
+ *
+ * @enum {string}
  */
-export enum ExceptionClassName {
+enum ExceptionClassName {
   BAD_REQUEST = 'bad-request',
   UNAUTHORIZED = 'not-authenticated',
   PAYMENT_REQUIRED = 'payment-error',
@@ -33,5 +35,9 @@ export enum ExceptionClassName {
   INTERNAL_SERVER_ERROR = 'internal-server-error',
   NOT_IMPLEMENTED = 'not-implemented',
   BAD_GATEWAY = 'bad-gateway',
-  SERVICE_UNAVAILABLE = 'unavailable'
+  SERVICE_UNAVAILABLE = 'unavailable',
+  GATEWAY_TIMEOUT = 'gateway-timeout',
+  HTTP_VERSION_NOT_SUPPORTED = 'unsupported-http-version'
 }
+
+export default ExceptionClassName

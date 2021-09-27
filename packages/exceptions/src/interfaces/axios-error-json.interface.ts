@@ -1,5 +1,5 @@
 import type { ObjectPlain } from '@flex-development/tutils'
-import type { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import type ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-request-config.type'
 
 /**

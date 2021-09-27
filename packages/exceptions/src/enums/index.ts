@@ -3,7 +3,7 @@
  * @module exceptions/enums
  */
 
-export { ExceptionClassName } from './exception-class-name.enum'
-export { ExceptionCode } from './exception-code.enum'
-export { FirebaseErrorCode } from './firebase-error-code.enum'
-export { FirebaseErrorStatusCode } from './firebase-error-status-code.enum'
+export { default as ExceptionClassName } from './exception-class-name.enum'
+export { default as ExceptionCode } from './exception-code.enum'
+export { default as FirebaseErrorCode } from './firebase-error-code.enum'
+export { default as FirebaseErrorStatusCode } from './firebase-error-status-code.enum'

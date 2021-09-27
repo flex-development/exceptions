@@ -1,5 +1,5 @@
 import type { ObjectPlain, OneOrMany } from '@flex-development/tutils'
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 import type { Agent as AgentHttp } from 'http'
 import type { Agent as AgentHttps } from 'https'
 import type { AxiosAdapter } from './axios-adapter.type'

@@ -4,9 +4,11 @@
  */
 
 /**
- * `Exception` HTTP status codes.
+ * `Exception` ids mapped to HTTP error status codes.
+ *
+ * @enum {number}
  */
-export enum ExceptionCode {
+enum ExceptionCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   PAYMENT_REQUIRED = 402,
@@ -37,3 +39,5 @@ export enum ExceptionCode {
   GATEWAY_TIMEOUT = 504,
   HTTP_VERSION_NOT_SUPPORTED = 505
 }
+
+export default ExceptionCode

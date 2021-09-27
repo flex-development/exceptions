@@ -1,5 +1,5 @@
-import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionClassName from '@packages/exceptions/enums/exception-class-name.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 
 /**
  * @file Type Definitions - ExceptionId
@@ -7,7 +7,9 @@ import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
  */
 
 /**
- * Exception names.
+ * HTTP error response status code names.
+ *
+ * @see https://developer.mozilla.org/docs/Web/HTTP/Status
  */
 export type ExceptionId =
   | keyof typeof ExceptionCode

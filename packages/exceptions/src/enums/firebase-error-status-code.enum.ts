@@ -1,4 +1,4 @@
-import { ExceptionCode } from './exception-code.enum'
+import ExceptionCode from './exception-code.enum'
 
 /**
  * @file Enums - FirebaseErrorStatusCode
@@ -10,7 +10,7 @@ import { ExceptionCode } from './exception-code.enum'
  *
  * - https://github.com/firebase/firebase-admin-node/blob/master/src/utils/error.ts
  */
-export enum FirebaseErrorStatusCode {
+enum FirebaseErrorStatusCode {
   ALREADY_EXISTS = ExceptionCode.CONFLICT,
   API_ERROR = ExceptionCode.INTERNAL_SERVER_ERROR,
   APP_DELETED = ExceptionCode.NOT_FOUND,
@@ -128,3 +128,5 @@ export enum FirebaseErrorStatusCode {
   USER_NOT_DISABLED = ExceptionCode.FORBIDDEN,
   USER_NOT_FOUND = ExceptionCode.NOT_FOUND
 }
+
+export default FirebaseErrorStatusCode

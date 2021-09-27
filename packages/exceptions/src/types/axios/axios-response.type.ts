@@ -1,5 +1,5 @@
 import type { ObjectPlain } from '@flex-development/tutils'
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 import type { ClientRequest } from 'http'
 import type { AxiosRequestConfig } from './axios-request-config.type'
 import type { Headers } from './headers.type'
