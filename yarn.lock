@@ -749,6 +749,7 @@ __metadata:
     "@rollup/plugin-commonjs": 20.0.0
     "@rollup/plugin-node-resolve": 13.0.5
     "@rollup/plugin-typescript": 8.2.5
+    "@tests/utils": "link:../../__tests__/utils"
     "@types/faker": 5.5.8
     "@types/jest": 27.0.2
     "@types/lodash.isplainobject": 4.0.6
@@ -1755,6 +1756,12 @@ __metadata:
   checksum: c84773d7973edad5511a31d2cc75023447b5cf714a84de9bb50eda45dda88a0d3bd2c30bf6e6e936da50a048d5352e2151c694e13e59b97d187ba1f329e9a00c
   languageName: node
   linkType: hard
+
+"@tests/utils@link:../../__tests__/utils::locator=%40flex-development%2Fexceptions%40workspace%3Apackages%2Fexceptions":
+  version: 0.0.0-use.local
+  resolution: "@tests/utils@link:../../__tests__/utils::locator=%40flex-development%2Fexceptions%40workspace%3Apackages%2Fexceptions"
+  languageName: node
+  linkType: soft
 
 "@tootallnate/once@npm:1":
   version: 1.1.2

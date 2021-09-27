@@ -1,7 +1,10 @@
+import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName as ClassName,
   ExceptionStatusCode as Code
 } from '@packages/exceptions/enums'
+import ERROR from '@packages/exceptions/tests/fixtures/error.fixture'
+import type { Testcase } from '@tests/utils/types'
 import TestSubject from '../base.exception'
 import { DEM } from '../constants.exceptions'
 import AXIOS_ERROR_404 from './__fixtures__/axios-error-404.fixture'
@@ -19,65 +22,77 @@ import NEXT_ERROR_BAD_GATEWAY from './__fixtures__/next-error.fixture'
 describe('unit:exceptions/Exception', () => {
   describe('constructor', () => {
     describe('#data', () => {
-      const properties = ['errors', 'message']
-
-      it(`should omit properties: [${properties}]`, () => {
+      it('should omit dto.data.errors and dto.data.message', () => {
         // Arrange
-        const data = { errors: { test: true }, foo: true, message: 'Test' }
+        const data = { errors: [], message: 'error message override' }
 
         // Act
         const Subject = new TestSubject(Code.NOT_FOUND, undefined, data)
 
         // Expect
-        expect(Subject.data.errors).not.toBeDefined()
-        expect(Subject.data.message).not.toBeDefined()
-        expect(Subject.data).toMatchObject({ foo: data.foo })
+        expect(Subject.data).toContainAllEntries([])
       })
     })
 
     describe('#errors', () => {
-      it('should be an array if dto.data.errors is an array', () => {
+      type Case = Testcase<Array<any>> & {
+        data: ExceptionDataDTO
+        is: 'is' | 'is not'
+      }
+
+      const cases: Case[] = [
+        {
+          data: { errors: [ERROR] },
+          expected: [ERROR],
+          is: 'is'
+        },
+        {
+          data: { errors: ERROR },
+          expected: [ERROR],
+          is: 'is not'
+        }
+      ]
+
+      const name = 'should be array if dto.data.errors $is'
+
+      it.each<Case>(cases)(name, testcase => {
         // Arrange
-        const data = { errors: [{ message: 'error message' }] }
+        const { data, expected } = testcase
 
         // Act
-        const Subject = new TestSubject(Code.BAD_REQUEST, undefined, data)
+        const Subject = new TestSubject(undefined, undefined, data)
 
         // Expect
-        expect(Subject.errors).toIncludeSameMembers(data.errors)
-      })
-
-      it('should be an array if dto.data.errors is not an array', () => {
-        // Arrange
-        const data = { errors: { test: true } }
-
-        // Act
-        const Subject = new TestSubject(Code.LENGTH_REQUIRED, undefined, data)
-
-        // Expect
-        expect(Subject.errors).toIncludeSameMembers([data.errors])
+        expect(Subject.errors).toIncludeSameMembers(expected)
       })
     })
 
     describe('#message', () => {
-      it('should === default exception message', () => {
-        // Act
-        const Subject = new TestSubject()
+      type Case = Testcase<string> & {
+        data: ExceptionDataDTO
+        message: string | undefined
+        should: 'should' | 'should not'
+      }
 
-        // Expect
-        expect(Subject.message).toBe(DEM)
-      })
+      const cases: Case[] = [
+        { data: {}, expected: DEM, message: DEM, should: 'should not' },
+        {
+          data: { message: ERROR.message },
+          expected: ERROR.message,
+          message: undefined,
+          should: 'should'
+        }
+      ]
 
-      it('should === data.message', () => {
+      it.each<Case>(cases)('$should override message argument', testcase => {
         // Arrange
-        const data = { message: 'Test override message' }
+        const { data, expected, message } = testcase
 
         // Act
-        const Subject = new TestSubject(Code.MISDIRECTED, undefined, data)
+        const Subject = new TestSubject(undefined, message, data)
 
         // Expect
-        expect(Subject.message).toBe(data.message)
-        expect(Subject.data.message).not.toBeDefined()
+        expect(Subject.message).toBe(expected)
       })
     })
   })

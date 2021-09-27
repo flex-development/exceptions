@@ -29,10 +29,10 @@ import { DEM } from './constants.exceptions'
  *
  * @template T - Error type
  *
- * @extends {Error}
+ * @extends {AggregateError}
  */
 // eslint-disable-next-line unicorn/custom-error-definition
-export default class Exception<T extends any = any> extends Error {
+export default class Exception<T extends any = any> extends AggregateError {
   /**
    * @property {ExceptionClassName} className - Associated CSS class name
    */
@@ -74,14 +74,13 @@ export default class Exception<T extends any = any> extends Error {
     data: ExceptionDataDTO<T> = {},
     stack?: string
   ) {
-    super(data.message?.length ? data.message : message)
+    super([data.errors || []].flat(), data.message || message)
 
     this.code = Exception.formatCode(code)
     // eslint-disable-next-line unicorn/custom-error-definition
     this.name = Exception.findNameByCode(this.code) as ExceptionName
     this.className = ExceptionClassName[this.name]
     this.data = omit(data, ['errors', 'message'])
-    this.errors = [data.errors || []].flat() as ExceptionErrors<T>
     this.stack = stack
   }
 
