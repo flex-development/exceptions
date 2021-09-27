@@ -13,13 +13,15 @@ import type {
 
 /**
  * JSON representation of an `Exception`.
+ *
+ * @template T - Error type
  */
-export interface ExceptionJSON {
+export interface ExceptionJSON<T extends any = any> {
   readonly className: ExceptionClassName
   readonly code: ExceptionStatusCode
   readonly message: string
   readonly name: ExceptionName
 
   data: ExceptionData
-  errors: ExceptionErrors
+  errors: ExceptionErrors<T>
 }

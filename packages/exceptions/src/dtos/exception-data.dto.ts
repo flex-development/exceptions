@@ -1,3 +1,4 @@
+import type { OneOrMany } from '@flex-development/tutils'
 import type { ExceptionData } from '@packages/exceptions/types'
 
 /**
@@ -8,13 +9,15 @@ import type { ExceptionData } from '@packages/exceptions/types'
 /**
  * `Exception` data transfer object.
  *
+ * @template T - Error type
+ *
  * @extends {ExceptionData}
  */
-export interface ExceptionDataDTO extends ExceptionData {
+export interface ExceptionDataDTO<T extends any = any> extends ExceptionData {
   /**
    * Single error or group of errors.
    */
-  errors?: Array<any>
+  errors?: OneOrMany<T>
 
   /**
    * Custom message.

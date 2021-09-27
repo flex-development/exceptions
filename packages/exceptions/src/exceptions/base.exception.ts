@@ -16,7 +16,6 @@ import type {
   ExceptionErrors,
   ExceptionName
 } from '@packages/exceptions/types'
-import isPlainObject from 'lodash.isplainobject'
 import omit from 'lodash.omit'
 import { DEM } from './constants.exceptions'
 
@@ -25,8 +24,15 @@ import { DEM } from './constants.exceptions'
  * @module exceptions/exceptions/Exception
  */
 
+/**
+ * Custom error class.
+ *
+ * @template T - Error type
+ *
+ * @extends {Error}
+ */
 // eslint-disable-next-line unicorn/custom-error-definition
-export default class Exception extends Error {
+export default class Exception<T extends any = any> extends Error {
   /**
    * @property {ExceptionClassName} className - Associated CSS class name
    */
@@ -43,9 +49,9 @@ export default class Exception extends Error {
   data: ExceptionData
 
   /**
-   * @property {ExceptionErrors} errors - Array of errors, error object, or null
+   * @property {ExceptionErrors<T>} errors - Aggregated errors
    */
-  errors: ExceptionErrors
+  errors: ExceptionErrors<T>
 
   /**
    * @property {ExceptionName} errors - Name of Exception
@@ -57,28 +63,25 @@ export default class Exception extends Error {
    *
    * @param {ExceptionStatusCode} [code] - HTTP error status code
    * @param {string} [message] - Exception message
-   * @param {ExceptionDataDTO} [data] - Additional exception data
-   * @param {ExceptionErrors} [data.errors] - Errors array, object, or null
-   * @param {string} [data.message] - Overrides {@param message}
+   * @param {ExceptionDataDTO<T>} [data] - Additional exception data
+   * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
+   * @param {string} [data.message] - Custom message. Overrides `message`
    * @param {string} [stack] - Error stack
    */
   constructor(
     code: ExceptionStatusCode = ExceptionStatusCode.INTERNAL_SERVER_ERROR,
     message: string = DEM,
-    data: ExceptionDataDTO = {},
+    data: ExceptionDataDTO<T> = {},
     stack?: string
   ) {
     super(data.message?.length ? data.message : message)
-
-    const $data = isPlainObject(data)
-    const $errors = Array.isArray(data.errors) || isPlainObject(data.errors)
 
     this.code = Exception.formatCode(code)
     // eslint-disable-next-line unicorn/custom-error-definition
     this.name = Exception.findNameByCode(this.code) as ExceptionName
     this.className = ExceptionClassName[this.name]
-    this.data = $data ? omit(data, ['errors', 'message']) : {}
-    this.errors = $errors ? data.errors || null : null
+    this.data = omit(data, ['errors', 'message'])
+    this.errors = [data.errors || []].flat() as ExceptionErrors<T>
     this.stack = stack
   }
 
@@ -111,10 +114,12 @@ export default class Exception extends Error {
   /**
    * Converts an AxiosError into an Exception.
    *
+   * @template T - Error type
+   *
    * @param {AxiosError} error - HTTP error to transform
-   * @return {Exception} AxiosError as Exception
+   * @return {Exception<T>} AxiosError as Exception
    */
-  static fromAxiosError(error: AxiosError): Exception {
+  static fromAxiosError<T extends any = any>(error: AxiosError): Exception<T> {
     const { isAxiosError, message, request, response, stack } = error
 
     let code = ExceptionStatusCode.INTERNAL_SERVER_ERROR
@@ -125,10 +130,10 @@ export default class Exception extends Error {
       const { data: $data } = response
 
       if (Object.keys(ExceptionStatusCode).includes($data?.name ?? '')) {
-        const ejson = $data as ExceptionJSON
+        const ejson = $data as ExceptionJSON<T>
         const data = { ...ejson.data, errors: ejson.errors }
 
-        return new Exception(ejson.code, ejson.message, data, stack)
+        return new Exception<T>(ejson.code, ejson.message, data, stack)
       }
 
       const msg = typeof $data === 'string' ? $data : $data?.message
@@ -142,16 +147,20 @@ export default class Exception extends Error {
       data = { ...data, $message: message, message: 'No response received.' }
     }
 
-    return new Exception(code, message, data, stack)
+    return new Exception<T>(code, message, data, stack)
   }
 
   /**
    * Converts a FirebaseError into an Exception.
    *
+   * @template T - Error type
+   *
    * @param {FirebaseError} error - Firebase error to transform
-   * @return {Exception} FirebaseError as Exception
+   * @return {Exception<T>} FirebaseError as Exception
    */
-  static fromFirebaseError(error: FirebaseError): Exception {
+  static fromFirebaseError<T extends any = any>(
+    error: FirebaseError
+  ): Exception<T> {
     const { code, message, stack } = error
     const { 1: ecode } = code.split('/')
 
@@ -161,27 +170,29 @@ export default class Exception extends Error {
     const name = ecode_names.find(name => FirebaseErrorCode[name] === ecode)
     const status = FirebaseErrorStatusCode[name as string] || 500
 
-    return new Exception(status, message, { code, isFirebaseError }, stack)
+    return new Exception<T>(status, message, { code, isFirebaseError }, stack)
   }
 
   /**
    * Converts a Next.js error into an Exception.
    *
+   * @template T - Error type
+   *
    * @param {NextError} error - Next.js page error to transform
-   * @return {Exception} NextError as Exception
+   * @return {Exception<T>} NextError as Exception
    */
-  static fromNextError(error: NextError): Exception {
+  static fromNextError<T extends any = any>(error: NextError): Exception<T> {
     const { message, stack, statusCode } = error
 
-    return new Exception(statusCode, message, { isNextError: true }, stack)
+    return new Exception<T>(statusCode, message, { isNextError: true }, stack)
   }
 
   /**
    * Returns a JSON object representing the current Exception.
    *
-   * @return {ExceptionJSON} JSON object representing Exception
+   * @return {ExceptionJSON<T>} JSON object representing Exception
    */
-  toJSON(): ExceptionJSON {
+  toJSON(): ExceptionJSON<T> {
     /* eslint-disable sort-keys */
 
     return {
