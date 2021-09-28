@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/flex-development/exceptions/compare/exceptions@4.0.0...exceptions@4.0.1) (2021-09-28)
+
+
+### :hammer: Build
+
+* **typescript:** generate `.d.ts` files for all build outputs ([0d8ccbe](https://github.com/flex-development/exceptions/commit/0d8ccbeea5887e3ade31294345d6e9135abf85f2))
+
+
 ## [4.0.0](https://github.com/flex-development/exceptions/compare/exceptions@3.0.0...exceptions@4.0.0) (2021-09-28)
 
 
