@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/flex-development/exceptions/compare/exceptions@3.0.0...exceptions@4.0.0) (2021-09-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **exceptions:** extend `AggregateError` (#6)
+
+### :pencil2: Housekeeping
+
+* **deps-peer:** update typescript peer dep to `>=4.4.0` ([a34d82a](https://github.com/flex-development/exceptions/commit/a34d82ac8766a0b07038eb45ea7586b3f67ab4f5))
+
+
+### :sparkles: Features
+
+* **exceptions:** extend `AggregateError` ([#6](https://github.com/flex-development/exceptions/issues/6)) ([d5e4d48](https://github.com/flex-development/exceptions/commit/d5e4d4881eadca1d2a6b8bab02209c045c3f41c1))
+
 ## [3.0.0](https://github.com/flex-development/exceptions/compare/exceptions@2.0.1...exceptions@3.0.0) (2021-09-26)
 
 
