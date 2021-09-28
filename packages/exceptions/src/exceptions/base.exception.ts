@@ -1,4 +1,4 @@
-import type { JSONObject } from '@flex-development/tutils'
+import type { JSONObject, NullishString } from '@flex-development/tutils'
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName,
@@ -58,10 +58,10 @@ export default class Exception<T extends any = any> extends AggregateError {
   id: ExceptionId
 
   /**
-   * Instantiate a new Exception.
+   * Instantiates a new Exception.
    *
    * @param {ExceptionCode} [code=500] - HTTP error response status code
-   * @param {string} [message=DEM] - Exception message
+   * @param {NullishString} [message=DEM] - Exception message
    * @param {ExceptionDataDTO<T>} [data={}] - Additional exception data
    * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
    * @param {string} [data.message] - Custom message. Overrides `message`
@@ -69,11 +69,11 @@ export default class Exception<T extends any = any> extends AggregateError {
    */
   constructor(
     code: ExceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR,
-    message: string = DEM,
+    message: NullishString = DEM,
     data: ExceptionDataDTO<T> = {},
     stack?: string
   ) {
-    super([data.errors || []].flat(), data.message || message)
+    super([data.errors || []].flat(), data.message || message || DEM)
 
     this.name = 'Exception'
     this.code = Exception.formatCode(code)

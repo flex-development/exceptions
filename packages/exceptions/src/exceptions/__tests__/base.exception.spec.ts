@@ -92,20 +92,30 @@ describe('unit:exceptions/Exception', () => {
       type Case = Testcase<string> & {
         data: ExceptionDataDTO
         message: string | undefined
-        should: 'should' | 'should not'
+        be: 'be' | 'not be'
+        defined: 'defined' | 'not defined'
       }
 
       const cases: Case[] = [
-        { data: {}, expected: DEM, message: DEM, should: 'should not' },
         {
+          be: 'not be',
+          data: {},
+          defined: 'not defined',
+          expected: DEM,
+          message: DEM
+        },
+        {
+          be: 'be',
           data: { message: ERROR.message },
+          defined: 'defined',
           expected: ERROR.message,
-          message: undefined,
-          should: 'should'
+          message: undefined
         }
       ]
 
-      it.each<Case>(cases)('$should override message argument', testcase => {
+      const name = 'should $be overridden if dto.data.message is $defined'
+
+      it.each<Case>(cases)(name, testcase => {
         // Arrange
         const { data, expected, message } = testcase
 
