@@ -139,9 +139,9 @@ const options: IGreaseOptions = {
   releaseBranchWhitelist: ['release/*'],
   releaseCommitMessageFormat: `release: ${$name}@{{currentTag}}`,
   scripts: {
-    postchangelog: `yarn pack -o %s-%v.tgz${argv.dryRun ? ' -n' : ''}`,
-    postcommit: 'git pnv',
-    postgreaser: 'rimraf ./cjs && rimraf ./esm && rimraf ./*.tgz',
+    postchangelog: `yarn workspace ${$name} build -t ${argv.dryRun && '-d'}`,
+    postcommit: 'git push --no-verify',
+    postgreaser: 'rimraf ./*.tgz',
     prerelease: `yarn workspace ${$name} test --no-cache`
   },
   // `continuous-deployment` workflow will create new tag
