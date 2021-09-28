@@ -58,23 +58,23 @@ describe('unit:exceptions/Exception', () => {
     describe('#errors', () => {
       type Case = Testcase<Array<any>> & {
         data: ExceptionDataDTO
-        is: 'is' | 'is not'
+        array: 'is' | 'is not'
       }
 
       const cases: Case[] = [
         {
+          array: 'is',
           data: { errors: [ERROR] },
-          expected: [ERROR],
-          is: 'is'
+          expected: [ERROR]
         },
         {
+          array: 'is not',
           data: { errors: ERROR },
-          expected: [ERROR],
-          is: 'is not'
+          expected: [ERROR]
         }
       ]
 
-      const name = 'should be array if dto.data.errors $is'
+      const name = 'should be array if dto.data.errors $array array'
 
       it.each<Case>(cases)(name, testcase => {
         // Arrange
