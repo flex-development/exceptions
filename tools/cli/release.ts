@@ -41,6 +41,13 @@ export type ReleaseOptions = {
   firstRelease?: IGreaseOptions['firstRelease']
 
   /**
+   * Only populate commits made under this path.
+   *
+   * @default process.cwd()
+   */
+  path?: IGreaseOptions['path']
+
+  /**
    * Create a prerelease with optional tag id (e.g: `alpha`,`beta`, `dev`).
    */
   prerelease?: IGreaseOptions['prerelease']
@@ -88,6 +95,12 @@ const args = yargs(hideBin(process.argv))
     describe: 'is this the first release?',
     type: 'boolean'
   })
+  .option('path', {
+    alias: 'p',
+    default: process.cwd(),
+    describe: 'only populate commits made under this path',
+    type: 'string'
+  })
   .option('release-as', {
     alias: 'r',
     describe: 'specify release type (like npm version <major|minor|patch>)',
@@ -115,6 +128,7 @@ const argv: IGreaseOptions & ReleaseOptions = pick(
     'commitAll',
     'dryRun',
     'firstRelease',
+    'path',
     'prerelease',
     'releaseAs',
     'releaseDraft',
@@ -130,13 +144,12 @@ const options: IGreaseOptions = {
   gitTagFallback: false,
   gitdir: process.env.PROJECT_CWD,
   lernaPackage: $name_no_scope,
-  path: process.cwd(),
   prerelease: ((): string | undefined => {
     const tag = $version.split('-')[1]
     return !tag ? undefined : tag.includes('.') ? tag.split('.')[0] : tag
   })(),
   releaseAssets: ['./*.tgz'],
-  releaseBranchWhitelist: ['release/*'],
+  // releaseBranchWhitelist: ['release/*'],
   releaseCommitMessageFormat: `release: ${$name}@{{currentTag}}`,
   scripts: {
     postchangelog: `yarn workspace ${$name} build -t ${argv.dryRun && '-d'}`,
