@@ -166,7 +166,7 @@ const options: IGreaseOptions = {
   gitdir: process.env.PROJECT_CWD,
   lernaPackage: $name_no_scope,
   releaseAssets: ['./*.tgz'],
-  // releaseBranchWhitelist: ['release/*'],
+  releaseBranchWhitelist: ['release/*'],
   releaseCommitMessageFormat: `release: ${$name}@{{currentTag}}`,
   scripts: {
     postchangelog: `yarn workspace ${$name} build -t ${(argv.d && '-d') || ''}`,
