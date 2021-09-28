@@ -169,7 +169,7 @@ const options: IGreaseOptions = {
   // releaseBranchWhitelist: ['release/*'],
   releaseCommitMessageFormat: `release: ${$name}@{{currentTag}}`,
   scripts: {
-    postchangelog: `yarn workspace ${$name} build -t ${argv.dryRun && '-d'}`,
+    postchangelog: `yarn workspace ${$name} build -t ${(argv.d && '-d') || ''}`,
     postcommit: 'git push --no-verify',
     postgreaser: 'rimraf ./*.tgz',
     prerelease: `yarn workspace ${$name} test --no-cache`
