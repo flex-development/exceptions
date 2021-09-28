@@ -131,7 +131,7 @@ const ROLLUP_CONFIG_CHECK = existsSync(path.join(process.cwd(), ROLLUP_CONFIG))
 const TSCONFIG_PROD: string = 'tsconfig.prod.json'
 
 /**
- * @property {boolean} TSCONFIG_PROD_CHECK - Production config file check
+ * @property {boolean} TSCONFIG_PROD_CHECK - Check if `TSCONFIG_PROD` exists
  */
 const TSCONFIG_PROD_CHECK = existsSync(path.join(process.cwd(), TSCONFIG_PROD))
 
@@ -248,11 +248,6 @@ try {
     if (!tsconfig_check) exec(`rimraf ${tsconfig}`, argv.dryRun)
   }
 
-  // Remove base TypeScript config file
-  if (!TSCONFIG_PROD_CHECK && !argv.dryRun) {
-    exec(`rimraf ${TSCONFIG_PROD}`, argv.dryRun)
-  }
-
   // Fix node module import paths
   fixNodeModulePaths()
 
@@ -267,17 +262,21 @@ try {
       copyFileSync(path.join('..', '..', ROLLUP_CONFIG), ROLLUP_CONFIG)
     }
 
-    // Allow TypeScript config file
-    const configPlugin = '--configPlugin @rollup/plugin-typescript'
+    // Rollup command flags
+    const flags = [
+      `--config ${ROLLUP_CONFIG}`,
+      `--configPlugin 'typescript={exclude:["**/*.spec.ts"]}'`,
+      `--environment BUILD:${argv.env}`
+    ]
 
     // Rollup command
-    const command = `rollup --config ${ROLLUP_CONFIG} ${configPlugin}`
+    const command = `rollup ${flags.join(' ')}`
 
     // Execute rollup command
     const rollup = exec(command, argv.dryRun)
 
     // Bundle package
-    if (exec(`rollup --config ${ROLLUP_CONFIG} ${configPlugin}`, argv.dryRun)) {
+    if (exec(command, argv.dryRun)) {
       if (rollup === command) logger(argv, 'create bundles')
       else {
         for (const results of rollup.split('ms\n')) {
@@ -297,14 +296,21 @@ try {
     }
   }
 
+  // Remove base TypeScript config file
+  if (!TSCONFIG_PROD_CHECK && !argv.dryRun) {
+    exec(`rimraf ${TSCONFIG_PROD}`, argv.dryRun)
+  }
+
   // Pack project
   if (argv.tarball) {
     const { dryRun, out: outFile, packInstall, prepack } = argv
 
     // Pack command flags
-    const dry = `${dryRun ? '--dry-run' : ''}`
-    const out = `--out ${outFile}`
-    const install = `${packInstall ? '--install-if-needed' : ''}`
+    const flags = [
+      `${dryRun ? '--dry-run' : ''}`,
+      `--out ${outFile}`,
+      `${packInstall ? '--install-if-needed' : ''}`
+    ]
 
     // Check if package has postinstall and prepack scripts
     const postinstall_script = typeof PACKAGE.scripts?.postinstall === 'string'
@@ -322,7 +328,7 @@ try {
     disable_prepack && logger(argv, 'disable prepack script')
 
     // Execute pack command
-    exec(`${COMMAND_PACK} ${out} ${install} ${dry}`.trim(), dryRun)
+    exec(`${COMMAND_PACK} ${flags.join(' ')}`.trim(), dryRun)
     logger(argv, 'create tarball')
 
     // Renable postinstall script
@@ -351,7 +357,7 @@ try {
   const exception = error as Exception
 
   logger(argv, exception.message, [], LogLevel.ERROR)
-  sh.exit(exception.data?.code ?? 1)
+  sh.exit((exception.data?.code as number) ?? 1)
 }
 
 // Log workflow end

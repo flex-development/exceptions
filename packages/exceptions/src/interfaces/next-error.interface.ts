@@ -1,4 +1,4 @@
-import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 
 /**
  * @file Interface - NextError
@@ -7,5 +7,5 @@ import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status
  */
 
 export interface NextError extends Error {
-  readonly statusCode?: ExceptionStatusCode
+  readonly statusCode?: ExceptionCode
 }

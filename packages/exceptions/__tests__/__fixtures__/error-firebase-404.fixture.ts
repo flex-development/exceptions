@@ -2,8 +2,8 @@ import type { FirebaseError } from '@packages/exceptions/interfaces/firebase-err
 import { FirebaseAppError } from 'firebase-admin/lib/utils/error'
 
 /**
- * @file Test Fixture - FirebaseError - 404
- * @module exceptions/tests/fixtures/firebase-error-404.fixture
+ * @file Workspace Test Fixture - FirebaseError (404)
+ * @module exceptions/tests/fixtures/error-firebase-404
  */
 
 export default new FirebaseAppError(

@@ -1,16 +1,27 @@
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
-  ExceptionClassName as ClassName,
-  ExceptionStatusCode as Code
+  ExceptionClassName,
+  ExceptionCode,
+  ExceptionId
 } from '@packages/exceptions/enums'
+import type {
+  AxiosError,
+  ExceptionJSON,
+  FirebaseError,
+  NextError
+} from '@packages/exceptions/interfaces'
+import ERROR_AXIOS from '@packages/exceptions/tests/fixtures/error-axios-no-res.fixture'
+import ERROR_FIREBASE_404 from '@packages/exceptions/tests/fixtures/error-firebase-404.fixture'
+import ERROR_FIREBASE_INVALID_CODE from '@packages/exceptions/tests/fixtures/error-firebase-invalid-code.fixture'
+import ERROR_NEXT_NO_STATUS from '@packages/exceptions/tests/fixtures/error-next-no-status.fixture'
+import ERROR_NEXT from '@packages/exceptions/tests/fixtures/error-next.fixture'
+import ERROR from '@packages/exceptions/tests/fixtures/error.fixture'
+import EJSON from '@packages/exceptions/tests/fixtures/exception-json.fixture'
+import ERROR_AXIOS_404 from '@packages/exceptions/tests/__fixtures__/errror-axios-404.fixture'
+import type { Testcase } from '@tests/utils/types'
+import pick from 'lodash.pick'
 import TestSubject from '../base.exception'
 import { DEM } from '../constants.exceptions'
-import AXIOS_ERROR_404 from './__fixtures__/axios-error-404.fixture'
-import AXIOS_ERROR_NO_RES from './__fixtures__/axios-error-no-res.fixture'
-import FIREBASE_ERROR_404 from './__fixtures__/firebase-error-404.fixture'
-import FIREBASE_ERROR_IC from './__fixtures__/firebase-error-invalid.fixture'
-import NEXT_ERROR_NO_CODE from './__fixtures__/next-error-no-code.fixture'
-import NEXT_ERROR_BAD_GATEWAY from './__fixtures__/next-error.fixture'
 
 /**
  * @file Unit Tests - Exception
@@ -18,187 +29,403 @@ import NEXT_ERROR_BAD_GATEWAY from './__fixtures__/next-error.fixture'
  */
 
 describe('unit:exceptions/Exception', () => {
-  describe('exports', () => {
-    it('should export class by default', () => {
-      expect(TestSubject).toBeDefined()
-      expect(TestSubject.constructor.name).toBe('Function')
-    })
-  })
-
   describe('constructor', () => {
-    describe('#errors', () => {
-      it('should === data.errors if array', () => {
-        const data = { errors: [] }
-        const Subject = new TestSubject(Code.BAD_REQUEST, undefined, data)
+    describe('#data', () => {
+      it('should omit dto.data.errors and dto.data.message', () => {
+        // Arrange
+        const data = { errors: [], message: 'error message override' }
 
-        expect(Subject.data).toMatchObject({})
-        expect({ errors: Subject.errors }).toMatchObject(data)
+        // Act
+        const Subject = new TestSubject(ExceptionCode.NOT_FOUND, null, data)
+
+        // Expect
+        expect(Subject.data).toContainAllEntries([])
       })
 
-      it('should === data.errors if plain object', () => {
-        const data = { errors: { test: true } }
-        const Subject = new TestSubject(Code.LENGTH_REQUIRED, undefined, data)
+      it('should use dto.data properties if dto.data is ExceptionJSON', () => {
+        // Arrange
+        const message = ERROR.message
 
-        expect(Subject.data).toMatchObject({})
-        expect({ errors: Subject.errors }).toMatchObject(data)
-      })
+        // Act
+        const Subject = new TestSubject(undefined, message, EJSON)
 
-      it('should === null if data.errors schema is invalid', () => {
-        const data = { errors: 5 } as unknown as ExceptionDataDTO
-        const Subject = new TestSubject(Code.NOT_ACCEPTABLE, undefined, data)
-
-        expect(Subject.data).toMatchObject({})
-        expect(Subject.errors).toBe(null)
+        // Expect
+        expect(Subject.id).toBe(EJSON.name)
+        expect(Subject.toJSON()).toStrictEqual(EJSON)
       })
     })
 
-    describe('#data', () => {
-      const properties = ['errors', 'message']
+    describe('#errors', () => {
+      type Case = Testcase<Array<any>> & {
+        data: ExceptionDataDTO
+        array: 'is' | 'is not'
+      }
 
-      it(`should omit properties: [${properties}]`, () => {
-        const data = { errors: { test: true }, foo: true, message: 'Test' }
-        const Subject = new TestSubject(Code.NOT_FOUND, undefined, data)
+      const cases: Case[] = [
+        {
+          array: 'is',
+          data: { errors: [ERROR] },
+          expected: [ERROR]
+        },
+        {
+          array: 'is not',
+          data: { errors: ERROR },
+          expected: [ERROR]
+        }
+      ]
 
-        expect(Subject.data.errors).not.toBeDefined()
-        expect(Subject.data.message).not.toBeDefined()
-        expect(Subject.data).toMatchObject({ foo: data.foo })
+      const name = 'should be array if dto.data.errors $array array'
+
+      it.each<Case>(cases)(name, testcase => {
+        // Arrange
+        const { data, expected } = testcase
+
+        // Act
+        const Subject = new TestSubject(undefined, undefined, data)
+
+        // Expect
+        expect(Subject.errors).toIncludeSameMembers(expected)
       })
     })
 
     describe('#message', () => {
-      it('should === default exception message', () => {
-        const Subject = new TestSubject()
+      type Case = Testcase<string> & {
+        data: ExceptionDataDTO
+        message: string | undefined
+        be: 'be' | 'not be'
+        defined: 'defined' | 'not defined'
+      }
 
-        expect(Subject.message).toBe(DEM)
-      })
+      const cases: Case[] = [
+        {
+          be: 'not be',
+          data: {},
+          defined: 'not defined',
+          expected: DEM,
+          message: DEM
+        },
+        {
+          be: 'be',
+          data: { message: ERROR.message },
+          defined: 'defined',
+          expected: ERROR.message,
+          message: undefined
+        }
+      ]
 
-      it('should === data.message', () => {
-        const data = { message: 'Test override message' }
-        const Subject = new TestSubject(Code.MISDIRECTED, undefined, data)
+      const name = 'should $be overridden if dto.data.message is $defined'
 
-        expect(Subject.message).toBe(data.message)
-        expect(Subject.data.message).not.toBeDefined()
+      it.each<Case>(cases)(name, testcase => {
+        // Arrange
+        const { data, expected, message } = testcase
+
+        // Act
+        const Subject = new TestSubject(undefined, message, data)
+
+        // Expect
+        expect(Subject.message).toBe(expected)
       })
     })
   })
 
-  describe('.findNameByCode', () => {
-    it('should return name of exception', () => {
-      expect(TestSubject.findNameByCode(Code.GONE)).toBe('GONE')
-    })
+  describe('.findIdByCode', () => {
+    type Case = Testcase<ExceptionId> & { code: any }
 
-    it('should return empty string', () => {
-      expect(TestSubject.findNameByCode(-1)).toBe('')
+    const cases: Case[] = [
+      { code: -1, expected: ExceptionId.INTERNAL_SERVER_ERROR },
+      ...Object.keys(ExceptionId).map(id => ({
+        code: ExceptionCode[id],
+        expected: id as unknown as ExceptionId
+      }))
+    ]
+
+    it.each<Case>(cases)("should return '$expected' given $code", testcase => {
+      // Arrange
+      const { code, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.findIdByCode(code)).toBe(expected)
     })
   })
 
   describe('.formatCode', () => {
-    const code = Code.UNAUTHORIZED
+    type Case = Testcase<ExceptionCode> & { code: any }
 
-    it('should return 500 if exception code is invalid', () => {
-      expect(TestSubject.formatCode(-1 * code)).toBe(500)
-    })
+    const cases: Case[] = [
+      { code: -1, expected: ExceptionCode.INTERNAL_SERVER_ERROR },
+      ...Object.keys(ExceptionId).map(id => ({
+        code: ExceptionCode[id],
+        expected: ExceptionCode[id] as ExceptionCode
+      }))
+    ]
 
-    it('should return exception code if valid', () => {
-      expect(TestSubject.formatCode(code)).toBe(code)
+    it.each<Case>(cases)('should return $expected given $code', testcase => {
+      // Arrange
+      const { code, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.formatCode(code)).toBe(expected)
     })
   })
 
   describe('.fromAxiosError', () => {
-    it('should convert AxiosError with response into Exception', () => {
-      const result = TestSubject.fromAxiosError(AXIOS_ERROR_404)
+    type Case = Testcase<ExceptionJSON> & {
+      error: AxiosError
+      with: 'with' | 'without'
+    }
 
-      expect(result.code).toBe(AXIOS_ERROR_404.response?.status)
-      expect(result.className).toBe(ClassName.NOT_FOUND)
-      expect(result.data).toMatchObject({
-        code: AXIOS_ERROR_404.toJSON().code,
-        headers: AXIOS_ERROR_404.response?.headers,
-        isAxiosError: true
-      })
-      expect(result.message).toBe(AXIOS_ERROR_404.response?.data?.message)
-      expect(result.name).toBe('NOT_FOUND')
-    })
+    const cases: Case[] = [
+      {
+        error: ERROR_AXIOS_404,
+        expected: {
+          className: ExceptionClassName.NOT_FOUND,
+          code: ERROR_AXIOS_404.response?.status as ExceptionCode,
+          data: {
+            code: ERROR_AXIOS_404.code,
+            config: {
+              ...pick(ERROR_AXIOS_404.config, [
+                'auth',
+                'baseURL',
+                'data',
+                'headers',
+                'method',
+                'params',
+                'proxy',
+                'responseType',
+                'timeout',
+                'transitional',
+                'url',
+                'withCredentials'
+              ])
+            },
+            headers: {},
+            isAxiosError: true,
+            isExceptionJSON: true,
+            payload: ERROR_AXIOS_404.response?.data,
+            request: ERROR_AXIOS_404.request
+          },
+          errors: [],
+          message: ERROR_AXIOS_404.response?.data.message,
+          name: ExceptionId.NOT_FOUND
+        },
+        with: 'with'
+      },
+      {
+        error: ERROR_AXIOS,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            code: ERROR_AXIOS.code,
+            config: {
+              ...pick(ERROR_AXIOS.config, [
+                'auth',
+                'baseURL',
+                'data',
+                'headers',
+                'method',
+                'params',
+                'proxy',
+                'responseType',
+                'timeout',
+                'transitional',
+                'url',
+                'withCredentials'
+              ])
+            },
+            isAxiosError: true,
+            isExceptionJSON: true,
+            request: ERROR_AXIOS.request
+          },
+          errors: [],
+          message: ERROR_AXIOS.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        },
+        with: 'without'
+      }
+    ]
 
-    it('should convert AxiosError without response into Exception', () => {
-      const result = TestSubject.fromAxiosError(AXIOS_ERROR_NO_RES)
+    const name = 'should convert error $with response into Exception'
 
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({
-        $message: AXIOS_ERROR_NO_RES.message,
-        code: AXIOS_ERROR_NO_RES.toJSON().code,
-        isAxiosError: true
-      })
-      expect(result.message).toBe('No response received.')
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
+      // Act
+      const result = TestSubject.fromAxiosError(error).toJSON()
+
+      // Expect
+      expect(result).toStrictEqual(expected)
     })
   })
 
   describe('.fromFirebaseError', () => {
-    it('should convert FirebaseError with invalid code into Exception', () => {
-      const result = TestSubject.fromFirebaseError(FIREBASE_ERROR_IC)
+    type Case = Testcase<ExceptionJSON> & {
+      code: 'invalid' | 'valid'
+      error: FirebaseError
+    }
 
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({
-        code: FIREBASE_ERROR_IC.code,
-        isFirebaseError: true
-      })
-      expect(result.message).toBe(FIREBASE_ERROR_IC.message)
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
-    })
+    const cases: Case[] = [
+      {
+        code: 'invalid',
+        error: ERROR_FIREBASE_INVALID_CODE,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            code: ERROR_FIREBASE_INVALID_CODE.code,
+            isExceptionJSON: true,
+            isFirebaseError: true
+          },
+          errors: [],
+          message: ERROR_FIREBASE_INVALID_CODE.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        }
+      },
+      {
+        code: 'valid',
+        error: ERROR_FIREBASE_404,
+        expected: {
+          className: ExceptionClassName.NOT_FOUND,
+          code: ExceptionCode.NOT_FOUND,
+          data: {
+            code: ERROR_FIREBASE_404.code,
+            isExceptionJSON: true,
+            isFirebaseError: true
+          },
+          errors: [],
+          message: ERROR_FIREBASE_404.message,
+          name: ExceptionId.NOT_FOUND
+        }
+      }
+    ]
 
-    it('should convert FirebaseError with valid code into Exception', () => {
-      const result = TestSubject.fromFirebaseError(FIREBASE_ERROR_404)
+    const name = 'should convert error with $code code into Exception'
 
-      expect(result.code).toBe(Code.NOT_FOUND)
-      expect(result.className).toBe(ClassName.NOT_FOUND)
-      expect(result.data).toMatchObject({
-        code: FIREBASE_ERROR_404.code,
-        isFirebaseError: true
-      })
-      expect(result.message).toBe(FIREBASE_ERROR_404.message)
-      expect(result.name).toBe('NOT_FOUND')
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
+      // Act
+      const result = TestSubject.fromFirebaseError(error).toJSON()
+
+      // Expect
+      expect(result).toStrictEqual(expected)
     })
   })
 
   describe('.fromNextError', () => {
-    it('should convert NextError with statusCode into Exception', () => {
-      const result = TestSubject.fromNextError(NEXT_ERROR_BAD_GATEWAY)
+    type Case = Testcase<ExceptionJSON> & {
+      error: NextError
+      with: 'with' | 'without'
+    }
 
-      expect(result.code).toBe(NEXT_ERROR_BAD_GATEWAY.statusCode)
-      expect(result.className).toBe(ClassName.BAD_GATEWAY)
-      expect(result.data).toMatchObject({ isNextError: true })
-      expect(result.message).toBe(NEXT_ERROR_BAD_GATEWAY.message)
-      expect(result.name).toBe('BAD_GATEWAY')
+    const cases: Case[] = [
+      {
+        error: ERROR_NEXT,
+        expected: {
+          className: ExceptionClassName.BAD_GATEWAY,
+          code: ERROR_NEXT.statusCode as ExceptionCode,
+          data: {
+            isExceptionJSON: true,
+            isNextError: true
+          },
+          errors: [],
+          message: ERROR_NEXT.message,
+          name: ExceptionId.BAD_GATEWAY
+        },
+        with: 'with'
+      },
+      {
+        error: ERROR_NEXT_NO_STATUS,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            isExceptionJSON: true,
+            isNextError: true
+          },
+          errors: [],
+          message: ERROR_NEXT_NO_STATUS.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        },
+        with: 'without'
+      }
+    ]
+
+    const name = 'should convert error $with statusCode into Exception'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
+      // Act
+      const result = TestSubject.fromNextError(error).toJSON()
+
+      // Expect
+      expect(result).toStrictEqual(expected)
     })
+  })
 
-    it('should convert NextError without statusCode into Exception', () => {
-      const result = TestSubject.fromNextError(NEXT_ERROR_NO_CODE)
+  describe('.isException', () => {
+    type Case = Testcase<boolean> & {
+      error: any
+      is: 'is' | 'is not'
+    }
 
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({ isNextError: true })
-      expect(result.message).toBe(NEXT_ERROR_NO_CODE.message)
-      expect(result.name).toBe('INTERNAL_SERVER_ERROR')
+    const cases: Case[] = [
+      { error: ERROR, expected: false, is: 'is not' },
+      { error: new TestSubject(), expected: true, is: 'is' }
+    ]
+
+    const name = 'should return $expected if error $is Exception'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.isException(error)).toBe(expected)
+    })
+  })
+
+  describe('.isExceptionJSON', () => {
+    type Case = Testcase<boolean> & {
+      ejson: any
+      is: 'is' | 'is not'
+    }
+
+    const cases: Case[] = [
+      { ejson: ERROR_AXIOS_404.response, expected: false, is: 'is not' },
+      { ejson: EJSON, expected: true, is: 'is' }
+    ]
+
+    const name = 'should return $expected if ejson $is ExceptionJSON'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { ejson, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.isExceptionJSON(ejson)).toBe(expected)
     })
   })
 
   describe('#toJSON', () => {
-    it('should return json representation of exception', () => {
-      const code = Code.I_AM_A_TEAPOT
+    it('should return json representation of Exception', () => {
+      // Arrange
+      const code = ExceptionCode.I_AM_A_TEAPOT
       const data = { errors: { test: true }, foo: '' }
       const message = 'Test error message'
 
-      const Subject = new TestSubject(code, message, data)
-
-      expect(Subject.toJSON()).toMatchObject({
-        className: ClassName.I_AM_A_TEAPOT,
+      // Act + Expect
+      expect(new TestSubject(code, message, data).toJSON()).toStrictEqual({
+        className: ExceptionClassName.I_AM_A_TEAPOT,
         code,
-        data: { foo: data.foo },
-        errors: data.errors,
+        data: { foo: data.foo, isExceptionJSON: true },
+        errors: [data.errors],
         message,
-        name: 'I_AM_A_TEAPOT'
+        name: ExceptionId.I_AM_A_TEAPOT
       })
     })
   })

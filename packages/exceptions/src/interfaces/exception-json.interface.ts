@@ -1,7 +1,7 @@
-import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
-import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionStatusCode } from '@packages/exceptions/enums/exception-status-code.enum'
-import type { ExceptionErrors, ExceptionName } from '@packages/exceptions/types'
+import ClassName from '@packages/exceptions/enums/exception-class-name.enum'
+import Code from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionId from '@packages/exceptions/enums/exception-id.enum'
+import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 
 /**
  * @file Interface - ExceptionJSON
@@ -10,13 +10,14 @@ import type { ExceptionErrors, ExceptionName } from '@packages/exceptions/types'
 
 /**
  * JSON representation of an `Exception`.
+ *
+ * @template T - Error type
  */
-export interface ExceptionJSON {
-  readonly className: ExceptionClassName
-  readonly code: ExceptionStatusCode
+export interface ExceptionJSON<T extends any = any> {
+  readonly className: ClassName
+  readonly code: Code
+  readonly data: Readonly<ExceptionData & { isExceptionJSON: true }>
+  readonly errors: Readonly<ExceptionErrors<T>>
   readonly message: string
-  readonly name: ExceptionName
-
-  data: Omit<ExceptionDataDTO, 'errors'>
-  errors: ExceptionErrors
+  readonly name: ExceptionId
 }

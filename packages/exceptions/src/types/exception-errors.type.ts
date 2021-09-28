@@ -1,11 +1,11 @@
-import type { ObjectPlain } from '@flex-development/tutils/types/ObjectPlain'
-
 /**
  * @file Type Definitions - ExceptionErrors
  * @module exceptions/types/ExceptionErrors
  */
 
 /**
- * `Exception#errors` shape.
+ * A group of related errors.
+ *
+ * @template T - Error type
  */
-export type ExceptionErrors = ObjectPlain | (ObjectPlain | string)[] | null
+export type ExceptionErrors<T extends any = any> = Array<T>

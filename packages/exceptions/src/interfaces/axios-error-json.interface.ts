@@ -1,3 +1,5 @@
+import type { ObjectPlain } from '@flex-development/tutils'
+import type ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
 import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-request-config.type'
 
 /**
@@ -7,13 +9,37 @@ import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-
 
 /**
  * JSON representation of an `AxiosError`.
+ *
+ * @template Data - Request data type
+ * @template Params - Request params type
+ * @template Dataform - Request transformer data type
+ * @template DataformReturn - Request transformer return type
+ * @template Resform - Response transformer data type
+ * @template ResformReturn - Response transformer return type
+ *
+ * @see https://github.com/axios/axios/blob/v0.21.4/lib/core/enhanceError.js
  */
-export interface AxiosErrorJSON extends Error {
-  readonly code: string
+export interface AxiosErrorJSON<
+  Data extends any = any,
+  Params extends ObjectPlain = ObjectPlain,
+  Dataform extends any = Data,
+  DataformReturn extends any = any,
+  Resform extends any = any,
+  ResformReturn extends any = any
+> extends Error {
+  readonly code?: string
   readonly columnNumber?: number
-  readonly config: AxiosRequestConfig
+  readonly config: AxiosRequestConfig<
+    Data,
+    Params,
+    Dataform,
+    DataformReturn,
+    Resform,
+    ResformReturn
+  >
   readonly description?: string
   readonly fileName: string
   readonly lineNumber?: number
   readonly number?: number
+  readonly status: ExceptionCode | null
 }

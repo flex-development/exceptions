@@ -282,7 +282,8 @@ module.exports = {
       files: ['**/typings/**'],
       rules: {
         '@typescript-eslint/ban-types': 0,
-        '@typescript-eslint/triple-slash-reference': 0
+        '@typescript-eslint/triple-slash-reference': 0,
+        'unicorn/filename-case': 0
       }
     }
   ],

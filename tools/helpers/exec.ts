@@ -1,6 +1,6 @@
 import logger from '@flex-development/grease/utils/logger.util'
 import { LogLevel } from '@flex-development/log/enums/log-level.enum'
-import { ExceptionStatusCode } from '@packages/exceptions/enums'
+import { ExceptionCode } from '@packages/exceptions/enums'
 import Exception from '@packages/exceptions/exceptions/base.exception'
 import type { ChildProcess } from 'child_process'
 import sh from 'shelljs'
@@ -39,7 +39,7 @@ const exec = (
 
   // Throw Exception if error executing command
   if (stdout && stdout.code !== 0) {
-    throw new Exception(ExceptionStatusCode.INTERNAL_SERVER_ERROR, undefined, {
+    throw new Exception(ExceptionCode.INTERNAL_SERVER_ERROR, undefined, {
       code: stdout.code,
       message: (stdout.stderr || stdout.stdout).toString()
     })

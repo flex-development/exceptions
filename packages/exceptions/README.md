@@ -34,7 +34,7 @@ yarn add @flex-development/exceptions # or npm i @flex-development/exceptions
 ## Usage
 
 ```typescript
-import { ExceptionStatusCode } from '@flex-development/exceptions/enums'
+import { ExceptionCode } from '@flex-development/exceptions/enums'
 import Exception from '@flex-development/exceptions/exceptions/base.exception'
 
 const dto = {
@@ -42,7 +42,7 @@ const dto = {
   password: '_securepassword'
 }
 
-const code = ExceptionStatusCode.CONFLICT
+const code = ExceptionCode.CONFLICT
 const message = `User with email "${dto.email}" already exists`
 const data = { dto, { errors: { email: dto.email } } }
 
