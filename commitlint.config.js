@@ -52,6 +52,7 @@ module.exports = {
         'deps',
         'deps-dev',
         'deps-peer',
+        'github',
         'release',
         'tests',
         'tools',
