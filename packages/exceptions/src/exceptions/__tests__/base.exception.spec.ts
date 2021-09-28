@@ -4,14 +4,22 @@ import {
   ExceptionCode,
   ExceptionId
 } from '@packages/exceptions/enums'
+import type {
+  AxiosError,
+  ExceptionJSON,
+  FirebaseError,
+  NextError
+} from '@packages/exceptions/interfaces'
 import ERROR_AXIOS from '@packages/exceptions/tests/fixtures/error-axios-no-res.fixture'
 import ERROR_FIREBASE_404 from '@packages/exceptions/tests/fixtures/error-firebase-404.fixture'
 import ERROR_FIREBASE_INVALID_CODE from '@packages/exceptions/tests/fixtures/error-firebase-invalid-code.fixture'
 import ERROR_NEXT_NO_STATUS from '@packages/exceptions/tests/fixtures/error-next-no-status.fixture'
 import ERROR_NEXT from '@packages/exceptions/tests/fixtures/error-next.fixture'
 import ERROR from '@packages/exceptions/tests/fixtures/error.fixture'
+import EJSON from '@packages/exceptions/tests/fixtures/exception-json.fixture'
 import ERROR_AXIOS_404 from '@packages/exceptions/tests/__fixtures__/errror-axios-404.fixture'
 import type { Testcase } from '@tests/utils/types'
+import pick from 'lodash.pick'
 import TestSubject from '../base.exception'
 import { DEM } from '../constants.exceptions'
 
@@ -32,6 +40,18 @@ describe('unit:exceptions/Exception', () => {
 
         // Expect
         expect(Subject.data).toContainAllEntries([])
+      })
+
+      it('should use dto.data properties if dto.data is ExceptionJSON', () => {
+        // Arrange
+        const message = ERROR.message
+
+        // Act
+        const Subject = new TestSubject(undefined, message, EJSON)
+
+        // Expect
+        expect(Subject.id).toBe(EJSON.name)
+        expect(Subject.toJSON()).toStrictEqual(EJSON)
       })
     })
 
@@ -139,94 +159,201 @@ describe('unit:exceptions/Exception', () => {
   })
 
   describe('.fromAxiosError', () => {
-    it('should convert AxiosError with response into Exception', () => {
+    type Case = Testcase<ExceptionJSON> & {
+      error: AxiosError
+      with: 'with' | 'without'
+    }
+
+    const cases: Case[] = [
+      {
+        error: ERROR_AXIOS_404,
+        expected: {
+          className: ExceptionClassName.NOT_FOUND,
+          code: ERROR_AXIOS_404.response?.status as ExceptionCode,
+          data: {
+            code: ERROR_AXIOS_404.code,
+            config: {
+              ...pick(ERROR_AXIOS_404.config, [
+                'auth',
+                'baseURL',
+                'data',
+                'headers',
+                'method',
+                'params',
+                'proxy',
+                'responseType',
+                'timeout',
+                'transitional',
+                'url',
+                'withCredentials'
+              ])
+            },
+            headers: {},
+            isAxiosError: true,
+            isExceptionJSON: true,
+            payload: ERROR_AXIOS_404.response?.data,
+            request: ERROR_AXIOS_404.request
+          },
+          errors: [],
+          message: ERROR_AXIOS_404.response?.data.message,
+          name: ExceptionId.NOT_FOUND
+        },
+        with: 'with'
+      },
+      {
+        error: ERROR_AXIOS,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            code: ERROR_AXIOS.code,
+            config: {
+              ...pick(ERROR_AXIOS.config, [
+                'auth',
+                'baseURL',
+                'data',
+                'headers',
+                'method',
+                'params',
+                'proxy',
+                'responseType',
+                'timeout',
+                'transitional',
+                'url',
+                'withCredentials'
+              ])
+            },
+            isAxiosError: true,
+            isExceptionJSON: true,
+            request: ERROR_AXIOS.request
+          },
+          errors: [],
+          message: ERROR_AXIOS.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        },
+        with: 'without'
+      }
+    ]
+
+    const name = 'should convert error $with response into Exception'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
       // Act
-      const result = TestSubject.fromAxiosError(ERROR_AXIOS_404)
+      const result = TestSubject.fromAxiosError(error).toJSON()
 
       // Expect
-      expect(result.code).toBe(ERROR_AXIOS_404.response?.status)
-      expect(result.className).toBe(ExceptionClassName.NOT_FOUND)
-      expect(result.data).toMatchObject({
-        code: ERROR_AXIOS_404.toJSON().code,
-        headers: ERROR_AXIOS_404.response?.headers,
-        isAxiosError: true
-      })
-      expect(result.id).toBe('NOT_FOUND')
-      expect(result.message).toBe(ERROR_AXIOS_404.response?.data?.message)
-    })
-
-    it('should convert AxiosError without response into Exception', () => {
-      // Act
-      const result = TestSubject.fromAxiosError(ERROR_AXIOS)
-
-      // Expect
-      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({
-        $message: ERROR_AXIOS.message,
-        code: ERROR_AXIOS.toJSON().code,
-        isAxiosError: true
-      })
-      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
-      expect(result.message).toBe('No response received.')
+      expect(result).toStrictEqual(expected)
     })
   })
 
   describe('.fromFirebaseError', () => {
-    it('should convert FirebaseError with invalid code into Exception', () => {
+    type Case = Testcase<ExceptionJSON> & {
+      code: 'invalid' | 'valid'
+      error: FirebaseError
+    }
+
+    const cases: Case[] = [
+      {
+        code: 'invalid',
+        error: ERROR_FIREBASE_INVALID_CODE,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            code: ERROR_FIREBASE_INVALID_CODE.code,
+            isExceptionJSON: true,
+            isFirebaseError: true
+          },
+          errors: [],
+          message: ERROR_FIREBASE_INVALID_CODE.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        }
+      },
+      {
+        code: 'valid',
+        error: ERROR_FIREBASE_404,
+        expected: {
+          className: ExceptionClassName.NOT_FOUND,
+          code: ExceptionCode.NOT_FOUND,
+          data: {
+            code: ERROR_FIREBASE_404.code,
+            isExceptionJSON: true,
+            isFirebaseError: true
+          },
+          errors: [],
+          message: ERROR_FIREBASE_404.message,
+          name: ExceptionId.NOT_FOUND
+        }
+      }
+    ]
+
+    const name = 'should convert error with $code code into Exception'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
       // Act
-      const result = TestSubject.fromFirebaseError(ERROR_FIREBASE_INVALID_CODE)
+      const result = TestSubject.fromFirebaseError(error).toJSON()
 
       // Expect
-      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({
-        code: ERROR_FIREBASE_INVALID_CODE.code,
-        isFirebaseError: true
-      })
-      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
-      expect(result.message).toBe(ERROR_FIREBASE_INVALID_CODE.message)
-    })
-
-    it('should convert FirebaseError with valid code into Exception', () => {
-      // Act
-      const result = TestSubject.fromFirebaseError(ERROR_FIREBASE_404)
-
-      // Expect
-      expect(result.code).toBe(ExceptionCode.NOT_FOUND)
-      expect(result.className).toBe(ExceptionClassName.NOT_FOUND)
-      expect(result.data).toMatchObject({
-        code: ERROR_FIREBASE_404.code,
-        isFirebaseError: true
-      })
-      expect(result.id).toBe('NOT_FOUND')
-      expect(result.message).toBe(ERROR_FIREBASE_404.message)
+      expect(result).toStrictEqual(expected)
     })
   })
 
   describe('.fromNextError', () => {
-    it('should convert NextError with statusCode into Exception', () => {
+    type Case = Testcase<ExceptionJSON> & {
+      error: NextError
+      with: 'with' | 'without'
+    }
+
+    const cases: Case[] = [
+      {
+        error: ERROR_NEXT,
+        expected: {
+          className: ExceptionClassName.BAD_GATEWAY,
+          code: ERROR_NEXT.statusCode as ExceptionCode,
+          data: {
+            isExceptionJSON: true,
+            isNextError: true
+          },
+          errors: [],
+          message: ERROR_NEXT.message,
+          name: ExceptionId.BAD_GATEWAY
+        },
+        with: 'with'
+      },
+      {
+        error: ERROR_NEXT_NO_STATUS,
+        expected: {
+          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+          code: ExceptionCode.INTERNAL_SERVER_ERROR,
+          data: {
+            isExceptionJSON: true,
+            isNextError: true
+          },
+          errors: [],
+          message: ERROR_NEXT_NO_STATUS.message,
+          name: ExceptionId.INTERNAL_SERVER_ERROR
+        },
+        with: 'without'
+      }
+    ]
+
+    const name = 'should convert error $with statusCode into Exception'
+
+    it.each<Case>(cases)(name, testcase => {
+      // Arrange
+      const { error, expected } = testcase
+
       // Act
-      const result = TestSubject.fromNextError(ERROR_NEXT)
+      const result = TestSubject.fromNextError(error).toJSON()
 
       // Expect
-      expect(result.code).toBe(ERROR_NEXT.statusCode)
-      expect(result.className).toBe(ExceptionClassName.BAD_GATEWAY)
-      expect(result.data).toMatchObject({ isNextError: true })
-      expect(result.id).toBe('BAD_GATEWAY')
-      expect(result.message).toBe(ERROR_NEXT.message)
-    })
-
-    it('should convert NextError without statusCode into Exception', () => {
-      // Act
-      const result = TestSubject.fromNextError(ERROR_NEXT_NO_STATUS)
-
-      // Expect
-      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
-      expect(result.data).toMatchObject({ isNextError: true })
-      expect(result.id).toBe('INTERNAL_SERVER_ERROR')
-      expect(result.message).toBe(ERROR_NEXT_NO_STATUS.message)
+      expect(result).toStrictEqual(expected)
     })
   })
 
@@ -238,10 +365,10 @@ describe('unit:exceptions/Exception', () => {
       const message = 'Test error message'
 
       // Act + Expect
-      expect(new TestSubject(code, message, data).toJSON()).toMatchObject({
+      expect(new TestSubject(code, message, data).toJSON()).toStrictEqual({
         className: ExceptionClassName.I_AM_A_TEAPOT,
         code,
-        data: { foo: data.foo },
+        data: { foo: data.foo, isExceptionJSON: true },
         errors: [data.errors],
         message,
         name: ExceptionId.I_AM_A_TEAPOT

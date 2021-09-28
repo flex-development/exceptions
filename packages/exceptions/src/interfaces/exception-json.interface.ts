@@ -16,9 +16,8 @@ import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 export interface ExceptionJSON<T extends any = any> {
   readonly className: ClassName
   readonly code: Code
+  readonly data: Readonly<ExceptionData & { isExceptionJSON: true }>
+  readonly errors: Readonly<ExceptionErrors<T>>
   readonly message: string
   readonly name: ExceptionId
-
-  data: ExceptionData
-  errors: ExceptionErrors<T>
 }

@@ -1,4 +1,4 @@
-import type { ObjectPlain } from '@flex-development/tutils'
+import type { JSONObject } from '@flex-development/tutils'
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName,
@@ -15,6 +15,7 @@ import type {
 } from '@packages/exceptions/interfaces'
 import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 import omit from 'lodash.omit'
+import pick from 'lodash.pick'
 import { DEM } from './constants.exceptions'
 
 /**
@@ -80,6 +81,19 @@ export default class Exception<T extends any = any> extends AggregateError {
     this.id = Exception.findIdByCode(this.code)
     this.className = ExceptionClassName[this.id]
     this.stack = stack
+
+    // If data is actually ExceptionJSON, override previously set properties
+    // Note that errors and message is already set by super()
+    ;((): void => {
+      const data = this.data as Omit<ExceptionJSON<T>, 'errors' | 'message'>
+
+      if (data?.data?.isExceptionJSON) {
+        this.code = data.code
+        this.className = data.className
+        this.id = data.name
+        this.data = data.data
+      }
+    })()
   }
 
   /**
@@ -116,7 +130,7 @@ export default class Exception<T extends any = any> extends AggregateError {
   }
 
   /**
-   * Converts an AxiosError into an Exception.
+   * Converts an `AxiosError` into an `Exception`.
    *
    * @template T - Error type
    *
@@ -124,34 +138,78 @@ export default class Exception<T extends any = any> extends AggregateError {
    * @return {Exception<T>} AxiosError as Exception
    */
   static fromAxiosError<T extends any = any>(error: AxiosError): Exception<T> {
-    const { isAxiosError, message, request, response, stack } = error
+    // Spread error object
+    const { isAxiosError = true, message, request, response, stack } = error
 
-    let code = ExceptionCode.INTERNAL_SERVER_ERROR
-    let data: ObjectPlain = { code: error.toJSON().code, isAxiosError }
+    // Request was made and error response received was ExceptionJSON
+    if (response?.data?.data?.isExceptionJSON) {
+      response.data.isAxiosError = true
+      return new Exception<T>(response.status, message, response.data, stack)
+    }
 
-    // Request was made and an error response was received
+    // Get error as json
+    const ejson = error.toJSON()
+
+    // Init Exception code and additional data
+    let code = ejson.status || ExceptionCode.INTERNAL_SERVER_ERROR
+    let data: ExceptionData = {
+      code: ejson.code,
+      config: (() => {
+        const config = pick(ejson.config, [
+          'auth',
+          'baseURL',
+          'data',
+          'headers',
+          'method',
+          'params',
+          'proxy',
+          'responseType',
+          'timeout',
+          'transitional',
+          'url',
+          'withCredentials'
+        ])
+
+        if (ejson.config.cancelToken) {
+          const cancelToken = pick(ejson.config.cancelToken, 'reason')
+          Object.assign(config, { cancelToken })
+        }
+
+        return config
+      })(),
+      isAxiosError
+    }
+
+    // Request was made and unrecognized error response was received
     if (response) {
-      const { data: $data } = response
+      // Spread response
+      const { headers, data: payload, status } = response
 
-      if (Object.keys(ExceptionCode).includes($data?.name ?? '')) {
-        const ejson = $data as ExceptionJSON<T>
-        const data = { ...ejson.data, errors: ejson.errors }
+      // Use response status as error code
+      code = status
 
-        return new Exception<T>(ejson.code, ejson.message, data, stack)
+      // Add response details to exception data
+      data = {
+        ...data,
+        headers,
+        message: typeof payload === 'string' ? payload : payload?.message,
+        payload
       }
-
-      const msg = typeof $data === 'string' ? $data : $data?.message
-
-      code = response.status
-      data = { ...data, data: $data, headers: response.headers, message: msg }
     }
 
-    // Request was made but no response was received
-    if (!response && request) {
-      data = { ...data, $message: message, message: 'No response received.' }
+    // Request was made, but no response was received
+    if (!request) data = { ...data, message: 'No response received.' }
+    else {
+      data.request = pick(request, [
+        'aborted',
+        'code',
+        'host',
+        'path',
+        'protocol'
+      ]) as JSONObject
     }
 
-    return new Exception<T>(code, message, data, stack)
+    return new Exception<T>(code as number, message, data, stack)
   }
 
   /**
@@ -194,19 +252,24 @@ export default class Exception<T extends any = any> extends AggregateError {
   /**
    * Returns a JSON object representing the current Exception.
    *
-   * @return {ExceptionJSON<T>} JSON object representing Exception
+   * To help identify JSON versions of `Exception` class objects, the `data`
+   * property will have an `isExceptionJSON` property added to it.
+   *
+   * @return {Readonly<ExceptionJSON<T>>} JSON object representing Exception
    */
-  toJSON(): ExceptionJSON<T> {
+  toJSON(): Readonly<ExceptionJSON<T>> {
+    const data = Object.freeze({ ...this.data, isExceptionJSON: true })
+
     /* eslint-disable sort-keys */
 
-    return {
+    return Object.freeze({
       name: this.id,
       message: this.message,
       code: this.code,
       className: this.className,
-      data: this.data,
-      errors: this.errors
-    }
+      data: data as ExceptionJSON<T>['data'],
+      errors: Object.freeze(this.errors)
+    })
 
     /* eslint-enable sort-keys */
   }

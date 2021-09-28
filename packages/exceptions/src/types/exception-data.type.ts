@@ -1,5 +1,3 @@
-import type { JSONValue } from '@flex-development/tutils'
-
 /**
  * @file Type Definitions - ExceptionData
  * @module exceptions/types/ExceptionData
@@ -9,5 +7,5 @@ import type { JSONValue } from '@flex-development/tutils'
  * Additional `Exception` data.
  */
 export type ExceptionData = {
-  [x: string]: JSONValue | undefined | unknown
+  [x: string]: any
 }
