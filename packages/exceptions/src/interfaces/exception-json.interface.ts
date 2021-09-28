@@ -1,10 +1,7 @@
 import ClassName from '@packages/exceptions/enums/exception-class-name.enum'
 import Code from '@packages/exceptions/enums/exception-code.enum'
-import type {
-  ExceptionData,
-  ExceptionErrors,
-  ExceptionId
-} from '@packages/exceptions/types'
+import ExceptionId from '@packages/exceptions/enums/exception-id.enum'
+import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 
 /**
  * @file Interface - ExceptionJSON

@@ -1,7 +1,8 @@
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
-  ExceptionClassName as ClassName,
-  ExceptionCode as Code
+  ExceptionClassName,
+  ExceptionCode,
+  ExceptionId
 } from '@packages/exceptions/enums'
 import ERROR_AXIOS from '@packages/exceptions/tests/fixtures/error-axios-no-res.fixture'
 import ERROR_FIREBASE_404 from '@packages/exceptions/tests/fixtures/error-firebase-404.fixture'
@@ -27,7 +28,7 @@ describe('unit:exceptions/Exception', () => {
         const data = { errors: [], message: 'error message override' }
 
         // Act
-        const Subject = new TestSubject(Code.NOT_FOUND, undefined, data)
+        const Subject = new TestSubject(ExceptionCode.NOT_FOUND, null, data)
 
         // Expect
         expect(Subject.data).toContainAllEntries([])
@@ -98,24 +99,42 @@ describe('unit:exceptions/Exception', () => {
   })
 
   describe('.findIdByCode', () => {
-    it('should return exception id', () => {
-      expect(TestSubject.findIdByCode(Code.GONE)).toBe('GONE')
-    })
+    type Case = Testcase<ExceptionId> & { code: any }
 
-    it('should return empty string', () => {
-      expect(TestSubject.findIdByCode(-1)).toBe('')
+    const cases: Case[] = [
+      { code: -1, expected: ExceptionId.INTERNAL_SERVER_ERROR },
+      ...Object.keys(ExceptionId).map(id => ({
+        code: ExceptionCode[id],
+        expected: id as unknown as ExceptionId
+      }))
+    ]
+
+    it.each<Case>(cases)("should return '$expected' given $code", testcase => {
+      // Arrange
+      const { code, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.findIdByCode(code)).toBe(expected)
     })
   })
 
   describe('.formatCode', () => {
-    const code = Code.UNAUTHORIZED
+    type Case = Testcase<ExceptionCode> & { code: any }
 
-    it('should return 500 if exception code is invalid', () => {
-      expect(TestSubject.formatCode(-1 * code)).toBe(500)
-    })
+    const cases: Case[] = [
+      { code: -1, expected: ExceptionCode.INTERNAL_SERVER_ERROR },
+      ...Object.keys(ExceptionId).map(id => ({
+        code: ExceptionCode[id],
+        expected: ExceptionCode[id] as ExceptionCode
+      }))
+    ]
 
-    it('should return exception code if valid', () => {
-      expect(TestSubject.formatCode(code)).toBe(code)
+    it.each<Case>(cases)('should return $expected given $code', testcase => {
+      // Arrange
+      const { code, expected } = testcase
+
+      // Act + Expect
+      expect(TestSubject.formatCode(code)).toBe(expected)
     })
   })
 
@@ -126,7 +145,7 @@ describe('unit:exceptions/Exception', () => {
 
       // Expect
       expect(result.code).toBe(ERROR_AXIOS_404.response?.status)
-      expect(result.className).toBe(ClassName.NOT_FOUND)
+      expect(result.className).toBe(ExceptionClassName.NOT_FOUND)
       expect(result.data).toMatchObject({
         code: ERROR_AXIOS_404.toJSON().code,
         headers: ERROR_AXIOS_404.response?.headers,
@@ -141,8 +160,8 @@ describe('unit:exceptions/Exception', () => {
       const result = TestSubject.fromAxiosError(ERROR_AXIOS)
 
       // Expect
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
+      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
+      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
       expect(result.data).toMatchObject({
         $message: ERROR_AXIOS.message,
         code: ERROR_AXIOS.toJSON().code,
@@ -159,8 +178,8 @@ describe('unit:exceptions/Exception', () => {
       const result = TestSubject.fromFirebaseError(ERROR_FIREBASE_INVALID_CODE)
 
       // Expect
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
+      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
+      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
       expect(result.data).toMatchObject({
         code: ERROR_FIREBASE_INVALID_CODE.code,
         isFirebaseError: true
@@ -174,8 +193,8 @@ describe('unit:exceptions/Exception', () => {
       const result = TestSubject.fromFirebaseError(ERROR_FIREBASE_404)
 
       // Expect
-      expect(result.code).toBe(Code.NOT_FOUND)
-      expect(result.className).toBe(ClassName.NOT_FOUND)
+      expect(result.code).toBe(ExceptionCode.NOT_FOUND)
+      expect(result.className).toBe(ExceptionClassName.NOT_FOUND)
       expect(result.data).toMatchObject({
         code: ERROR_FIREBASE_404.code,
         isFirebaseError: true
@@ -192,7 +211,7 @@ describe('unit:exceptions/Exception', () => {
 
       // Expect
       expect(result.code).toBe(ERROR_NEXT.statusCode)
-      expect(result.className).toBe(ClassName.BAD_GATEWAY)
+      expect(result.className).toBe(ExceptionClassName.BAD_GATEWAY)
       expect(result.data).toMatchObject({ isNextError: true })
       expect(result.id).toBe('BAD_GATEWAY')
       expect(result.message).toBe(ERROR_NEXT.message)
@@ -203,8 +222,8 @@ describe('unit:exceptions/Exception', () => {
       const result = TestSubject.fromNextError(ERROR_NEXT_NO_STATUS)
 
       // Expect
-      expect(result.code).toBe(Code.INTERNAL_SERVER_ERROR)
-      expect(result.className).toBe(ClassName.INTERNAL_SERVER_ERROR)
+      expect(result.code).toBe(ExceptionCode.INTERNAL_SERVER_ERROR)
+      expect(result.className).toBe(ExceptionClassName.INTERNAL_SERVER_ERROR)
       expect(result.data).toMatchObject({ isNextError: true })
       expect(result.id).toBe('INTERNAL_SERVER_ERROR')
       expect(result.message).toBe(ERROR_NEXT_NO_STATUS.message)
@@ -214,18 +233,18 @@ describe('unit:exceptions/Exception', () => {
   describe('#toJSON', () => {
     it('should return json representation of Exception', () => {
       // Arrange
-      const code = Code.I_AM_A_TEAPOT
+      const code = ExceptionCode.I_AM_A_TEAPOT
       const data = { errors: { test: true }, foo: '' }
       const message = 'Test error message'
 
       // Act + Expect
       expect(new TestSubject(code, message, data).toJSON()).toMatchObject({
-        className: ClassName.I_AM_A_TEAPOT,
+        className: ExceptionClassName.I_AM_A_TEAPOT,
         code,
         data: { foo: data.foo },
         errors: [data.errors],
         message,
-        name: 'I_AM_A_TEAPOT'
+        name: ExceptionId.I_AM_A_TEAPOT
       })
     })
   })

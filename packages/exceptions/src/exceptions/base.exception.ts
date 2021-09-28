@@ -1,21 +1,19 @@
 import type { ObjectPlain } from '@flex-development/tutils'
 import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
-import { ExceptionClassName } from '@packages/exceptions/enums/exception-class-name.enum'
-import { ExceptionCode } from '@packages/exceptions/enums/exception-code.enum'
-import { FirebaseErrorCode } from '@packages/exceptions/enums/firebase-error-code.enum'
-import { FirebaseErrorStatusCode } from '@packages/exceptions/enums/firebase-error-status-code.enum'
+import {
+  ExceptionClassName,
+  ExceptionCode,
+  ExceptionId,
+  FirebaseErrorCode,
+  FirebaseErrorStatusCode
+} from '@packages/exceptions/enums'
 import type {
   AxiosError,
   ExceptionJSON,
   FirebaseError,
   NextError
 } from '@packages/exceptions/interfaces'
-import type {
-  EmptyString,
-  ExceptionData,
-  ExceptionErrors,
-  ExceptionId
-} from '@packages/exceptions/types'
+import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 import omit from 'lodash.omit'
 import { DEM } from './constants.exceptions'
 
@@ -79,33 +77,42 @@ export default class Exception<T extends any = any> extends AggregateError {
     this.name = 'Exception'
     this.code = Exception.formatCode(code)
     this.data = omit(data, ['errors', 'message'])
-    this.id = Exception.findIdByCode(this.code) || 'INTERNAL_SERVER_ERROR'
+    this.id = Exception.findIdByCode(this.code)
     this.className = ExceptionClassName[this.id]
     this.stack = stack
   }
 
   /**
-   * Finds the name of an exception by status code.
+   * Finds a HTTP error response status name by status code.
+   *
+   * If the name isn't found, `INTERNAL_SERVER_ERROR` will be returned.
    *
    * @param {ExceptionCode} code - HTTP status code
-   * @return {ExceptionId | EmptyString} - Name of exception or empty string
+   * @return {ExceptionId} - Name of exception or empty string
    */
-  static findIdByCode(code: ExceptionCode): ExceptionId | EmptyString {
-    const name = Object.keys(ExceptionCode).find(key => {
-      return ExceptionCode[key] === code
-    })
+  static findIdByCode(code: ExceptionCode): ExceptionId {
+    // Default Exception id
+    const id = ExceptionId.INTERNAL_SERVER_ERROR
 
-    return (name as ExceptionId) || ''
+    // Get Exception IDs
+    const ids = Object.keys(ExceptionId) as unknown as ExceptionId[]
+
+    // Return HTTP error response status id or default id
+    return ids.find(id => ExceptionCode[id as unknown as string] === code) || id
   }
 
   /**
-   * Returns `500` if `code` is not a valid exception status code.
+   * Returns `500` if `code` is not a valid `Exception` status code.
    *
-   * @param {any} [code] - Value to validate
+   * @param {any} [code] - Possible status code
    * @return {ExceptionCode} Exception status code
    */
   static formatCode(code?: any): ExceptionCode {
-    return Object.values(ExceptionCode).includes(code) ? code : 500
+    // Get status codes
+    const codes = Object.values(ExceptionId).map(id => ExceptionCode[id])
+
+    // Return original status code if found, default status code otherwise
+    return codes.includes(code) ? code : ExceptionCode.INTERNAL_SERVER_ERROR
   }
 
   /**
