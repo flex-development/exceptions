@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-dev.0](https://github.com/flex-development/exceptions/compare/exceptions@4.0.1...exceptions@5.0.0-dev.0) (2021-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **hybrid:** esm-cjs hybrid migration
+
+  - drop `.js` extensions
+  - drop `esm2015` and `esm5` build outputs
+  - remove `browser`, `es2015`, and `umd` package entrypoints
+  - update bundle filenames and locations
+
+### :hammer: Build
+
+* **hybrid:** esm-cjs hybrid migration ([556dc22](https://github.com/flex-development/exceptions/commit/556dc220bbb1aa3d129bfcae73460d11b4ef8ed1))
+
+
+### :pencil2: Housekeeping
+
+* **release:** set package version ([101dffb](https://github.com/flex-development/exceptions/commit/101dffb949a701bd91e33f2783c12659a6a628e9))
+
 ### [4.0.1](https://github.com/flex-development/exceptions/compare/exceptions@4.0.0...exceptions@4.0.1) (2021-09-28)
 
 
