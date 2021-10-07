@@ -1,5 +1,3 @@
-const prettierConfig = require('./.prettierrc')
-
 /**
  * @file ESLint Configuration - Base
  * @see https://eslint.org/docs/user-guide/configuring
@@ -26,7 +24,7 @@ module.exports = {
       impliedStrict: true,
       jsx: true
     },
-    extraFileExtensions: ['cjs'],
+    extraFileExtensions: ['.cjs', '.mjs'],
     project: ['./packages/**/tsconfig.json', './tsconfig.json'],
     sourceType: 'module',
     tsconfigRootDir: __dirname,
@@ -87,7 +85,7 @@ module.exports = {
     ],
     'no-ex-assign': 0,
     'prefer-arrow-callback': 2,
-    'prettier/prettier': [2, prettierConfig],
+    'prettier/prettier': [2, require('./.prettierrc.cjs')],
     'sort-keys': [
       1,
       'asc',
@@ -116,16 +114,21 @@ module.exports = {
         skipWordIfMatch: [],
         skipWords: [
           'argv',
+          'basedir',
           'bundlers',
           'cjs',
           'commitlint',
+          'commonjs',
           'cmd',
           'dotenv',
           'enum',
           'esm',
-          'esm5',
+          'extensionless',
           'formatter',
+          'loadenv',
+          'mjs',
           'perf',
+          'pkgfile',
           'pnv',
           'postinstall',
           'prepack',
@@ -134,14 +137,17 @@ module.exports = {
           'stderr',
           'stdout',
           'tgz',
+          'tsc',
           'tsconfig',
           'ttsc',
           'typeof',
           'umd',
           'usr',
+          'wasm',
           'wip',
           'workspace',
-          'workspaces'
+          'workspaces',
+          'yargs'
         ],
         strings: true
       }
@@ -220,31 +226,34 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.cjs', '**/*.js', '**/*.md/*.js'],
-      parser: `${__dirname}/node_modules/@babel/eslint-parser/lib/index.cjs`,
-      parserOptions: {
-        requireConfigFile: false
-      },
-      rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 0,
-        '@typescript-eslint/no-var-requires': 0
-      }
-    },
-    {
-      files: ['**/*.cjs', '*.js'],
+      files: ['**/*.cjs'],
       rules: {
         'unicorn/prefer-module': 0
       }
     },
     {
+      files: ['**/*.cjs', '**/*.md/*.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 0
+      }
+    },
+    {
+      files: ['**/*.cjs', '**/*.mjs'],
+      parser: `${__dirname}/node_modules/@babel/eslint-parser/lib/index.cjs`,
+      parserOptions: {
+        requireConfigFile: false
+      }
+    },
+    {
       files: ['**/*.md'],
+      extends: ['plugin:markdownlint/recommended'],
+      parser: require.resolve('eslint-plugin-markdownlint/parser'),
       processor: 'markdown/markdown'
     },
     {
       files: ['**/*.md/*.ts'],
       parser: require.resolve('@typescript-eslint/parser')
     },
-
     {
       files: ['**/*.spec.ts'],
       env: {
@@ -273,7 +282,7 @@ module.exports = {
       }
     },
     {
-      files: ['**/__mocks__/**', '**/__tests__/**', '**/tools/**', '*.js'],
+      files: ['**/__mocks__/**', '**/__tests__/**', '**/tools/**'],
       rules: {
         'tree-shaking/no-side-effects-in-initialization': 0
       }
@@ -284,6 +293,12 @@ module.exports = {
         '@typescript-eslint/ban-types': 0,
         '@typescript-eslint/triple-slash-reference': 0,
         'unicorn/filename-case': 0
+      }
+    },
+    {
+      files: ['tools/loaders/env.cjs'],
+      rules: {
+        'unicorn/no-array-reduce': 0
       }
     }
   ],

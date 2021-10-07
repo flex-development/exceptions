@@ -3,15 +3,15 @@
 import grease from '@flex-development/grease'
 import type { IGreaseOptions } from '@flex-development/grease/interfaces'
 import logger from '@flex-development/grease/utils/logger.util'
-import { LogLevel } from '@flex-development/log/enums/log-level.enum'
+import LogLevel from '@flex-development/log/enums/log-level.enum'
 import ch from 'chalk'
 import merge from 'lodash.merge'
-import pick from 'lodash.pick'
 import sh from 'shelljs'
 import { inspect } from 'util'
+import type { Argv } from 'yargs'
+import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import yargs from 'yargs/yargs'
-import { $name, $name_no_scope } from '../helpers/pkg-get'
+import { $WORKSPACE, $WORKSPACE_NO_SCOPE } from '../helpers/pkg'
 
 /**
  * @file CLI - Release Workflow
@@ -87,25 +87,22 @@ export type ReleaseOptions = {
   skip?: IGreaseOptions['skip']
 }
 
-/**
- * @property {yargs.Argv} args - Command line arguments parser
- * @see https://github.com/yargs/yargs
- */
+/** @property {Argv<IGreaseOptions>} args - CLI arguments parser */
 const args = yargs(hideBin(process.argv))
   .usage('$0 [options]')
-  .option('commit-all', {
+  .option('commitAll', {
     alias: 'a',
     default: true,
     describe: 'commit all staged changes, not just release files',
     type: 'boolean'
   })
-  .option('dry-run', {
+  .option('dryRun', {
     alias: 'd',
     default: false,
     describe: 'see the commands that running release would run',
     type: 'boolean'
   })
-  .option('first-release', {
+  .option('firstRelease', {
     alias: 'f',
     default: false,
     describe: 'is this the first release?',
@@ -122,62 +119,47 @@ const args = yargs(hideBin(process.argv))
     requiresArg: true,
     type: 'string'
   })
-  .option('release-as', {
+  .option('releaseAs', {
     alias: 'r',
     describe: 'specify release type (like npm version <major|minor|patch>)',
     requiresArg: true,
     type: 'string'
   })
-  .option('release-draft', {
+  .option('releaseDraft', {
     default: true,
     describe: 'release as a draft instead of publishing it',
     type: 'boolean'
   })
   .option('skip', {
-    describe: 'map of steps in the release process that should be skipped'
+    describe: 'map of steps in the release process that should be skipped',
+    type: 'array'
   })
   .alias('help', 'h')
   .pkgConf('release')
-  .wrap(98)
+  .wrap(98) as Argv<IGreaseOptions>
 
-/**
- * @property {IGreaseOptions & ReleaseOptions} argv - Command line arguments
- */
-const argv: IGreaseOptions & ReleaseOptions = pick(
-  args.argv as IGreaseOptions & ReleaseOptions,
-  [
-    'commitAll',
-    'dryRun',
-    'firstRelease',
-    'path',
-    'prerelease',
-    'releaseAs',
-    'releaseDraft',
-    'skip'
-  ]
-)
+/** @property {ReleaseOptions} argv - CLI arguments object */
+const argv = args.argv as ReleaseOptions
 
-/**
- * @property {IGreaseOptions} options - `grease` options
- */
+/** @property {IGreaseOptions} options - `grease` options */
 const options: IGreaseOptions = {
   commitAll: true,
   gitTagFallback: false,
   gitdir: process.env.PROJECT_CWD,
-  lernaPackage: $name_no_scope,
+  lernaPackage: $WORKSPACE_NO_SCOPE,
   releaseAssets: ['./*.tgz'],
   releaseBranchWhitelist: ['release/*'],
-  releaseCommitMessageFormat: `release: ${$name}@{{currentTag}}`,
+  releaseCommitMessageFormat: `release: ${$WORKSPACE}@{{currentTag}}`,
   scripts: {
-    postchangelog: `yarn workspace ${$name} build -t ${(argv.d && '-d') || ''}`,
-    postcommit: 'git push --no-verify',
-    postgreaser: 'rimraf ./*.tgz',
-    prerelease: `yarn workspace ${$name} test --no-cache`
+    postchangelog: `yarn pack -o %s-%v.tgz ${(argv.d && '-n') || ''}`.trim(),
+    postcommit: 'git pnv',
+    postgreaser: 'yarn clean:build && rimraf ./*.tgz',
+    prerelease: 'yarn test --no-cache'
   },
   // `continuous-deployment` workflow will create new tag
   skip: { tag: true },
   skipUnstable: false,
-  tagPrefix: `${$name_no_scope}@`,
+  tagPrefix: `${$WORKSPACE_NO_SCOPE}@`,
   types: [
     /* eslint-disable sort-keys */
     { type: 'feat', section: ':sparkles: Features' },
@@ -201,7 +183,7 @@ const options: IGreaseOptions = {
 logger(
   argv,
   'starting release workflow',
-  [$name, `[dry=${argv.dryRun}]`],
+  [$WORKSPACE, `[dry=${argv.dryRun}]`],
   LogLevel.INFO
 )
 

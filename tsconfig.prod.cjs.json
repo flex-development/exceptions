@@ -11,7 +11,8 @@
       ],
       "@packages/exceptions/*": ["packages/exceptions/src/*"],
       "@packages/exceptions": ["packages/exceptions/src/index.ts"]
-    }
+    },
+    "target": "es5"
   },
   "extends": "./tsconfig.prod.json"
 }

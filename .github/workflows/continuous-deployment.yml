@@ -88,7 +88,7 @@ jobs:
       PAT_GPR: ${{ secrets.PAT_GPR_ADMIN }}
     strategy:
       matrix:
-        node: [16]
+        node: [16.0.0]
     steps:
       - id: checkout
         name: Checkout branch
@@ -109,25 +109,22 @@ jobs:
         run: yarn --immutable
         env:
           NODE_AUTH_TOKEN: ${{ env.PAT_GPR }}
+      - id: env
+        name: Set environment variables
+        run: node ./tools/cli/loadenv.cjs -gc=production
       - id: build
         name: Build project
         working-directory: ${{ needs.deployment-info.outputs.directory }}
         run: yarn build --tarball
-        env:
-          NODE_ENV: production
-          NODE_OPTIONS: -r tsconfig-paths/register
-      - id: disable-prepack-script
-        name: Disable prepack script
-        working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: node_modules/.bin/toggle-scripts -prepack
+      - id: unset-node-options
+        name: Unset NODE_OPTIONS
+        run: echo "NODE_OPTIONS=''" >> $GITHUB_ENV
       - id: publish-to-gpr
         name: Publish package [GPR]
         working-directory: ${{ needs.deployment-info.outputs.directory }}
         run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
         env:
           NODE_AUTH_TOKEN: ${{ env.PAT_GPR }}
-          NODE_ENV: production
-          NODE_OPTIONS: -r tsconfig-paths/register
       - id: setup-npmrc-npm
         name: Setup .npmrc file [NPM]
         uses: actions/setup-node@v2
@@ -143,12 +140,6 @@ jobs:
         run: npm publish ${{ needs.deployment-info.outputs.publish_args }}
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
-          NODE_ENV: production
-          NODE_OPTIONS: -r tsconfig-paths/register
-      - id: renable-prepack-script
-        name: Renable prepack script
-        working-directory: ${{ needs.deployment-info.outputs.directory }}
-        run: node_modules/.bin/toggle-scripts +prepack
   update-production-branch:
     name: Update production branch
     needs: publish-package
@@ -192,27 +183,3 @@ jobs:
                 tag_name: process.env.tag 
               })
             }
-  add-status-released-label:
-    name: Add status:released label to merged issues
-    needs: publish-release
-    runs-on: ubuntu-latest
-    steps:
-      - id: add
-        name: Add status:released label to merged issues
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const opts = github.issues.listForRepo(context.repo)
-            const issues = await github.paginate(opts)
-
-            await Promise.all(issues.map(async ({ labels, number }) => {
-              return labels && Promise.all(labels.map(async ({ name }) => {
-                if (name !== 'status:merged') return
-
-                return await github.issues.addLabels({
-                  ...context.repo,
-                  issue_number: number,
-                  labels: ['status:released']
-                })
-              }))
-            }))

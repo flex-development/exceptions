@@ -1,22 +1,25 @@
 # Prettier Ignore
 # See: https://prettier.io/docs/en/ignore.html
 
-.yarn/
-coverage/
-node_modules/
-packages/*/build/
-packages/*/cjs/
-packages/*/dist/
-packages/*/esm5/
-packages/*/esm2015/
-packages/*/types/
+**/coverage/*
+**/node_modules/*
+.husky/_/*
+.yarn/*
+packages/*/build/*
+packages/*/cjs/*
+packages/*/esm/*
+packages/*/types/*
 
 **/CHANGELOG.md
-.eslintignore
-.env.*
-.env
-.gitconfig
-.gitignore
-.gitkeep
-.prettierignore
+
+**/.eslintignore
+**/.env.*
+**/.env
+**/.gitconfig
+**/.gitignore
+**/.gitkeep
+**/.prettierignore
+**/*.markdownlintignore
 yarn.lock
+
+!packages/src/types/*

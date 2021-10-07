@@ -1,5 +1,6 @@
-import type { JSONObject, NullishString } from '@flex-development/tutils'
-import type { ExceptionDataDTO } from '@packages/exceptions/dtos'
+import type { JSONObject } from '@flex-development/tutils'
+import { NullishString } from '@flex-development/tutils'
+import { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
   ExceptionClassName,
   ExceptionCode,
@@ -7,13 +8,13 @@ import {
   FirebaseErrorCode,
   FirebaseErrorStatusCode
 } from '@packages/exceptions/enums'
-import type {
+import {
   AxiosError,
   ExceptionJSON,
   FirebaseError,
   NextError
 } from '@packages/exceptions/interfaces'
-import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
+import { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 import omit from 'lodash.omit'
 import pick from 'lodash.pick'
 import { DEM } from './constants.exceptions'

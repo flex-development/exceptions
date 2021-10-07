@@ -1,7 +1,5 @@
 import logger from '@flex-development/grease/utils/logger.util'
-import { LogLevel } from '@flex-development/log/enums/log-level.enum'
-import { ExceptionCode } from '@packages/exceptions/enums'
-import Exception from '@packages/exceptions/exceptions/base.exception'
+import LogLevel from '@flex-development/log/enums/log-level.enum'
 import type { ChildProcess } from 'child_process'
 import sh from 'shelljs'
 
@@ -16,8 +14,8 @@ import sh from 'shelljs'
  * @param {string} command - Command
  * @param {boolean} [dryRun=false] - Log command that would be run
  * @param {sh.ExecOptions} [options={silent:true}] - `sh.exec` options
- * @return {string} Command output or command
- * @throws {Exception}
+ * @return {string | void} Command output, command, or nothing
+ * @throws {Error}
  */
 const exec = (
   command: string,
@@ -33,27 +31,20 @@ const exec = (
   // Command output
   let stdout: ChildProcess | sh.ShellString | null = null
 
-  // Log command during dry runs, otherwise execute command
+  // Log command during dry runs, execute command otherwise
   if (dryRun) logger({}, command, [], LogLevel.WARN)
   else stdout = sh.exec(command, options) as sh.ShellString | null
 
   // Throw Exception if error executing command
   if (stdout && stdout.code !== 0) {
-    throw new Exception(ExceptionCode.INTERNAL_SERVER_ERROR, undefined, {
-      code: stdout.code,
-      message: (stdout.stderr || stdout.stdout).toString()
-    })
+    const error = new Error((stdout.stderr || stdout.stdout).toString())
+    ;(error as any).code = stdout.code
+
+    throw error
   }
 
-  // Rollup seems to pipe everything to stdout.stderr
-  if (command.includes('rollup') && stdout?.stderr) {
-    return new sh.ShellString(stdout.stderr).toString()
-  }
-
-  // Format command output
-  if (stdout && stdout.length > 0) return stdout.toString().replaceAll('\n', '')
-
-  return command
+  // Format command output or return original command
+  return stdout && stdout.length > 0 ? stdout.toString() : command
 }
 
 export default exec

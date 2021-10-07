@@ -20,7 +20,6 @@
   "contributors": [
     {
       "name": "Lexus Drumgold",
-      "email": "unicornware@flexdevlopment.llc",
       "url": "https://github.com/unicornware"
     }
   ],
@@ -28,72 +27,105 @@
     "access": "public",
     "directory": "./"
   },
+  "type": "module",
   "files": [
     "cjs",
-    "dist",
-    "esm5",
-    "esm2015",
+    "esm",
     "types",
-    ".env",
-    ".env.production",
     "CHANGELOG.md"
   ],
   "exports": {
-    ".": "./dist/exceptions.esm5.js",
-    "./dtos": "./esm5/dtos/index.js",
-    "./dtos/*": "./esm5/dtos/*.js",
-    "./enums": "./esm5/enums/index.js",
-    "./enums/*": "./esm5/enums/*.js",
-    "./exceptions": "./esm5/exceptions/index.js",
-    "./exceptions/*": "./esm5/exceptions/*.js",
-    "./interfaces": "./esm5/interfaces/index.js",
-    "./interfaces/*": "./esm5/interfaces/*.js",
+    ".": {
+      "import": "./esm/exceptions.mjs",
+      "require": "./cjs/exceptions.cjs"
+    },
+    "./": {
+      "import": "./esm/*.mjs",
+      "require": "./cjs/*.cjs"
+    },
+    "./cjs/*": "./cjs/*.cjs",
+    "./dtos": {
+      "import": "./esm/dtos/index.mjs",
+      "require": "./cjs/dtos/index.cjs"
+    },
+    "./dtos/*": {
+      "import": "./esm/dtos/*.mjs",
+      "require": "./cjs/dtos/*.cjs"
+    },
+    "./enums": {
+      "import": "./esm/enums/index.mjs",
+      "require": "./cjs/enums/index.cjs"
+    },
+    "./enums/*": {
+      "import": "./esm/enums/*.mjs",
+      "require": "./cjs/enums/*.cjs"
+    },
+    "./esm/*": "./esm/*.mjs",
+    "./exceptions": {
+      "import": "./esm/exceptions/index.mjs",
+      "require": "./cjs/exceptions/index.cjs"
+    },
+    "./exceptions/*": {
+      "import": "./esm/exceptions/*.mjs",
+      "require": "./cjs/exceptions/*.cjs"
+    },
+    "./interfaces": {
+      "import": "./esm/interfaces/index.mjs",
+      "require": "./cjs/interfaces/index.cjs"
+    },
+    "./interfaces/*": {
+      "import": "./esm/interfaces/*.mjs",
+      "require": "./cjs/interfaces/*.cjs"
+    },
     "./package.json": "./package.json",
-    "./types": "./esm5/types/index.js",
-    "./types/*": "./esm5/types/*.js"
+    "./types": {
+      "import": "./esm/types/index.mjs",
+      "require": "./cjs/types/index.cjs"
+    },
+    "./types/*": {
+      "import": "./esm/types/*.mjs",
+      "require": "./cjs/types/*.cjs"
+    }
   },
-  "browser": "./dist/exceptions.umd.min.js",
-  "main": "./dist/exceptions.umd.js",
-  "module": "./dist/exceptions.esm5.js",
-  "es2015": "./dist/exceptions.esm2015.js",
+  "main": "./cjs/exceptions.min.cjs",
+  "module": "./esm/exceptions.min.mjs",
   "typings": "./types/index.d.ts",
   "scripts": {
     "test": "bash ../../tools/scripts/jest.sh",
-    "build": "ts-node ../../tools/cli/build-pkg",
-    "prepack": "yarn build",
-    "release": "ts-node ../../tools/cli/release"
+    "build": "node ../../tools/cli/build-pkg.ts",
+    "prepack": "toggle-scripts -postinstall && yarn build",
+    "postpack": "toggle-scripts +postinstall",
+    "release": "node ../../tools/cli/release.ts",
+    "prepublishOnly": "toggle-scripts -prepack",
+    "postpublish": "toggle-scripts +prepack"
   },
   "dependencies": {
-    "@flex-development/tutils": "3.1.7",
+    "@flex-development/tutils": "4.0.0-dev.0",
     "lodash.isplainobject": "4.0.6",
     "lodash.omit": "4.5.0",
     "lodash.pick": "4.4.0"
   },
   "devDependencies": {
-    "@jest/types": "27.1.1",
+    "@firebase/util": "1.4.0",
+    "@jest/types": "27.2.4",
     "@packages/exceptions": "link:src",
-    "@rollup/plugin-commonjs": "20.0.0",
-    "@rollup/plugin-node-resolve": "13.0.5",
-    "@rollup/plugin-typescript": "8.2.5",
     "@tests/utils": "link:../../__tests__/utils",
     "@types/faker": "5.5.8",
     "@types/jest": "27.0.2",
     "@types/lodash.isplainobject": "4.0.6",
     "@types/lodash.omit": "4.5.6",
     "@types/lodash.pick": "4.4.6",
-    "@types/node": "16.10.1",
+    "@types/node": "16.0.0",
     "@types/rimraf": "3.0.2",
     "@vates/toggle-scripts": "1.0.0",
+    "@vercel/ncc": "0.31.1",
     "@zerollup/ts-transform-paths": "1.7.18",
-    "axios": "0.21.4",
-    "dotenv-cli": "4.0.0",
+    "axios": "0.22.0",
+    "convert-extension": "0.3.0",
     "faker": "5.5.3",
-    "firebase-admin": "9.11.1",
-    "jest": "27.2.2",
+    "jest": "27.2.4",
     "jest-extended": "0.11.5",
     "rimraf": "3.0.2",
-    "rollup": "2.57.0",
-    "rollup-plugin-terser": "7.0.2",
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
     "tslib": "2.3.1",

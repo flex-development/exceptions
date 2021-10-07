@@ -1,12 +1,15 @@
 # ESLint Ignore
 # https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
 
-.yarn/
-coverage/
-node_modules/
+**/coverage/*
+**/node_modules/*
+
+.yarn/*
 packages/*/build/
-packages/*/cjs/
-packages/*/dist/
-packages/*/esm5/
-packages/*/esm2015/
-packages/*/types/
+packages/*/cjs/*
+packages/*/esm/*
+packages/*/types/*
+
+**/CHANGELOG.md
+
+!packages/src/types/*

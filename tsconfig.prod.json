@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "inlineSourceMap": true,
     "inlineSources": true,
     "noEmit": false,
+    "noEmitOnError": true,
     "outDir": "./build",
     "plugins": [
       {
@@ -12,18 +14,18 @@
       }
     ],
     "removeComments": false,
+    "resolveJsonModule": false,
     "rootDir": "./src",
     "skipLibCheck": true,
-    "sourceMap": true
+    "stripInternal": true,
+    "useDefineForClassFields": true
   },
   "exclude": [
     "**/__mocks__",
     "**/__tests__",
     "./build",
     "./cjs",
-    "./dist",
-    "./esm5",
-    "./esm2015",
+    "./esm",
     "./node_modules",
     "./types"
   ],

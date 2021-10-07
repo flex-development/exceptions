@@ -1,7 +1,5 @@
-require('ts-node').register(require('./tsconfig.json'))
-require('tsconfig-paths/register')
-
-const workspaces = require('./tools/helpers/workspaces').default
+import type { UserConfig } from '@commitlint/types'
+import workspaces from './tools/helpers/workspaces'
 
 /**
  * @file Commitlint Configuration
@@ -9,14 +7,14 @@ const workspaces = require('./tools/helpers/workspaces').default
  * @see https://commitlint.js.org/#/reference-configuration
  */
 
-module.exports = {
+const config: UserConfig = {
   /**
    * Enable default ignore rules.
    */
   defaultIgnores: true,
 
   /**
-   * IDs of commitlint configurations.
+   * IDs of commitlint configurations to extend.
    */
   extends: ['@commitlint/config-conventional'],
 
@@ -48,12 +46,17 @@ module.exports = {
       2,
       'always',
       [
+        'cjs',
         'deploy',
         'deps',
         'deps-dev',
+        'deps-opt',
         'deps-peer',
+        'esm',
         'github',
+        'hybrid',
         'release',
+        'scripts',
         'tests',
         'tools',
         'typescript',
@@ -90,3 +93,5 @@ module.exports = {
     ]
   }
 }
+
+export default config

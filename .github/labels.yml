@@ -36,12 +36,20 @@
   description: CI/CD
   color: 74cefc
 
+- name: scope:cjs
+  description: CommonJS
+  color: 74cefc
+
 - name: scope:deploy-release
   description: Package deployment and release tasks
   color: 74cefc
 
 - name: scope:deps
   description: Dependency (dev, peer, production, and optional) updates
+  color: 74cefc
+
+- name: scope:esm
+  description: ES modules
   color: 74cefc
 
 - name: scope:exceptions
