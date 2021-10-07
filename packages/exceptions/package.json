@@ -1,7 +1,7 @@
 {
   "name": "@flex-development/exceptions",
   "description": "Custom error handling",
-  "version": "4.0.1",
+  "version": "5.0.0-dev.0",
   "keywords": [
     "error handling",
     "exceptions",
