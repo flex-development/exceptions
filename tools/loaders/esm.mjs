@@ -13,13 +13,19 @@ import useDualExports from '../helpers/use-dual-exports.mjs'
 
 /** @typedef {'builtin'|'commonjs'|'dynamic'|'json'|'module'|'wasm'} Format */
 
+const NODE_MODULES = process.env.NODE_MODULES
+const PROJECT_CWD = process.env.PROJECT_CWD
+
 // ! Add ESM-compatible export statement to `exports.default` statements
 // ! Fixes: `TypeError: logger is not a function`
-useDualExports([`${process.env.NODE_MODULES}/@flex-development/grease/cjs/**`])
+useDualExports([
+  `${NODE_MODULES}/@flex-development/grease/cjs/**`,
+  `${PROJECT_CWD}/${NODE_MODULES}/@flex-development/grease/cjs/**`
+])
 
 // ! Fixes: `Error: Cannot find module '../loaders/env.cjs'`
 ;(() => {
-  const PACKAGE = `${process.env.NODE_MODULES}/@flex-development/log`
+  const PACKAGE = `${NODE_MODULES}/@flex-development/log`
   const PACKAGE_JSON = `${PACKAGE}/package.json`
 
   if (fs.existsSync(PACKAGE_JSON)) {
