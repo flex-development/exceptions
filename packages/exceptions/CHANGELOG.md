@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-dev.1](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0-dev.0...exceptions@5.0.0-dev.1) (2021-10-10)
+
+
+### :hammer: Build
+
+* **deps-dev:** add `trext`, drop `convert-extension` ([1d2b7d6](https://github.com/flex-development/exceptions/commit/1d2b7d67f0857e4c12a92b5179b008e54ea953fe))
+* **deps-dev:** interactive upgrades ([d0c9e27](https://github.com/flex-development/exceptions/commit/d0c9e27e66566692965f404c9d03163b23cc052f))
+
 ## [5.0.0-dev.0](https://github.com/flex-development/exceptions/compare/exceptions@4.0.1...exceptions@5.0.0-dev.0) (2021-10-07)
 
 
