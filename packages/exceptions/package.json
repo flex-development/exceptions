@@ -108,7 +108,7 @@
   "devDependencies": {
     "@firebase/util": "1.4.0",
     "@flex-development/trext": "1.0.0",
-    "@jest/types": "27.2.4",
+    "@jest/types": "27.2.5",
     "@packages/exceptions": "link:src",
     "@tests/utils": "link:../../__tests__/utils",
     "@types/faker": "5.5.8",
@@ -123,7 +123,7 @@
     "@zerollup/ts-transform-paths": "1.7.18",
     "axios": "0.22.0",
     "faker": "5.5.3",
-    "jest": "27.2.4",
+    "jest": "27.2.5",
     "jest-extended": "0.11.5",
     "rimraf": "3.0.2",
     "ts-jest": "27.0.5",
