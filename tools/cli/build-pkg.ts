@@ -2,8 +2,9 @@
 
 import logger from '@flex-development/grease/utils/logger.util'
 import LogLevel from '@flex-development/log/enums/log-level.enum'
+import type { TrextOptions } from '@flex-development/trext'
+import { trext } from '@flex-development/trext'
 import ncc from '@vercel/ncc'
-import convertExtension from 'convert-extension'
 import fs from 'fs-extra'
 import path from 'path'
 import type { PackageJson } from 'read-pkg'
@@ -241,17 +242,21 @@ async function build(): Promise<void> {
       fixNodeModulePaths()
 
       if (format !== 'types') {
-        // Get output extension
-        const ext = `${format === 'cjs' ? 'c' : 'm'}js`
+        // Get extension transformation options
+        const topts: TrextOptions<'js', 'cjs' | 'mjs'> = {
+          babel: { sourceMaps: 'inline' as const },
+          from: 'js',
+          pattern: /.js$/,
+          to: `${format === 'cjs' ? 'c' : 'm'}js`
+        }
 
         // Convert TypeScript output to .cjs or .mjs
-        // See: https://github.com/peterjwest/convert-extension
-        !argv.dryRun && (await convertExtension(`${format}/`, 'js', ext))
-        logger(argv, `use .${ext} extensions`)
+        !argv.dryRun && (await trext<'js' | 'cjs' | 'mjs'>(`${format}/`, topts))
+        logger(argv, `use .${topts.to} extensions`)
 
         // Create bundles
         const BUNDLES = BUNDLE_NAMES.map(async name => {
-          const bundle = `${format}/${name}.${ext}`
+          const bundle = `${format}/${name}.${topts.to}`
           const filename = 'src/index.ts'
           const minify = path.extname(name) === '.min'
 
