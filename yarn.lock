@@ -703,7 +703,7 @@ __metadata:
   dependencies:
     "@firebase/util": 1.4.0
     "@flex-development/trext": 1.0.0
-    "@flex-development/tutils": 4.0.0-dev.0
+    "@flex-development/tutils": 4.0.0
     "@jest/types": 27.2.5
     "@packages/exceptions": "link:src"
     "@tests/utils": "link:../../__tests__/utils"
@@ -933,13 +933,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/tutils@npm:4.0.0-dev.0":
-  version: 4.0.0-dev.0
-  resolution: "@flex-development/tutils@npm:4.0.0-dev.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F4.0.0-dev.0%2F4ba2c5d856a1f3842a7a4b173d2612cfd23a4a1168d5ac423d5a124cd3690973"
+"@flex-development/tutils@npm:4.0.0":
+  version: 4.0.0
+  resolution: "@flex-development/tutils@npm:4.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F4.0.0%2F8c3d08319858fbb6ccfbba578de22922f80294a7fceb90e9fefb6e2d1e5e32b4"
   peerDependencies:
-    "@types/node": ">=12.20.0"
+    "@types/node": ">=14.0.0"
     typescript: ">=2.7"
-  checksum: b9e302e5da4077ef4ad6e3e0dccaeebcbcfff341bb3b66aea812f066f1d3df4a32d24f9365aa4b1ea446edb4e8f9e17075e8d44f6f60f75dd30f6b967fe32e8f
+  checksum: 66690a4d6a3ce15069d3a706c5fa29f304e618eb01870fde6d73fa1644c90f0d4f8076ff6f2f4fe707e2e49301ab15270cceb75d7585a91dc397840e896c03bb
   languageName: node
   linkType: hard
 
