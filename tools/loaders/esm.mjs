@@ -1,6 +1,5 @@
 import fs from 'fs-extra'
 import path from 'path'
-import replace from 'replace-in-file'
 import { getFormat as getFormatTs, resolve as resolveTs } from 'ts-node/esm'
 import { createMatchPath, loadConfig } from 'tsconfig-paths'
 import useDualExports from '../helpers/use-dual-exports.mjs'
@@ -22,28 +21,6 @@ useDualExports([
   `${NODE_MODULES}/@flex-development/grease/cjs/**`,
   `${PROJECT_CWD}/${NODE_MODULES}/@flex-development/grease/cjs/**`
 ])
-
-// ! Fixes: `Error: Cannot find module '../loaders/env.cjs'`
-;(() => {
-  const PACKAGE = `${NODE_MODULES}/@flex-development/log`
-  const PACKAGE_JSON = `${PACKAGE}/package.json`
-
-  if (fs.existsSync(PACKAGE_JSON)) {
-    fs.removeSync(`${PACKAGE}/tools`)
-
-    replace.sync({
-      files: PACKAGE_JSON,
-      from: '"loadenv": "./tools/cli/loadenv.cjs"',
-      to: ''
-    })
-
-    replace.sync({
-      files: 'yarn.lock',
-      from: 'loadenv: tools/cli/loadenv.cjs',
-      to: ''
-    })
-  }
-})()
 
 /**
  * ESM requires all imported files to have extensions. Unfortunately, most `bin`
