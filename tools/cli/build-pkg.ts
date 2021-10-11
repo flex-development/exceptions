@@ -120,12 +120,6 @@ const PACKAGE: PackageJson = pkg()
 /** @property {string} PWD - Root project working directory */
 const PWD: string = process.env.PROJECT_CWD as string
 
-/** @property {string} ROLLUP_CONFIG - Rollup config file */
-const ROLLUP_CONFIG: string = 'rollup.config.ts'
-
-/** @property {boolean} ROLLUP_CONFIG_CHECK - Rollup config file check */
-const ROLLUP_CONFIG_CHECK = fs.existsSync(path.join(CWD, ROLLUP_CONFIG))
-
 /** @property {string} TSCONFIG_PROD - Base production config file */
 const TSCONFIG_PROD: string = 'tsconfig.prod.json'
 
@@ -349,9 +343,6 @@ async function build(): Promise<void> {
         exec(`rimraf ${tsconfig}`, argv.dryRun)
       }
     }
-
-    // Remove stale Rollup config file
-    if (!ROLLUP_CONFIG_CHECK) exec(`rimraf ${ROLLUP_CONFIG}`, argv.dryRun)
 
     const exception = error as Error
 
