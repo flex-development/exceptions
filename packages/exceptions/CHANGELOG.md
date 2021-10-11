@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0-dev.1...exceptions@5.0.0) (2021-10-11)
+
+
+### :hammer: Build
+
+* **deps:** bump @flex-development/tutils from 4.0.0-dev.0 to 4.0.0 ([d336e49](https://github.com/flex-development/exceptions/commit/d336e49b79a90d4473e1b5b68341c67e9472f969))
+
+
 ## [5.0.0-dev.1](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0-dev.0...exceptions@5.0.0-dev.1) (2021-10-10)
 
 
