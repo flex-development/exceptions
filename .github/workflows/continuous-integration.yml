@@ -10,13 +10,10 @@
 name: continuous-integration
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
   push:
     branches:
       - next
+      - push-action/**
   workflow_dispatch:
 jobs:
   continuous-integration:

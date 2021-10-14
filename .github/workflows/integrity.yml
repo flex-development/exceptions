@@ -10,22 +10,10 @@
 name: integrity
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-    paths:
-      - .github/workflows/**
-      - .yarnrc.yml
-      - yarn.lock
   push:
     branches:
-      - main
       - next
-    paths:
-      - .github/workflows/**
-      - .yarnrc.yml
-      - yarn.lock
+      - push-action/**
   workflow_dispatch:
 jobs:
   integrity-check:
