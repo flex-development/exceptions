@@ -43,7 +43,7 @@
     "@commitlint/format": "13.2.0",
     "@flex-development/grease": "2.0.0",
     "@flex-development/log": "4.0.0-dev.0",
-    "@flex-development/trext": "1.0.0",
+    "@flex-development/trext": "1.0.2",
     "@jest/globals": "27.2.5",
     "@jest/types": "27.2.5",
     "@packages/exceptions": "link:packages/grease/src",
