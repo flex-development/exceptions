@@ -5,11 +5,13 @@ import LogLevel from '@flex-development/log/enums/log-level.enum'
 import type { TrextOptions } from '@flex-development/trext'
 import { trext } from '@flex-development/trext'
 import ncc from '@vercel/ncc'
+import ch from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
 import type { PackageJson } from 'read-pkg'
 import replace from 'replace-in-file'
 import sh from 'shelljs'
+import { inspect } from 'util'
 import type { Argv } from 'yargs'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -329,7 +331,7 @@ async function build(): Promise<void> {
       disable_prepack && exec('toggle-scripts +prepack', dryRun)
       disable_prepack && logger(argv, 'renable prepack script')
     }
-  } catch (error) {
+  } catch (err) {
     // Remove stale TypeScript config files
     for (const format of ['', ...(argv.formats ?? [])]) {
       // Get tsconfig file
@@ -344,10 +346,11 @@ async function build(): Promise<void> {
       }
     }
 
-    const exception = error as Error
+    const error = err as Error & { code?: number; stderr?: string }
 
-    logger(argv, exception.message, [], LogLevel.ERROR)
-    sh.exit((exception as any).code || 1)
+    if (!error.stderr) logger(argv, error.message, [], LogLevel.ERROR)
+    sh.echo(error.stderr || ch.red(inspect(error, false, null)))
+    sh.exit(error?.code ?? 1)
   }
 
   // Log workflow end
