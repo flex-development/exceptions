@@ -15,7 +15,7 @@
   ],
   "type": "module",
   "scripts": {
-    "clean:build": "rimraf ./packages/*/(build|cjs|esm|types) || true",
+    "clean:build": "rimraf ./packages/*/(build|cjs|esm|types|*.tgz) || true",
     "clean:modules": "rimraf ./node_modules ./packages/*/node_modules",
     "clean:yarn": "rimraf .yarn/cache .yarn/*.gz",
     "clean": "concurrently \"yarn:clean:*\"",
