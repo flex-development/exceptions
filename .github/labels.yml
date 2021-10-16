@@ -56,6 +56,10 @@
   description: '@flex-development/exceptions'
   color: 74cefc
 
+- name: scope:guards
+  description: Type guards
+  color: 74cefc
+
 - name: scope:tests
   description: Testing
   color: 74cefc
