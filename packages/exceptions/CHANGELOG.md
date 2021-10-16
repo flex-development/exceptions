@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/flex-development/exceptions/compare/exceptions@6.0.0...exceptions@6.0.1) (2021-10-16)
+
+
+### :hammer: Build
+
+* **deps-dev:** cleanup dependencies ([bad88ef](https://github.com/flex-development/exceptions/commit/bad88ef820b99f3cdbdb157665e50175cd1b92d3))
+
+
+### :bug: Fixes
+
+* `@flex-development/tutils` path remapping ([e743e40](https://github.com/flex-development/exceptions/commit/e743e40e67eeef2a15c9dbaf8a42eadb055495b2))
+
 ## [6.0.0](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0...exceptions@6.0.0) (2021-10-16)
 
 
