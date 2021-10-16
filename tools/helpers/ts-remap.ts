@@ -8,6 +8,7 @@ import { getFilesToProcess } from 'resolve-tspaths/dist/steps/getFilesToProcess'
 import type { Alias, Change, ProgramPaths } from 'resolve-tspaths/dist/types'
 import { TSConfigPropertyError } from 'resolve-tspaths/dist/utils/errors'
 import { TsConfig } from 'tsc-prog'
+import { inspect } from 'util'
 import logger from './logger'
 
 /**
@@ -46,6 +47,11 @@ export type TsRemapOptions = {
    * @default 'src'
    */
   src?: string
+
+  /**
+   * Print verbose logs to the console.
+   */
+  verbose?: boolean
 }
 
 export type TsRemapResult = {
@@ -68,7 +74,8 @@ const tsRemap = (options: TsRemapOptions): TsRemapResult | null => {
     dryRun,
     cwd = process.cwd(),
     ext = 'js,d.ts',
-    src = 'src'
+    src = 'src',
+    verbose
   } = options
 
   // Handle missing properties
@@ -94,6 +101,14 @@ const tsRemap = (options: TsRemapOptions): TsRemapResult | null => {
   const $changes = `${changes.length} file${changes.length === 1 ? '' : 's'}`
   logger({}, `found ${$changes} using compilerOptions.paths`, [], LogLevel.INFO)
 
+  // Log changes
+  if (verbose) {
+    for (const change of changes) {
+      const changes = [inspect(change.changes, false, null)]
+      logger({}, ` ${change.file}`, changes, LogLevel.DEBUG)
+    }
+  }
+
   // Apply path transformations
   if (!dryRun) {
     applyChanges(changes)
@@ -104,7 +119,7 @@ const tsRemap = (options: TsRemapOptions): TsRemapResult | null => {
       to: ''
     })
 
-    if (changes.length > 0) logger({}, 'resolve paths')
+    if (changes.length > 0) logger({}, 'resolve compilerOptions.paths')
   }
 
   return {
