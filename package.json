@@ -39,6 +39,7 @@
     "@babel/core": "7.15.8",
     "@commitlint/cli": "13.2.1",
     "@commitlint/config-conventional": "13.2.0",
+    "@commitlint/types": "13.2.0",
     "@flex-development/grease": "2.0.0",
     "@flex-development/log": "4.0.1-dev.0",
     "@flex-development/trext": "1.1.0",

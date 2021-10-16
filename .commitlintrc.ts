@@ -54,6 +54,7 @@ const config: UserConfig = {
         'deps-peer',
         'esm',
         'github',
+        'guards',
         'hybrid',
         'release',
         'scripts',

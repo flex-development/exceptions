@@ -590,7 +590,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/types@npm:^13.2.0":
+"@commitlint/types@npm:13.2.0, @commitlint/types@npm:^13.2.0":
   version: 13.2.0
   resolution: "@commitlint/types@npm:13.2.0"
   dependencies:
