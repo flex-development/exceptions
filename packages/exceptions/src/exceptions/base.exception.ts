@@ -32,7 +32,7 @@ import { DEM } from './constants.exceptions'
  * @extends {AggregateError}
  */
 // eslint-disable-next-line unicorn/custom-error-definition
-export default class Exception<T extends any = any> extends AggregateError {
+export default class Exception<T = any> extends AggregateError {
   /**
    * @property {ExceptionClassName} className - Associated CSS class name
    */
@@ -134,7 +134,7 @@ export default class Exception<T extends any = any> extends AggregateError {
    * @param {AxiosError} error - HTTP error to transform
    * @return {Exception<T>} AxiosError as Exception
    */
-  static fromAxiosError<T extends any = any>(error: AxiosError): Exception<T> {
+  static fromAxiosError<T = any>(error: AxiosError): Exception<T> {
     // Spread error object
     const { isAxiosError = true, message, request, response, stack } = error
 
@@ -217,9 +217,7 @@ export default class Exception<T extends any = any> extends AggregateError {
    * @param {FirebaseError} error - Firebase error to transform
    * @return {Exception<T>} FirebaseError as Exception
    */
-  static fromFirebaseError<T extends any = any>(
-    error: FirebaseError
-  ): Exception<T> {
+  static fromFirebaseError<T = any>(error: FirebaseError): Exception<T> {
     const { code, message, stack } = error
     const { 1: ecode } = code.split('/')
 
@@ -240,7 +238,7 @@ export default class Exception<T extends any = any> extends AggregateError {
    * @param {NextError} error - Next.js page error to transform
    * @return {Exception<T>} NextError as Exception
    */
-  static fromNextError<T extends any = any>(error: NextError): Exception<T> {
+  static fromNextError<T = any>(error: NextError): Exception<T> {
     const { message, stack, statusCode } = error
 
     return new Exception<T>(statusCode, message, { isNextError: true }, stack)

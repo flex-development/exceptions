@@ -13,7 +13,7 @@ import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
  *
  * @template T - Error type
  */
-export interface ExceptionJSON<T extends any = any> {
+export interface ExceptionJSON<T = any> {
   readonly className: ClassName
   readonly code: Code
   readonly data: Readonly<ExceptionData & { isExceptionJSON: true }>

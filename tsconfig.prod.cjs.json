@@ -10,7 +10,7 @@
         "packages/exceptions/node_modules/@flex-development/tutils/cjs/*"
       ],
       "@packages/exceptions/*": ["packages/exceptions/src/*"],
-      "@packages/exceptions": ["packages/exceptions/src/index.ts"]
+      "@packages/exceptions": ["packages/exceptions/src/index"]
     },
     "target": "es5"
   },

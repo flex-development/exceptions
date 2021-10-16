@@ -23,13 +23,13 @@ import type { AxiosErrorJSON } from './axios-error-json.interface'
  * @see https://github.com/axios/axios/blob/v0.21.4/lib/core/createError.js
  */
 export interface AxiosError<
-  Payload extends any = any,
-  Data extends any = any,
+  Payload = any,
+  Data = any,
   Params extends ObjectPlain = ObjectPlain,
-  Dataform extends any = Data,
-  DataformReturn extends any = any,
-  Resform extends any = any,
-  ResformReturn extends any = Payload
+  Dataform = Data,
+  DataformReturn = any,
+  Resform = any,
+  ResformReturn = Payload
 > extends Error {
   readonly code?: string
   readonly config: AxiosRequestConfig<

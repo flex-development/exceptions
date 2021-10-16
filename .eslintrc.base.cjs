@@ -24,7 +24,7 @@ module.exports = {
       impliedStrict: true,
       jsx: true
     },
-    extraFileExtensions: ['.cjs', '.mjs'],
+    extraFileExtensions: ['.cjs', '.cts', '.mjs', '.mts'],
     project: ['./packages/**/tsconfig.json', './tsconfig.json'],
     sourceType: 'module',
     tsconfigRootDir: __dirname,
@@ -127,6 +127,7 @@ module.exports = {
           'formatter',
           'loadenv',
           'mjs',
+          'ncc',
           'perf',
           'pkgfile',
           'pnv',
@@ -143,6 +144,7 @@ module.exports = {
           'typeof',
           'umd',
           'usr',
+          'vercel',
           'wasm',
           'wip',
           'workspace',
@@ -226,22 +228,21 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.cjs'],
+      files: ['**/*.cjs', '**/*.cts'],
       rules: {
         'unicorn/prefer-module': 0
       }
     },
     {
-      files: ['**/*.cjs', '**/*.md/*.js'],
+      files: ['**/*.cjs', '**/*.cts', '**/*.md/*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 0
       }
     },
     {
-      files: ['**/*.cjs', '**/*.mjs'],
-      parser: `${__dirname}/node_modules/@babel/eslint-parser/lib/index.cjs`,
-      parserOptions: {
-        requireConfigFile: false
+      files: ['**/*.d.cts', '**/*.d.mts'],
+      rules: {
+        'prettier/prettier': 0
       }
     },
     {
@@ -272,12 +273,7 @@ module.exports = {
     {
       files: ['**/.eslintrc.*'],
       rules: {
-        'spellcheck/spell-checker': 0
-      }
-    },
-    {
-      files: ['**/.eslintrc.*', 'rollup.config.ts'],
-      rules: {
+        'spellcheck/spell-checker': 0,
         'sort-keys': 0
       }
     },
@@ -296,7 +292,7 @@ module.exports = {
       }
     },
     {
-      files: ['tools/loaders/env.cjs'],
+      files: ['tools/cli/loadenv.cjs'],
       rules: {
         'unicorn/no-array-reduce': 0
       }
@@ -304,11 +300,19 @@ module.exports = {
   ],
   settings: {
     'import/parsers': {
-      [require.resolve('@typescript-eslint/parser')]: ['.d.ts', '.ts']
+      [require.resolve('@typescript-eslint/parser')]: [
+        '.cjs',
+        '.cts',
+        '.d.cts',
+        '.d.mts',
+        '.d.ts',
+        '.mts',
+        '.ts'
+      ]
     },
     'import/resolver': {
       [require.resolve('eslint-import-resolver-node')]: {
-        extensions: ['.ts']
+        extensions: ['.cjs', '.cts', '.mts', '.ts']
       },
       [require.resolve('eslint-import-resolver-typescript')]: {
         alwaysTryTypes: true

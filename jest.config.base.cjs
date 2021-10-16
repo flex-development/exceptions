@@ -1,7 +1,6 @@
 const { Config } = require('@jest/types')
-const { parse } = require('comment-json')
-const fs = require('fs-extra')
 const { pathsToModuleNameMapper } = require('ts-jest/utils')
+const { loadSync: tsconfigLoad } = require('tsconfig/dist/tsconfig')
 
 /**
  * @file Jest Configuration - Base
@@ -9,12 +8,12 @@ const { pathsToModuleNameMapper } = require('ts-jest/utils')
  * @see https://orlandobayo.com/blog/monorepo-testing-using-jest/
  */
 
-const TSCONFIG = `${process.env.PROJECT_CWD}/tsconfig.json`
-const { compilerOptions } = parse(fs.readFileSync(TSCONFIG).toString())
-
 const NODE_MODULES = process.env.NODE_MODULES
+const PROJECT_CWD = process.env.PROJECT_CWD
 const TYPE = 'e2e|functional|integration'
 const prefix = '<rootDir>'
+
+const { compilerOptions } = tsconfigLoad(PROJECT_CWD, 'tsconfig.json').config
 
 /** @type {Config.InitialOptions} */
 const config = {
@@ -35,7 +34,10 @@ const config = {
   rootDir: '../..',
   roots: ['<rootDir>/__mocks__', '<rootDir>/packages'],
   setupFiles: ['<rootDir>/__tests__/config/setup.ts'],
-  setupFilesAfterEnv: ['<rootDir>/__tests__/config/setup-after-env.ts'],
+  setupFilesAfterEnv: [
+    'jest-extended/all',
+    '<rootDir>/__tests__/config/setup-after-env.ts'
+  ],
   testRegex: `(/__tests__/)(spec/(${TYPE}))?(.*)(${TYPE})?.spec.ts$`,
   testRunner: 'jest-jasmine2',
   transformIgnorePatterns: [],

@@ -13,7 +13,7 @@ import type { ExceptionData } from '@packages/exceptions/types'
  *
  * @extends {ExceptionData}
  */
-export interface ExceptionDataDTO<T extends any = any> extends ExceptionData {
+export interface ExceptionDataDTO<T = any> extends ExceptionData {
   /**
    * Single error or group of errors.
    */

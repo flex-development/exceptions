@@ -20,12 +20,12 @@ import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-
  * @see https://github.com/axios/axios/blob/v0.21.4/lib/core/enhanceError.js
  */
 export interface AxiosErrorJSON<
-  Data extends any = any,
+  Data = any,
   Params extends ObjectPlain = ObjectPlain,
-  Dataform extends any = Data,
-  DataformReturn extends any = any,
-  Resform extends any = any,
-  ResformReturn extends any = any
+  Dataform = Data,
+  DataformReturn = any,
+  Resform = any,
+  ResformReturn = any
 > extends Error {
   readonly code?: string
   readonly columnNumber?: number

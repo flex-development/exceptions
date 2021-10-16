@@ -23,13 +23,13 @@ import type { Headers } from './headers.type'
  * @template ResformReturn - Response transformer return type
  */
 export type AxiosResponse<
-  Payload extends any = any,
-  Data extends any = any,
+  Payload = any,
+  Data = any,
   Params extends ObjectPlain = ObjectPlain,
-  Dataform extends any = Data,
-  DataformReturn extends any = any,
-  Resform extends any = any,
-  ResformReturn extends any = Payload
+  Dataform = Data,
+  DataformReturn = any,
+  Resform = any,
+  ResformReturn = Payload
 > = {
   config: AxiosRequestConfig<
     Data,

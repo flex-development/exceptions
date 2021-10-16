@@ -6,13 +6,13 @@ declare module 'axios/lib/core/createError' {
   import type { ClientRequest } from 'http'
 
   export default function <
-    Payload extends any = any,
-    Data extends any = any,
+    Payload = any,
+    Data = any,
     Params extends ObjectPlain = ObjectPlain,
-    Dataform extends any = Data,
-    DataformReturn extends any = any,
-    Resform extends any = any,
-    ResformReturn extends any = Payload
+    Dataform = Data,
+    DataformReturn = any,
+    Resform = any,
+    ResformReturn = Payload
   >(
     message: string,
     config: AxiosRequestConfig<

@@ -2,7 +2,7 @@ import type { PackageJson } from 'read-pkg'
 import { readPackageSync } from 'read-pkg'
 
 /**
- * @file Helpers - Get Package Data
+ * @file Helpers - pkg
  * @module tools/helpers/pkg
  */
 
@@ -17,6 +17,9 @@ const pkg = (cwd: string = process.cwd()): PackageJson => {
   return { ...data, _id: `${data.name}@${data.version}` } as PackageJson
 }
 
+/** @property {PackageJson} PACKAGE - package.json data */
+export const $PACKAGE: PackageJson = pkg()
+
 /** @property {string} $VERSION - Package version */
 export const $VERSION: string = pkg().version as string
 
@@ -24,6 +27,12 @@ export const $VERSION: string = pkg().version as string
 export const $WORKSPACE: string = process.env.npm_package_name as string
 
 /** @property {string} name_no_scope - Package name without scope */
-export const $WORKSPACE_NO_SCOPE: string = $WORKSPACE.split('/')[1]
+export const $WNS: string = $WORKSPACE.split('/')[1]
+
+/** @property {string} $ORG - Organization name (without `@` symbol) */
+export const $ORG: string = $WORKSPACE.split('/')[0].slice(1)
+
+/** @property {string} $WID - Normalized package name */
+export const $WID: string = `${$ORG}-${$WNS}`
 
 export default pkg

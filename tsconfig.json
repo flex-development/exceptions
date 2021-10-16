@@ -8,12 +8,12 @@
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
     "lib": ["dom", "es2021"],
-    "module": "es2020",
+    "module": "es2022",
     "moduleResolution": "node",
     "noEmit": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     // Must be disabled to use type-only imports
     "noUnusedLocals": false,
@@ -27,18 +27,12 @@
       ],
       "@flex-development/log": ["node_modules/@flex-development/log/esm/index"],
       "@flex-development/log/*": ["node_modules/@flex-development/log/esm/*"],
-      "@flex-development/tutils": [
-        "packages/exceptions/node_modules/@flex-development/tutils/esm/index"
-      ],
-      "@flex-development/tutils/*": [
-        "packages/exceptions/node_modules/@flex-development/tutils/esm/*"
-      ],
       "@packages/exceptions/tests/fixtures/*": [
         "packages/exceptions/__tests__/__fixtures__/*"
       ],
       "@packages/exceptions/tests/*": ["packages/exceptions/__tests__/*"],
       "@packages/exceptions/*": ["packages/exceptions/src/*"],
-      "@packages/exceptions": ["packages/exceptions/src/index.ts"],
+      "@packages/exceptions": ["packages/exceptions/src/index"],
       "@tests/fixtures/*": ["__tests__/__fixtures__/*"],
       "@tests/*": ["__tests__/*"]
     },
@@ -55,14 +49,22 @@
     "target": "es2021"
   },
   "exclude": [
-    "**/node_modules",
+    "node_modules/**",
     "packages/*/build",
     "packages/*/cjs",
     "packages/*/esm",
     "packages/*/types"
   ],
   "files": ["typings/jest.d.ts"],
-  "include": ["**/*.cjs", "**/.*.cjs", "**/*.mjs", "**/*.ts", "**/.*.ts"],
+  "include": [
+    "**/*.cjs",
+    "**/*.cts",
+    "**/*.mjs",
+    "**/*.mts",
+    "**/*.ts",
+    "**/.*.cjs",
+    "**/.*.ts"
+  ],
   "ts-node": {
     "moduleTypes": {
       ".commitlintrc.ts": "cjs",

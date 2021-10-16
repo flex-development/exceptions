@@ -30,12 +30,12 @@ import type { TransitionalOptions } from './transitional-options.type'
  * [1]: https://github.com/axios/axios#request-config
  */
 export type AxiosRequestConfig<
-  Data extends any = any,
+  Data = any,
   Params extends ObjectPlain = ObjectPlain,
-  Dataform extends any = Data,
-  DataformReturn extends any = any,
-  Resform extends any = any,
-  ResformReturn extends any = any
+  Dataform = Data,
+  DataformReturn = any,
+  Resform = any,
+  ResformReturn = any
 > = {
   adapter?: AxiosAdapter
   auth?: AxiosBasicCredentials

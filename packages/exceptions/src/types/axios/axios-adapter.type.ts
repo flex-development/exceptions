@@ -21,13 +21,13 @@ import type { AxiosRequestConfig } from './axios-request-config.type'
  * @see https://github.com/axios/axios#request-config
  */
 export type AxiosAdapter<
-  Payload extends any = any,
-  Data extends any = any,
+  Payload = any,
+  Data = any,
   Params extends ObjectPlain = ObjectPlain,
-  Dataform extends any = Data,
-  DataformReturn extends any = any,
-  Resform extends any = any,
-  ResformReturn extends any = Payload
+  Dataform = Data,
+  DataformReturn = any,
+  Resform = any,
+  ResformReturn = Payload
 > = {
   (
     config: AxiosRequestConfig<
