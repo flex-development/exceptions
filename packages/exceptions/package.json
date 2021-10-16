@@ -100,7 +100,7 @@
     "postpublish": "toggle-scripts +prepack"
   },
   "dependencies": {
-    "@flex-development/tutils": "4.1.0",
+    "@flex-development/tutils": "4.1.1",
     "lodash.isplainobject": "4.0.6",
     "lodash.omit": "4.5.0",
     "lodash.pick": "4.4.0"

@@ -785,7 +785,7 @@ __metadata:
   resolution: "@flex-development/exceptions@workspace:packages/exceptions"
   dependencies:
     "@firebase/util": 1.4.0
-    "@flex-development/tutils": 4.1.0
+    "@flex-development/tutils": 4.1.1
     "@jest/types": 27.2.5
     "@packages/exceptions": "link:src"
     "@tests/utils": "link:../../__tests__/utils"
@@ -1019,13 +1019,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/tutils@npm:4.1.0":
-  version: 4.1.0
-  resolution: "@flex-development/tutils@npm:4.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F4.1.0%2F30c75a6c5301f66af48b16bb374438cb20462f74c390077ab14bc5164fa05a30"
+"@flex-development/tutils@npm:4.1.1":
+  version: 4.1.1
+  resolution: "@flex-development/tutils@npm:4.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F4.1.1%2F0c5883fcff742848172edcea39318a74a6b388d7ca30cc2f655c78ffdba62353"
   peerDependencies:
     "@types/node": ">=14.0.0"
     typescript: 4.5.0-beta
-  checksum: 7c78504ab0b2f2b2bf6176dd8724c9942872a2b65e8a1f5a16a4fbb1e6108de56cf1670b4c6eb9e3138985acc174884840a19aa1b887df76ed3b8dd42520d5a5
+  checksum: 3984c22093062926f5990f0fb457270c098c0fa48c0b27ece5451ff9b38303b72bdd381aaba764956f143ad3a4d9df90b78cbf319f9911ffcc092f2f305fc438
   languageName: node
   linkType: hard
 
