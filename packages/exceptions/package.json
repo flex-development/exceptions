@@ -122,6 +122,7 @@
     "@vercel/ncc": "0.31.1",
     "axios": "0.23.0",
     "faker": "5.5.3",
+    "firebase-admin": "10.0.0",
     "jest": "27.2.5",
     "jest-extended": "1.0.0",
     "rimraf": "3.0.2",
@@ -132,15 +133,23 @@
     "typescript": "4.5.0-beta"
   },
   "peerDependencies": {
+    "@firebase/util": ">=1.4.0",
     "@types/node": ">=15.0.0",
     "axios": ">=0.23.0",
+    "firebase-admin": ">=10.0.0",
     "typescript": "4.5.0-beta"
   },
   "peerDependenciesMeta": {
+    "@firebase/util": {
+      "optional": true
+    },
     "@types/node": {
       "optional": true
     },
     "axios": {
+      "optional": true
+    },
+    "firebase-admin": {
       "optional": true
     },
     "typescript": {
