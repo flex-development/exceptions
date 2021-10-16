@@ -8,7 +8,7 @@ import {
   FirebaseErrorCode,
   FirebaseErrorStatusCode
 } from '@packages/exceptions/enums'
-import { isExceptionJSON } from '@packages/exceptions/guards'
+import { isExceptionCode, isExceptionJSON } from '@packages/exceptions/guards'
 import {
   AxiosError,
   ExceptionJSON,
@@ -120,11 +120,7 @@ export default class Exception<T = any> extends AggregateError {
    * @return {ExceptionCode} Exception status code
    */
   static formatCode(code?: any): ExceptionCode {
-    // Get status codes
-    const codes = Object.values(ExceptionId).map(id => ExceptionCode[id])
-
-    // Return original status code if found, default status code otherwise
-    return codes.includes(code) ? code : ExceptionCode.INTERNAL_SERVER_ERROR
+    return isExceptionCode(code) ? code : ExceptionCode.INTERNAL_SERVER_ERROR
   }
 
   /**
