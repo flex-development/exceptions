@@ -367,50 +367,6 @@ describe('unit:exceptions/Exception', () => {
     })
   })
 
-  describe('.isException', () => {
-    type Case = Testcase<boolean> & {
-      error: any
-      is: 'is' | 'is not'
-    }
-
-    const cases: Case[] = [
-      { error: ERROR, expected: false, is: 'is not' },
-      { error: new TestSubject(), expected: true, is: 'is' }
-    ]
-
-    const name = 'should return $expected if error $is Exception'
-
-    it.each<Case>(cases)(name, testcase => {
-      // Arrange
-      const { error, expected } = testcase
-
-      // Act + Expect
-      expect(TestSubject.isException(error)).toBe(expected)
-    })
-  })
-
-  describe('.isExceptionJSON', () => {
-    type Case = Testcase<boolean> & {
-      ejson: any
-      is: 'is' | 'is not'
-    }
-
-    const cases: Case[] = [
-      { ejson: ERROR_AXIOS_404.response, expected: false, is: 'is not' },
-      { ejson: EJSON, expected: true, is: 'is' }
-    ]
-
-    const name = 'should return $expected if ejson $is ExceptionJSON'
-
-    it.each<Case>(cases)(name, testcase => {
-      // Arrange
-      const { ejson, expected } = testcase
-
-      // Act + Expect
-      expect(TestSubject.isExceptionJSON(ejson)).toBe(expected)
-    })
-  })
-
   describe('#toJSON', () => {
     it('should return json representation of Exception', () => {
       // Arrange

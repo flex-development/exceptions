@@ -8,6 +8,7 @@ import {
   FirebaseErrorCode,
   FirebaseErrorStatusCode
 } from '@packages/exceptions/enums'
+import { isExceptionJSON } from '@packages/exceptions/guards'
 import {
   AxiosError,
   ExceptionJSON,
@@ -85,7 +86,7 @@ export default class Exception<T = any> extends AggregateError {
 
     // If data is actually ExceptionJSON, override previously set properties
     // Note that errors and message is already set by super()
-    if (Exception.isExceptionJSON(this.data)) {
+    if (isExceptionJSON(this.data)) {
       this.code = this.data.code
       this.className = this.data.className
       this.id = this.data.name
@@ -244,26 +245,6 @@ export default class Exception<T = any> extends AggregateError {
     const { message, stack, statusCode } = error
 
     return new Exception<T>(statusCode, message, { isNextError: true }, stack)
-  }
-
-  /**
-   * Checks if `error` is an `Exception` class object.
-   *
-   * @param {any} [error=new Error()] - Error to test
-   * @return {boolean} `true` if `error` is `Exception`, `false` otherwise
-   */
-  static isException(error: any = new Error()): error is Exception {
-    return error?.toJSON?.()?.data?.isExceptionJSON === true ?? false
-  }
-
-  /**
-   * Checks if `ejson` is an `ExceptionJSON` object.
-   *
-   * @param {any} [ejson={}] - Error to test
-   * @return {boolean} `true` if `error` is `ExceptionJSON`, `false` otherwise
-   */
-  static isExceptionJSON(ejson: any = {}): ejson is ExceptionJSON {
-    return ejson?.data?.isExceptionJSON === true ?? false
   }
 
   /**
