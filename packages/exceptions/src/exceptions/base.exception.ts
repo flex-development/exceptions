@@ -1,4 +1,4 @@
-import type { JSONObject } from '@flex-development/tutils'
+import type { JSONObject, JSONValue } from '@flex-development/tutils'
 import { NullishString } from '@flex-development/tutils'
 import { ExceptionDataDTO } from '@packages/exceptions/dtos'
 import {
@@ -218,16 +218,18 @@ export default class Exception<T = any> extends AggregateError {
    * @return {Exception<T>} FirebaseError as Exception
    */
   static fromFirebaseError<T = any>(error: FirebaseError): Exception<T> {
-    const { code, message, stack } = error
-    const { 1: ecode } = code.split('/')
+    const { code, customData, message, stack } = error
 
-    const isFirebaseError = true
-
-    const ecode_names = Object.keys(FirebaseErrorCode)
-    const name = ecode_names.find(name => FirebaseErrorCode[name] === ecode)
+    // Find status code
+    const names = Object.keys(FirebaseErrorCode)
+    const name = names.find(n => FirebaseErrorCode[n] === code.split('/')[1])
     const status = FirebaseErrorStatusCode[name as string] || 500
 
-    return new Exception<T>(status, message, { code, isFirebaseError }, stack)
+    // Get error data
+    const data: Record<string, JSONValue> = { code, isFirebaseError: true }
+    if (customData) data.customData = customData as JSONValue
+
+    return new Exception<T>(status, message, data, stack)
   }
 
   /**
