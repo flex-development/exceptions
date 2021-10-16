@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0...exceptions@6.0.0) (2021-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **guards:** move type guards to separate directory
+* **typescript:** drop all axios type definitions
+
+### :bug: Fixes
+
+* **cjs:** directory index specifiers ([6816b97](https://github.com/flex-development/exceptions/commit/6816b97d92b4a343db4911ae35beb88e0db89905))
+
+
+### :pencil2: Housekeeping
+
+* **typescript:** upgrade to `typescript@4.5.0-beta` ([6b6f198](https://github.com/flex-development/exceptions/commit/6b6f198f889d05958ec1259fe086a0a782ef1352))
+
+
+### :hammer: Build
+
+* **deps-peer:** add `@firebase/util` and `firebase-admin` as optional deps ([916918f](https://github.com/flex-development/exceptions/commit/916918fa45cfc7d70f775b60de5fc03ae6f9ebfc))
+* **deps-peer:** re-add `axios` as optional dep ([d6e733c](https://github.com/flex-development/exceptions/commit/d6e733c4318f9f25985335a14ff6cd82b27e54b2))
+
+
+### :recycle: Code Improvements
+
+* **guards:** move type guards to separate directory ([611d70f](https://github.com/flex-development/exceptions/commit/611d70f9983b6e86bdff0dabd5ff77de2fdf73a7))
+* **typescript:** `FirebaseError` ([c602e7d](https://github.com/flex-development/exceptions/commit/c602e7d00c981afa24d750bb67005afa44465966)), closes [#L42](https://github.com/flex-development/exceptions/issues/L42) [#L74](https://github.com/flex-development/exceptions/issues/L74)
+* **typescript:** drop all axios type definitions ([c774c01](https://github.com/flex-development/exceptions/commit/c774c01e6a528a269214ddcdac99c72b257ad3ba))
+
+
+### :sparkles: Features
+
+* **exceptions:** `ValidationException` ([4365d52](https://github.com/flex-development/exceptions/commit/4365d52e6199b5da9abc36172121ff84fbca9e42))
+* **guards:** `isExceptionClassName` ([0b31123](https://github.com/flex-development/exceptions/commit/0b31123d13a6364a3048af9ea98fc09b55d4b096))
+* **guards:** `isExceptionCode` ([c7fac42](https://github.com/flex-development/exceptions/commit/c7fac420b02d692918481ad114d81481fa7b1743))
+* **guards:** `isExceptionId` ([866bc88](https://github.com/flex-development/exceptions/commit/866bc88e74e8322831151fec32844d4b9941e313))
+
 ## [5.0.0](https://github.com/flex-development/exceptions/compare/exceptions@5.0.0-dev.1...exceptions@5.0.0) (2021-10-11)
 
 
