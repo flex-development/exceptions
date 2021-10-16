@@ -57,7 +57,7 @@ jobs:
         name: Set build environment variables
         run: node ./tools/cli/loadenv.cjs -gc=test
       - id: check-build
-        name: Check build:all
+        name: Check builds
         run: yarn prepack --tarball --env=test
       - id: env-post
         name: Post Set build environment variables

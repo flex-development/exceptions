@@ -4,4 +4,4 @@
 #
 # - https://typicode.github.io/husky
 
-yarn test:all --lastCommit --no-cache
+yarn test --lastCommit --no-cache

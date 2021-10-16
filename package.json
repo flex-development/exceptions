@@ -30,10 +30,11 @@
     "check:upgrades": "yarn upgrade-interactive",
     "fix:format": "prettier --write .",
     "fix:style": "yarn check:style --fix --cache",
-    "test": "yarn workspace @flex-development/$0 test",
-    "test:all": "bash tools/scripts/jest.sh",
-    "build": "yarn workspace @flex-development/$0 build",
-    "release": "yarn workspace @flex-development/$0 release"
+    "test": "bash tools/scripts/jest.sh",
+    "test:exceptions": "yarn workspace @flex-development/exceptions test",
+    "build": "yarn workspaces foreach -iv --topological-dev run build",
+    "build:exceptions": "yarn workspace @flex-development/exceptions build",
+    "release:exceptions": "yarn workspace @flex-development/exceptions release"
   },
   "devDependencies": {
     "@babel/core": "7.15.8",
