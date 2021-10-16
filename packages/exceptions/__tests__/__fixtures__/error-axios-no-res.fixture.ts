@@ -1,11 +1,11 @@
-import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.interface'
-import type { AxiosRequestConfig } from '@packages/exceptions/types/axios/axios-request-config.type'
+import type { AxiosError } from '@packages/exceptions/interfaces'
+import type { AxiosRequestConfig } from 'axios'
 import createAxiosError from 'axios/lib/core/createError'
 import type { ClientRequest } from 'http'
 
 /**
  * @file Workspace Test Fixture - AxiosError (No Response)
- * @module exceptions/tests/fixtures/error-axios-no-res
+ * @module exceptions/tests/fixtures/ERROR_AXIOS_NO_RES
  */
 
 const config: AxiosRequestConfig = { url: 'http://localhost:8080' }

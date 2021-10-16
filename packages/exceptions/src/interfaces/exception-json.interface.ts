@@ -4,7 +4,7 @@ import ExceptionId from '@packages/exceptions/enums/exception-id.enum'
 import type { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
 
 /**
- * @file Interface - ExceptionJSON
+ * @file Interfaces - ExceptionJSON
  * @module exceptions/interfaces/ExceptionJSON
  */
 

@@ -1,5 +1,5 @@
 /**
- * @file Interface - FirebaseError
+ * @file Interfaces - FirebaseError
  * @module exceptions/interfaces/FirebaseError
  */
 

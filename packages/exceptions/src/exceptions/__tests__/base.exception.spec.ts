@@ -10,6 +10,7 @@ import type {
   FirebaseError,
   NextError
 } from '@packages/exceptions/interfaces'
+import ERROR_AXIOS_404 from '@packages/exceptions/tests/fixtures/error-axios-404.fixture'
 import ERROR_AXIOS from '@packages/exceptions/tests/fixtures/error-axios-no-res.fixture'
 import ERROR_FIREBASE_404 from '@packages/exceptions/tests/fixtures/error-firebase-404.fixture'
 import ERROR_FIREBASE_INVALID_CODE from '@packages/exceptions/tests/fixtures/error-firebase-invalid-code.fixture'
@@ -17,7 +18,6 @@ import ERROR_NEXT_NO_STATUS from '@packages/exceptions/tests/fixtures/error-next
 import ERROR_NEXT from '@packages/exceptions/tests/fixtures/error-next.fixture'
 import ERROR from '@packages/exceptions/tests/fixtures/error.fixture'
 import EJSON from '@packages/exceptions/tests/fixtures/exception-json.fixture'
-import ERROR_AXIOS_404 from '@packages/exceptions/tests/__fixtures__/errror-axios-404.fixture'
 import type { Testcase } from '@tests/utils/types'
 import pick from 'lodash.pick'
 import TestSubject from '../base.exception'

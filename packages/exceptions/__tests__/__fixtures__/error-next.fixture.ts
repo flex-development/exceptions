@@ -1,9 +1,9 @@
 import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
-import type { NextError } from '@packages/exceptions/interfaces/next-error.interface'
+import type { NextError } from '@packages/exceptions/interfaces'
 
 /**
  * @file Workspace Test Fixture - NextError (With Status Code)
- * @module exceptions/tests/fixtures/error-next
+ * @module exceptions/tests/fixtures/ERROR_NEXT
  */
 
 export default Object.assign(new Error('Test Next.js error with statusCode'), {

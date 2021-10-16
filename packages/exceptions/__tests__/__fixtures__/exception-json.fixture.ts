@@ -5,7 +5,7 @@ import type { ExceptionJSON } from '@packages/exceptions/interfaces'
 
 /**
  * @file Workspace Test Fixture - ExceptionJSON
- * @module exceptions/tests/fixtures/exception-json
+ * @module exceptions/tests/fixtures/EJSON
  */
 
 export default Object.freeze({

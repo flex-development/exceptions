@@ -1,11 +1,11 @@
 import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
-import type { AxiosError } from '@packages/exceptions/interfaces/axios-error.interface'
+import type { AxiosError } from '@packages/exceptions/interfaces'
 import createAxiosError from 'axios/lib/core/createError'
 import type { ClientRequest } from 'http'
 
 /**
  * @file Workspace Test Fixture - AxiosError (404)
- * @module exceptions/tests/fixtures/error-axios-404
+ * @module exceptions/tests/fixtures/ERROR_AXIOS_404
  */
 
 const RESPONSE = {
