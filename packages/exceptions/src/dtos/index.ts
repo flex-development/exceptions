@@ -4,3 +4,4 @@
  */
 
 export type { ExceptionDataDTO } from './exception-data.dto'
+export type { ValidationExceptionDTO } from './validation-exception.dto'

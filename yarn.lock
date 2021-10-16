@@ -800,6 +800,7 @@ __metadata:
     "@vates/toggle-scripts": 1.0.0
     "@vercel/ncc": 0.31.1
     axios: 0.23.0
+    class-validator: 0.13.1
     faker: 5.5.3
     firebase-admin: 10.0.0
     jest: 27.2.5
@@ -817,6 +818,7 @@ __metadata:
     "@firebase/util": ">=1.4.0"
     "@types/node": ">=15.0.0"
     axios: ">=0.23.0"
+    class-validator: ">=0.13.1"
     firebase-admin: ">=10.0.0"
     typescript: 4.5.0-beta
   peerDependenciesMeta:
@@ -825,6 +827,8 @@ __metadata:
     "@types/node":
       optional: true
     axios:
+      optional: true
+    class-validator:
       optional: true
     firebase-admin:
       optional: true
@@ -921,6 +925,7 @@ __metadata:
     "@babel/core": 7.15.8
     "@commitlint/cli": 13.2.1
     "@commitlint/config-conventional": 13.2.0
+    "@commitlint/types": 13.2.0
     "@flex-development/grease": 2.0.0
     "@flex-development/log": 4.0.1-dev.0
     "@flex-development/trext": 1.1.0
@@ -2101,10 +2106,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>= 8, @types/node@npm:>=15":
-  version: 16.10.3
-  resolution: "@types/node@npm:16.10.3"
-  checksum: 3fd429bce8a4acb497dcc62b536782a5e87ccf7cd91d64a78b263ae5d66cb72bf84be9eeeff6f84ae0567b065a40b267caa66d311f9e094990a5847bbd168a29
+"@types/node@npm:*, @types/node@npm:>= 8, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:>=15":
+  version: 16.11.0
+  resolution: "@types/node@npm:16.11.0"
+  checksum: 194ae80ec72f664e15e03c33f116be96aa1e85b167a19e31003c53ddfc36dabd65744e9a76c1d46b7ce2e5981d2ccb8e84a85c3ec9ac89f1471daaa885bdcfd0
   languageName: node
   linkType: hard
 
@@ -2112,13 +2117,6 @@ __metadata:
   version: 16.0.0
   resolution: "@types/node@npm:16.0.0"
   checksum: 57e5731ba8d64d9a6434c69f1153186b7fc1b0f58ae54f3eb8c32cd122e87e9aca35947f62e92e1902027994dac97b5bff7cce4d9c56cb319f07f694fe55d012
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 16.11.0
-  resolution: "@types/node@npm:16.11.0"
-  checksum: 194ae80ec72f664e15e03c33f116be96aa1e85b167a19e31003c53ddfc36dabd65744e9a76c1d46b7ce2e5981d2ccb8e84a85c3ec9ac89f1471daaa885bdcfd0
   languageName: node
   linkType: hard
 

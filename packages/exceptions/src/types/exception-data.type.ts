@@ -4,7 +4,7 @@
  */
 
 /**
- * Additional `Exception` data.
+ * Custom `Exception` data.
  */
 export type ExceptionData = {
   [x: string]: any

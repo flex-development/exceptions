@@ -35,6 +35,11 @@ import { DEM } from './constants.exceptions'
 // eslint-disable-next-line unicorn/custom-error-definition
 export default class Exception<T = any> extends AggregateError {
   /**
+   * @property {ExceptionErrors<T>} errors - Aggregated errors
+   */
+  override errors: ExceptionErrors<T>
+
+  /**
    * @property {ExceptionClassName} className - Associated CSS class name
    */
   className: ExceptionClassName
@@ -45,14 +50,9 @@ export default class Exception<T = any> extends AggregateError {
   code: ExceptionCode
 
   /**
-   * @property {ExceptionData} data - Additional exception data
+   * @property {ExceptionData} data - Custom error data
    */
   data: ExceptionData
-
-  /**
-   * @property {ExceptionErrors<T>} errors - Aggregated errors
-   */
-  errors: ExceptionErrors<T>
 
   /**
    * @property {ExceptionId} id - HTTP error response status code name
@@ -64,7 +64,7 @@ export default class Exception<T = any> extends AggregateError {
    *
    * @param {ExceptionCode} [code=500] - HTTP error response status code
    * @param {NullishString} [message=DEM] - Exception message
-   * @param {ExceptionDataDTO<T>} [data={}] - Additional exception data
+   * @param {ExceptionDataDTO<T>} [data={}] - Custom error data
    * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
    * @param {string} [data.message] - Custom message. Overrides `message`
    * @param {string} [stack] - Error stack
