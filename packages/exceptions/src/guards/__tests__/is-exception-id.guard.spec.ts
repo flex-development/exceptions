@@ -1,0 +1,26 @@
+import ExceptionCode from '@packages/exceptions/enums/exception-code.enum'
+import ExceptionId from '@packages/exceptions/enums/exception-id.enum'
+import type { Testcase } from '@tests/utils/types'
+import testSubject from '../is-exception-id.guard'
+
+/**
+ * @file Unit Tests - isExceptionId
+ * @module exceptions/guards/tests/unit/isExceptionId
+ */
+
+describe('unit:guards/isExceptionId', () => {
+  type Case = Testcase<boolean> & { value: any }
+
+  const cases: Case[] = [
+    { expected: false, value: ExceptionCode.UNAUTHORIZED },
+    { expected: true, value: ExceptionId.I_AM_A_TEAPOT }
+  ]
+
+  it.each<Case>(cases)('should return $expected given $value', testcase => {
+    // Arrange
+    const { expected, value } = testcase
+
+    // Act + Expect
+    expect(testSubject(value)).toBe(expected)
+  })
+})
