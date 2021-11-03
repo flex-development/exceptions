@@ -64,6 +64,7 @@ in each workspace-specific Contributing Guide.
 | `PAT_GPR`                | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
 | `PAT_GPR_FLDV`           | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
 | `PROJECT_CWD`**\***      | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                          |
+| `TS_NODE_PROJECT`        | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
 | `npm_package_name`**\*** | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                          |
 
 **\*** Environment variable [specific to Yarn 2][2]

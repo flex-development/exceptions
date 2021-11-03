@@ -1,31 +1,25 @@
-import fs from 'fs/promises'
-import path from 'path'
+import path from 'node:path'
 import { createMatchPath, loadConfig } from 'tsconfig-paths'
-/** @type {import('ts-node/dist/esm').registerAndCreateEsmHooks} */
-const hooks = await import('ts-node/esm')
+import pkg from '../../package.json'
+/** @type {EsmLoader.hooks} */ const hooks = await import('ts-node/esm')
 
 /**
  * @file Helpers - Custom ESM Loader Hooks
  * @module tools/loaders/esm
  * @see https://github.com/TypeStrong/ts-node/issues/1007
- * @see https://nodejs.org/docs/latest-v16.x/api/all.html#esm_hooks
+ * @see https://nodejs.org/docs/latest-v12.x/api/all.html#esm_hooks
  */
-
-/** @typedef {'builtin'|'commonjs'|'dynamic'|'json'|'module'|'wasm'} Format */
-/** @typedef {{ parentURL: string }} ResolveContext */
 
 /**
  * Determines if `url` should be interpreted as a CommonJS or ES module.
  *
- * @see https://github.com/nodejs/modules/issues/488#issuecomment-804895142
- *
  * @async
  * @param {string} url - File URL
- * @param {Record<string, never>} ctx - Resolver context
- * @param {typeof hooks.getFormat} defaultGetFormat - Default format function
- * @return {Promise<{ format: Format }>} Promise containing module format
+ * @param {EsmLoader.HookContext.GetFormat} ctx - Resolver context
+ * @param {EsmLoader.Hooks.GetFormat} fn - Default format fn
+ * @return {Promise<EsmLoader.HookResult.GetFormat>} Module format
  */
-export const getFormat = async (url, ctx, defaultGetFormat) => {
+export const getFormat = async (url, ctx, fn) => {
   // Get file extension
   const ext = path.extname(url)
 
@@ -38,27 +32,27 @@ export const getFormat = async (url, ctx, defaultGetFormat) => {
 
   // Load TypeScript files as ESM
   // See `tsconfig.json#ts-node.moduleTypes` for file-specific overrides
-  if (ext === '.ts') return { format: 'module' }
+  if (pkg.type === 'module' && ext === '.ts') return { format: 'module' }
 
-  // Defer to Node.js for all other URLs
-  return defaultGetFormat(url, ctx, defaultGetFormat)
+  // Defer to ts-node for all other URLs
+  return await hooks.getFormat(url, ctx, fn)
 }
 
 /**
- * Returns the resolved file URL for a given module specifier and parent URL.
+ * Returns the resolved file URL for a given module `specifier` and parent URL.
  *
  * @see https://github.com/TypeStrong/ts-node/discussions/1450
  * @see https://github.com/dividab/tsconfig-paths
  *
  * @async
- * @param {string} specifier - `import` statement / `import()` expression string
- * @param {ResolveContext} context - Resolver context
- * @param {string} [context.parentURL] - URL of module that imported `specifier`
- * @param {typeof hooks.resolve} defaultResolve - Default resolver function
- * @return {Promise<{ url: string }>} Promise containing resolved file URL
+ * @param {string} specifier - Module specifier
+ * @param {EsmLoader.HookContext.Resolve} ctx - Function context
+ * @param {string} [ctx.parentURL] - URL of module that imported `specifier`
+ * @param {EsmLoader.Hooks.Resolve} fn - Default fn
+ * @return {Promise<EsmLoader.HookResult.Resolve>} Resolved file URL
  * @throws {Error}
  */
-export const resolve = async (specifier, context, defaultResolve) => {
+export const resolve = async (specifier, ctx, fn) => {
   // Load TypeScript config to get path mappings
   const result = loadConfig(process.cwd())
 
@@ -72,16 +66,21 @@ export const resolve = async (specifier, context, defaultResolve) => {
   const match = createMatchPath(absoluteBaseUrl, paths)(specifier)
 
   // Update specifier if match was found
-  if (match) {
-    try {
-      const directory = (await fs.lstat(match)).isDirectory()
-      specifier = `${match}${directory ? '/index.js' : '.js'}`
-    } catch {
-      specifier = `${match}.js`
-    }
-  }
+  if (match) specifier = match
 
-  return hooks.resolve(specifier, context, defaultResolve)
+  // Defer to ts-node
+  return await hooks.resolve(specifier, ctx, fn)
 }
 
+/**
+ * Applies transformations to `source`.
+ *
+ * @async
+ * @param {EsmLoader.Source} source - Source code to transform: ;
+ * @param {EsmLoader.HookContext.TransformSource} ctx - Function context
+ * @param {EsmLoader.Format} [ctx.format] - Module format of source code
+ * @param {string} [ctx.url] - Source code file URL
+ * @param {EsmLoader.Hooks.TransformSource} fn - Default transform fn
+ * @return {Promise<EsmLoader.HookResult.TransformSource>} Source code
+ */
 export const transformSource = hooks.transformSource
