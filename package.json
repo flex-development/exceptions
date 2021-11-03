@@ -46,7 +46,7 @@
     "@flex-development/grease": "2.0.0",
     "@flex-development/log": "4.0.1-dev.0",
     "@flex-development/trext": "2.0.4",
-    "@flex-development/tutils": "4.1.1",
+    "@flex-development/tutils": "4.2.3",
     "@jest/globals": "27.3.1",
     "@jest/types": "27.2.5",
     "@packages/exceptions": "link:packages/grease/src",

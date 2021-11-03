@@ -835,7 +835,7 @@ __metadata:
   resolution: "@flex-development/exceptions@workspace:packages/exceptions"
   dependencies:
     "@firebase/util": 1.4.0
-    "@flex-development/tutils": 4.1.1
+    "@flex-development/tutils": 4.2.3
     "@jest/types": 27.2.5
     "@packages/exceptions": "link:src"
     "@tests/utils": "link:../../__tests__/utils"
@@ -972,7 +972,7 @@ __metadata:
     "@flex-development/grease": 2.0.0
     "@flex-development/log": 4.0.1-dev.0
     "@flex-development/trext": 2.0.4
-    "@flex-development/tutils": 4.1.1
+    "@flex-development/tutils": 4.2.3
     "@jest/globals": 27.3.1
     "@jest/types": 27.2.5
     "@packages/exceptions": "link:packages/grease/src"
@@ -1069,16 +1069,6 @@ __metadata:
   peerDependencies:
     typescript: ">=2.7"
   checksum: d4ebf259d3072d946d407b254a9ce6a8a53ad2adc8e1e4e7a73aa00970d6ef6cc27a1df0c5c0dff20ea71c6789428ceaec497912e3f0825f902138a1ecfb4479
-  languageName: node
-  linkType: hard
-
-"@flex-development/tutils@npm:4.1.1":
-  version: 4.1.1
-  resolution: "@flex-development/tutils@npm:4.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftutils%2F4.1.1%2F0c5883fcff742848172edcea39318a74a6b388d7ca30cc2f655c78ffdba62353"
-  peerDependencies:
-    "@types/node": ">=14.0.0"
-    typescript: 4.5.0-beta
-  checksum: 3984c22093062926f5990f0fb457270c098c0fa48c0b27ece5451ff9b38303b72bdd381aaba764956f143ad3a4d9df90b78cbf319f9911ffcc092f2f305fc438
   languageName: node
   linkType: hard
 
