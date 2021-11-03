@@ -4,5 +4,5 @@
     "rootDir": "src"
   },
   "extends": "../../tsconfig.prod.json",
-  "include": ["src"]
+  "include": ["src", "typings"]
 }
