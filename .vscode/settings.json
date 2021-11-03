@@ -1,13 +1,15 @@
 {
   "eslint.options": {
-    "extensions": [".cjs", ".cts", ".md", ".mjs", ".mts", ".ts"],
+    "extensions": [".cjs", ".cts", ".js", ".md", ".mjs", ".mts", ".ts"],
     "overrideConfigFile": "./.eslintrc.cjs"
   },
+  "eslint.packageManager": "yarn",
+  "eslint.validate": ["javascript", "markdown", "typescript"],
+  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
   "files.associations": {
     "*.d.cts": "typescript",
     "*.d.mts": "typescript",
-    ".env": "shellscript",
-    ".env.*": "shellscript",
+    ".env*": "shellscript",
     "commit-msg": "shellscript",
     "pre-commit": "shellscript",
     "pre-push": "shellscript"
@@ -26,19 +28,13 @@
       "icon": "typescriptdef"
     },
     {
-      "extensions": [".eslintrc.base.cjs"],
-      "format": "svg",
-      "icon": "eslint"
-    },
-    {
       "extensions": [
-        "prod.cjs.json",
-        "prod.esm.json",
-        "prod.spec.json",
-        "prod.types.json"
+        ".eslintrc.base.cjs",
+        ".eslintrc.react.cjs",
+        ".eslintrc.web.cjs"
       ],
       "format": "svg",
-      "icon": "tsconfig"
+      "icon": "eslint"
     },
     {
       "extensions": [".lintstagedrc.cjs"],
@@ -46,9 +42,31 @@
       "icon": "lintstagedrc"
     },
     {
+      "extensions": [
+        "build.json",
+        "prod.cjs.json",
+        "prod.esm.json",
+        "prod.types.json"
+      ],
+      "format": "svg",
+      "icon": "tsconfig"
+    },
+    {
       "extensions": ["yarnrc.yml"],
       "format": "svg",
       "icon": "yarn"
+    }
+  ],
+  "vsicons.associations.folders": [
+    {
+      "extensions": ["__fixtures__", "dtos"],
+      "format": "svg",
+      "icon": "db"
+    },
+    {
+      "extensions": ["types"],
+      "format": "svg",
+      "icon": "typings"
     }
   ]
 }

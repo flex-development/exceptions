@@ -13,3 +13,4 @@ packages/*/types/*
 **/CHANGELOG.md
 
 !packages/src/types/*
+!**/.*.*

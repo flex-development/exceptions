@@ -23,7 +23,7 @@ jobs:
       PAT_GPR: ${{ secrets.PAT_GPR_ADMIN }}
     strategy:
       matrix:
-        node: [15.x, 16.x]
+        node: [15.x, 16.0.0]
     steps:
       - id: checkout
         name: Checkout branch
@@ -49,16 +49,16 @@ jobs:
         run: yarn check:format
       - id: check-style
         name: Check code style
-        run: yarn check:style --max-warnings 0
+        run: yarn check:style
       - id: check-types
         name: Check types
         run: yarn check:types
       - id: env
-        name: Set build environment variables
+        name: Set environment variables
         run: node ./tools/cli/loadenv.cjs -gc=test
       - id: check-build
         name: Check builds
         run: yarn prepack --tarball --env=test
       - id: env-post
-        name: Post Set build environment variables
+        name: Post Set environment variables
         run: echo "NODE_OPTIONS=''" >> $GITHUB_ENV

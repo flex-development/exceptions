@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.prod.json",
+  "include": ["src"]
+}

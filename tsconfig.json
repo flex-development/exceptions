@@ -16,6 +16,7 @@
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     // Must be disabled to use type-only imports
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -50,7 +51,8 @@
     "target": "es2021"
   },
   "exclude": [
-    "node_modules/**",
+    "**/coverage/**/*",
+    "**/node_modules/**/*",
     "packages/*/build",
     "packages/*/cjs",
     "packages/*/esm",
@@ -66,11 +68,14 @@
     "**/.*.cjs",
     "**/.*.ts"
   ],
+  // See: https://typestrong.org/ts-node/docs/configuration
   "ts-node": {
+    "compilerOptions": {},
     "moduleTypes": {
       ".commitlintrc.ts": "cjs",
       "tools/helpers/workspaces.ts": "cjs"
     },
+    "require": ["tsconfig-paths/register"],
     "transpileOnly": true
   }
 }

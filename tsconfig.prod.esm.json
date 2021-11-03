@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./esm"
+    "outDir": "./esm",
+    "paths": {
+      "@packages/exceptions/*": ["packages/exceptions/src/*"],
+      "@packages/exceptions": ["packages/exceptions/src/index"]
+    }
   },
   "extends": "./tsconfig.prod.json"
 }

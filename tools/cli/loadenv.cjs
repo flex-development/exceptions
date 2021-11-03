@@ -2,7 +2,7 @@
 
 const ch = require('chalk')
 const exec = require('child_process').exec
-const { config } = require('dotenv')
+const { config: dotenv } = require('dotenv')
 const expand = require('dotenv-expand')
 const fs = require('fs')
 const path = require('path')
@@ -21,6 +21,7 @@ const { hideBin } = require('yargs/helpers')
  * @property {string} [directory=process.cwd()] - Directory to resolve files
  * @property {string[]} [files=[]] - File path(s) to load
  * @property {boolean} [github] - Update GitHub Actions environment
+ * @property {boolean} [override=true] - Set process.env
  * @property {string} [print] - Name of variable to print to console
  * @property {boolean} [result] - Log result when loading is complete
  */
@@ -66,6 +67,12 @@ const args = yargs(hideBin(process.argv), process.env.INIT_CWD)
     required: false,
     type: 'boolean'
   })
+  .option('override', {
+    alias: 'o',
+    default: true,
+    describe: 'set process.env',
+    type: 'boolean'
+  })
   .option('print', {
     alias: 'p',
     describe: 'name of variable to print to console',
@@ -98,6 +105,7 @@ const loadenv = async () => {
     directory: cwd = process.cwd(),
     files = ['.env'],
     github = false,
+    override = true,
     print,
     result: print_result = false
   } = argv
@@ -131,13 +139,13 @@ const loadenv = async () => {
 
   // Load environment files (and expand)
   for (const full_path of fpaths) {
-    parsed.push(expand(config({ path: path.resolve(full_path) })).parsed || {})
+    parsed.push(expand(dotenv({ path: path.resolve(full_path) })).parsed || {})
   }
 
   // Init result object
   /** @type {LoadEnvResult} */ const result = {
     cwd,
-    env: parsed.reduce((acc, obj) => ({ ...acc, ...obj })),
+    env: parsed.reduce((acc, obj) => ({ ...acc, ...obj }), []),
     files: fpaths.map(p => p.split(`${cwd}/`)[1])
   }
 
@@ -149,6 +157,11 @@ const loadenv = async () => {
     for (const n of Object.keys(result.env)) {
       exec(`echo "${n}=${result.env[n]}" >> $GITHUB_ENV`)
     }
+  }
+
+  // Apply overrides
+  if (override) {
+    for (const n of Object.keys(result.env)) process.env[n] = result.env[n]
   }
 
   // Print selected environment variable

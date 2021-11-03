@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "packages/exceptions/node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "**/coverage/**/*",
+    "**/node_modules/**/*",
+    "packages/*/build",
+    "packages/*/cjs",
+    "packages/*/esm",
+    "packages/*/types",
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/.*.cjs"
+  ],
+  "extends": "./tsconfig.json"
+}

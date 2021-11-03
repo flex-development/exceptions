@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "noEmit": true,
-    "rootDir": "./packages"
-  },
-  "extends": "./tsconfig.prod.json",
-  "include": ["packages/*/src"]
-}

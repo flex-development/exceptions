@@ -78,7 +78,6 @@ coverage/
 ### TypeScript ###
 # TypeScript cache
 *.tsbuildinfo
-packages/**/tsconfig.prod.*
 
 ### ESLint ###
 # Optional eslint cache

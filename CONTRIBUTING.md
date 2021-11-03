@@ -52,22 +52,26 @@ People interacting with the `exceptions` project are grouped into 4 categories:
 Project environment variables are listed below. Workspace variables are listed
 in each workspace-specific Contributing Guide.
 
-| name                     | required | development        | test               | production | build, release, and deployment (local & ci) |
-| ------------------------ | -------- | ------------------ | ------------------ | ---------- | ------------------------------------------- |
-| `DEBUG`                  | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `DEBUG_COLORS`           | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `NODE_ENV`               | `false`  | :x:                | :x:                | :x:        | :white_check_mark:                          |
-| `NODE_OPTIONS`           | `true`   | :white_check_mark: | :x:                | :x:        | :white_check_mark:                          |
-| `NODE_MODULES`           | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `NPM_TOKEN`              | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `NPM_TOKEN_FLDV`         | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `PAT_GPR`                | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `PAT_GPR_FLDV`           | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `PROJECT_CWD`**\***      | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                          |
-| `TS_NODE_PROJECT`        | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                          |
-| `npm_package_name`**\*** | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                          |
+| name                       | required | development        | test               | production | build, release, deploy (local & ci) |
+| -------------------------- | -------- | ------------------ | ------------------ | ---------- | ----------------------------------- |
+| `DEBUG`                    | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `DEBUG_COLORS`             | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `GITHUB_WORKSPACE`**\*\*** | `true`   | :white_check_mark: | :x:                | :x:        | :white_check_mark:                  |
+| `NODE_ENV`                 | `false`  | :x:                | :x:                | :x:        | :white_check_mark:                  |
+| `NODE_OPTIONS`             | `true`   | :white_check_mark: | :x:                | :x:        | :white_check_mark:                  |
+| `NODE_MODULES`             | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `NPM_TOKEN`                | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `NPM_TOKEN_FLDV`           | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `PAT_GPR`                  | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `PAT_GPR_FLDV`             | `true`   | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `PROJECT_CWD`**\***        | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                  |
+| `PWD`**\*\*\***            | `true`   | :white_check_mark: | :x:                | :x:        | :white_check_mark:                  |
+| `TS_NODE_PROJECT`          | `false`  | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:                  |
+| `npm_package_name`**\***   | `true`   | :x:                | :x:                | :x:        | :white_check_mark:                  |
 
-**\*** Environment variable [specific to Yarn 2][2]
+**\*** Environment variable [specific to Yarn 2][2]  
+**\*\*** Environment variable specific to GitHub Actions  
+**\*\*\*** Environment variable specific to local machine
 
 If you're using [ZSH][3], you can use the [`dotenv`][4] plugin to autosource the
 project [`.env`](.env) file. Otherwise, following the instructions in the

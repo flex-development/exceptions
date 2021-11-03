@@ -4,4 +4,5 @@
 #
 # - https://typicode.github.io/husky
 
+yarn check:types
 yarn test --lastCommit --no-cache

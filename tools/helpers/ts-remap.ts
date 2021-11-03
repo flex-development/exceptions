@@ -1,5 +1,6 @@
 import LogLevel from '@flex-development/log/enums/log-level.enum'
-import path from 'path'
+import path from 'node:path'
+import { inspect } from 'node:util'
 import replace from 'replace-in-file'
 import { applyChanges } from 'resolve-tspaths/dist/steps/applyChanges'
 import { computeAliases } from 'resolve-tspaths/dist/steps/computeAliases'
@@ -8,8 +9,8 @@ import { getFilesToProcess } from 'resolve-tspaths/dist/steps/getFilesToProcess'
 import type { Alias, Change, ProgramPaths } from 'resolve-tspaths/dist/types'
 import { TSConfigPropertyError } from 'resolve-tspaths/dist/utils/errors'
 import { TsConfig } from 'tsc-prog'
-import { inspect } from 'util'
 import logger from './logger'
+import { $ORG } from './pkg'
 
 /**
  * @file Helpers - tsRemap
@@ -113,11 +114,11 @@ const tsRemap = (options: TsRemapOptions): TsRemapResult | null => {
   if (!dryRun) {
     applyChanges(changes)
 
-    replace.sync({
-      files: `${outPath}/**/*`,
-      from: new RegExp(`(../.*)?${process.env.NODE_MODULES}/`),
-      to: ''
-    })
+    const files = `./${compilerOptions.outDir}/**/*`
+
+    // eslint-disable-next-line no-useless-escape
+    replace.sync({ files, from: /([..\/]\W\S*)node_modules\//g, to: '' })
+    replace.sync({ files, from: /@packages/, to: `@${$ORG}` })
 
     if (changes.length > 0) logger({}, 'resolve compilerOptions.paths')
   }

@@ -123,12 +123,12 @@ module.exports = {
         skipWords: [
           'argv',
           'basedir',
-          'bundlers',
           'cjs',
           'commitlint',
           'commonjs',
-          'cmd',
+          'cts',
           'ctx',
+          'dedupe',
           'dotenv',
           'enum',
           'esm',
@@ -136,24 +136,23 @@ module.exports = {
           'formatter',
           'loadenv',
           'mjs',
+          'msg',
+          'mts',
           'ncc',
           'perf',
           'pkgfile',
           'pnv',
           'postinstall',
           'prepack',
-          'rimraf',
-          'rollup',
-          'stderr',
-          'stdout',
+          'prog',
+          'stringified',
           'tgz',
           'tsc',
           'tsconfig',
-          'ttsc',
           'typeof',
-          'umd',
           'usr',
           'vercel',
+          'vscode',
           'wasm',
           'wip',
           'workspace',
@@ -282,7 +281,12 @@ module.exports = {
     {
       files: ['**/.eslintrc.*'],
       rules: {
-        'spellcheck/spell-checker': 0,
+        'spellcheck/spell-checker': 0
+      }
+    },
+    {
+      files: ['**/.eslintrc.*', '**/.prettierrc.*'],
+      rules: {
         'sort-keys': 0
       }
     },

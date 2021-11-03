@@ -67,13 +67,13 @@ export default class Exception<T = any> extends AggregateError {
    * @param {ExceptionDataDTO<T>} [data={}] - Custom error data
    * @param {ExceptionErrors<T>} [data.errors] - Single error or group of errors
    * @param {string} [data.message] - Custom message. Overrides `message`
-   * @param {string} [stack] - Error stack
+   * @param {string} [stack=''] - Error stack
    */
   constructor(
     code: ExceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR,
     message: NullishString = DEM,
     data: ExceptionDataDTO<T> = {},
-    stack?: string
+    stack: string = ''
   ) {
     super([data.errors || []].flat(), data.message || message || DEM)
 
@@ -194,7 +194,7 @@ export default class Exception<T = any> extends AggregateError {
     // Request was made, but no response was received
     if (!request) data = { ...data, message: 'No response received.' }
     else {
-      data.request = pick(request, [
+      data['request'] = pick(request, [
         'aborted',
         'code',
         'host',
@@ -224,7 +224,7 @@ export default class Exception<T = any> extends AggregateError {
 
     // Get error data
     const data: Record<string, JSONValue> = { code, isFirebaseError: true }
-    if (customData) data.customData = customData as JSONValue
+    if (customData) data['customData'] = customData as JSONValue
 
     return new Exception<T>(status, message, data, stack)
   }

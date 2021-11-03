@@ -2,28 +2,28 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
+    "exactOptionalPropertyTypes": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "noEmit": false,
     "noEmitOnError": true,
+    "noPropertyAccessFromIndexSignature": true,
     "outDir": "./build",
     "removeComments": false,
     "resolveJsonModule": false,
     "rootDir": "./src",
     "skipLibCheck": true,
-    "stripInternal": true,
     "useDefineForClassFields": true
   },
   "exclude": [
-    "**/__mocks__",
-    "**/__tests__",
+    "**/__mocks__/**/*",
+    "**/__tests__/**/*",
     "./build",
     "./cjs",
+    "./coverage",
     "./esm",
     "./node_modules",
     "./types"
   ],
-  "extends": "./tsconfig.json",
-  "files": [],
-  "include": ["src"]
+  "extends": "./tsconfig.json"
 }

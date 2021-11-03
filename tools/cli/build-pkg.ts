@@ -1,108 +1,46 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
 import LogLevel from '@flex-development/log/enums/log-level.enum'
 import type { TrextOptions } from '@flex-development/trext'
 import { trext } from '@flex-development/trext'
-// @ts-expect-error ts(7016)
 import ncc from '@vercel/ncc'
-import ch from 'chalk'
 import fs from 'fs/promises'
-import path from 'path'
+import path from 'node:path'
 import replace from 'replace-in-file'
-import sh from 'shelljs'
+import rimraf from 'rimraf'
 import type { BuildOptions as TsBuildOptions } from 'tsc-prog'
-import tsc from 'tsc-prog'
-import { loadSync as tsconfigLoad } from 'tsconfig/dist/tsconfig'
-import { inspect } from 'util'
+import * as tsc from 'tsc-prog'
+import { logDiagnostics } from 'tsc-prog/dist/utils/log'
+import ts from 'typescript'
 import type { Argv } from 'yargs'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
-import exec from '../helpers/exec'
+import type { BuildOptions } from '../helpers/build'
+import build, { args as bargs } from '../helpers/build'
 import logger from '../helpers/logger'
-import { $PACKAGE, $WNS, $WORKSPACE } from '../helpers/pkg'
+import { $PACKAGE, $WNS } from '../helpers/pkg'
 import type { TsRemapOptions } from '../helpers/ts-remap'
 import tsRemap from '../helpers/ts-remap'
 import tsconfigCascade from '../helpers/tsconfig-cascade'
 
 /**
  * @file CLI - Package Build Workflow
- * @module tools/cli/build
+ * @module tools/cli/build-pkg
  */
 
-export type BuildOptions = {
-  /**
-   * See the commands that running `build-pkg` would run.
-   *
-   * @default false
-   */
-  dryRun?: boolean
-
-  /** @see BuildOptions.dryRun */
-  d?: BuildOptions['dryRun']
-
-  /**
-   * Name of build environment.
-   *
-   * @default 'production'
-   */
-  env?: 'development' | 'production' | 'test'
-
-  /** @see BuildOptions.env */
-  e?: BuildOptions['env']
-
+export type BuildPkgOptions = BuildOptions & {
   /**
    * Specify module build formats.
    *
    * @default ['cjs','esm','types']
    */
-  formats?: ('cjs' | 'esm' | 'types')[]
+  formats?: BuildPkgFormat[]
 
-  /** @see BuildOptions.formats */
-  f?: BuildOptions['formats']
-
-  /**
-   * Run preliminary `yarn install` if package contains build scripts.
-   *
-   * @default false
-   */
-  install?: boolean
-
-  /** @see BuildOptions.install */
-  i?: BuildOptions['install']
-
-  /**
-   * Create tarball at specified path.
-   *
-   * @default '%s-%v.tgz'
-   */
-  out?: string
-
-  /** @see BuildOptions.out */
-  o?: BuildOptions['out']
-
-  /**
-   * Run `prepack` script.
-   *
-   * @default false
-   */
-  prepack?: boolean
-
-  /** @see BuildOptions.prepack */
-  p?: BuildOptions['prepack']
-
-  /**
-   * Pack the project once build is complete.
-   *
-   * @default false
-   */
-  tarball?: boolean
-
-  /** @see BuildOptions.tarball */
-  t?: BuildOptions['tarball']
+  /** @see BuildPkgOptions.formats */
+  f?: BuildPkgOptions['formats']
 }
 
-export type BuildArgs = Argv<BuildOptions>
-export type BuildArgv = Exclude<BuildArgs['argv'], Promise<any>>
+export type BuildPkgArgs = Argv<BuildPkgOptions>
+export type BuildPkgArgv = Exclude<BuildPkgArgs['argv'], Promise<any>>
+export type BuildPkgFormat = 'cjs' | 'esm' | 'types'
 
 export type BuildModuleFormatOptions = {
   build: TsBuildOptions
@@ -111,33 +49,10 @@ export type BuildModuleFormatOptions = {
 }
 
 /** @property {string[]} BUILD_FORMATS - Module build formats */
-const BUILD_FORMATS: BuildOptions['formats'] = ['cjs', 'esm', 'types']
+const BUILD_FORMATS: BuildPkgFormat[] = ['cjs', 'esm', 'types']
 
-/** @property {string} COMMAND_PACK - Base pack command */
-const COMMAND_PACK: string = 'yarn pack'
-
-/** @property {string} CWD - Current working directory */
-const CWD: string = process.cwd()
-
-/** @property {string} PWD - Project working directory */
-const PWD: string = process.env.PROJECT_CWD as string
-
-const args = yargs(hideBin(process.argv), CWD)
-  .usage('$0 [options]')
-  .option('dryRun', {
-    alias: 'd',
-    default: false,
-    describe: 'see the commands that running `build-pkg` would run',
-    type: 'boolean'
-  })
-  .option('env', {
-    alias: 'e',
-    choices: ['production', 'test', 'development'],
-    default: 'production',
-    describe: 'name of build environment',
-    requiresArg: true,
-    type: 'string'
-  })
+/** @property {BuildPkgArgs} args - CLI arguments parser */
+const args = bargs
   .option('formats', {
     alias: 'f',
     choices: BUILD_FORMATS,
@@ -145,190 +60,152 @@ const args = yargs(hideBin(process.argv), CWD)
     describe: 'specify module build format(s)',
     type: 'array'
   })
-  .option('install', {
-    alias: 'i',
-    default: false,
-    describe: 'run `yarn install` if package contains build scripts',
-    type: 'boolean'
-  })
-  .option('out', {
-    alias: 'o',
-    default: '%s-%v.tgz',
-    describe: 'create tarball at specified path',
-    requiresArg: true,
-    type: 'string'
-  })
-  .option('prepack', {
-    alias: 'p',
-    default: false,
-    describe: 'run `prepack` script',
-    type: 'boolean'
-  })
-  .option('tarball', {
-    alias: 't',
-    default: false,
-    describe: 'pack the project once build is complete',
-    type: 'boolean'
-  })
   .alias('version', 'v')
-  .alias('help', 'h')
-  .pkgConf('build')
-  .wrap(98) as BuildArgs
+  .pkgConf('build-pkg') as BuildPkgArgs
 
-const argv: BuildArgv = await args.argv
+/**
+ * Executes the package build workflow.
+ *
+ * @async
+ * @return {Promise<void>} Empty promise when complete
+ */
+async function buildPackage(): Promise<void> {
+  await build<BuildPkgOptions>(args.argv, async (argv, context) => {
+    const { dryRun, env, formats = [] } = argv
+    const { cwd, pwd } = context
 
-const { dryRun, env, formats = [], tarball } = argv
+    // Build project, convert output extensions, create bundles
+    for (const format of formats) {
+      // Remove stale build directory
+      !dryRun && rimraf.sync(format)
+      logger(argv, `remove stale ${format} directory`)
 
-// Log workflow start
-logger(
-  argv,
-  'starting build workflow',
-  [$WORKSPACE, `[dry=${dryRun}]`],
-  LogLevel.INFO
-)
+      // Get config file suffix
+      const suffix: `${string}.json` = `prod.${format}.json`
 
-try {
-  // Type check source code
-  exec('yarn check:types', dryRun)
-  logger(argv, 'type check source code')
+      // Get output extension
+      const extension: 'cjs' | 'mjs' = `${format === 'cjs' ? 'c' : 'm'}js`
 
-  // Set environment variables
-  exec(`node ${PWD}/tools/cli/loadenv.cjs -c ${env}`, dryRun)
-  logger(argv, `set ${env} environment variables`)
+      // Get module format build options
+      // See: https://github.com/jeremyben/tsc-prog
+      // See: https://github.com/flex-development/trext
+      const options: BuildModuleFormatOptions = (() => {
+        const tsconfig = (() => {
+          const { include = [] } = tsconfigCascade([[cwd, 'prod.json']])
+          const { compilerOptions = {}, exclude = [] } = tsconfigCascade([
+            [pwd, 'json'],
+            [pwd, 'prod.json'],
+            [cwd, 'prod.json'],
+            [pwd, suffix]
+          ])
 
-  // Build project, convert output extensions, create bundles
-  for (const format of formats) {
-    // Get config file suffix
-    const suffix: `${string}.json` = `prod.${format}.json`
+          compilerOptions.outDir = format
+          delete compilerOptions.rootDir
 
-    // Get module format build options
-    // See: https://github.com/justkey007/tsc-alias#usage
-    // See: https://github.com/jeremyben/tsc-prog
-    // See: https://github.com/flex-development/trext
-    const options: BuildModuleFormatOptions = (() => {
-      const tsconfig = (() => {
-        const { compilerOptions = {}, exclude = [] } = tsconfigCascade([
-          [PWD, 'json'],
-          [CWD, 'json'],
-          [PWD, 'prod.json'],
-          [PWD, suffix]
-        ])
+          return { compilerOptions, exclude, include }
+        })()
 
         return {
-          compilerOptions,
-          exclude,
-          include: tsconfigLoad(PWD, 'tsconfig.prod.json').config.include
-        }
+          build: { ...tsconfig, basePath: cwd, clean: { outDir: true } },
+          remap: {
+            compilerOptions: { ...tsconfig.compilerOptions, baseUrl: '../..' },
+            dryRun,
+            verbose: !!JSON.parse(`${process.env.GITHUB_ACTIONS || 'false'}`)
+          },
+          trext: {
+            absolute: /@flex-development/,
+            babel: { sourceMaps: 'inline' as const },
+            from: 'js',
+            pattern: /.js$/,
+            to: extension
+          }
+        } as BuildModuleFormatOptions
       })()
 
-      return {
-        build: { ...tsconfig, basePath: CWD, clean: { outDir: true } },
-        remap: {
-          compilerOptions: { ...tsconfig.compilerOptions, baseUrl: '../..' },
-          dryRun
-        },
-        trext: {
-          babel: { sourceMaps: 'inline' as const },
-          from: 'js',
-          pattern: /.js$/,
-          to: `${format === 'cjs' ? 'c' : 'm'}js`
+      // Build project
+      if (!dryRun) {
+        // Log compilation start
+        logger(argv, 'compilation started')
+
+        // Create TypeScript program
+        const program = tsc.createProgramFromConfig(options.build)
+
+        // Compile project
+        const emit = program.emit(
+          undefined,
+          undefined,
+          undefined,
+          format === 'types'
+        )
+
+        // Get all diagnostics
+        const diagnostics = [
+          ...ts.getPreEmitDiagnostics(program),
+          ...emit.diagnostics
+        ]
+
+        // Log diagnostics
+        logDiagnostics(diagnostics, true)
+
+        // Throw error if files weren't emitted
+        if (!program.getCompilerOptions().noEmit && emit.emitSkipped) {
+          throw new Error('compilation failed')
         }
+
+        // Log compilation result
+        if (diagnostics.length > 0) {
+          const message = `compilation done with ${diagnostics.length} errors`
+          logger(argv, message, [], LogLevel.WARN)
+        } else logger(argv, 'compilation successful')
       }
-    })()
 
-    // Build project
-    !dryRun && tsc.build(options.build)
+      // Transform paths
+      tsRemap(options.remap)
 
-    // Transform paths
-    tsRemap(options.remap)
-    dryRun && logger(argv, `build ${format}`)
+      if (format !== 'types') {
+        // Create bundles
+        // See: https://github.com/vercel/ncc
+        const BUNDLES = [$WNS, `${$WNS}.min`].map(async name => {
+          const bundle = `${format}/${name}.${options.trext.to}`
+          const filename = 'src/index.ts'
 
-    if (format !== 'types') {
-      // Create bundles
-      // See: https://github.com/vercel/ncc
-      const BUNDLES = [$WNS, `${$WNS}.min`].map(async name => {
-        const bundle = `${format}/${name}.${options.trext.to}`
-        const filename = 'src/index.ts'
+          if (!dryRun) {
+            const { code } = await ncc(`${cwd}/${filename}`, {
+              esm: format === 'esm',
+              externals: [
+                ...Object.keys($PACKAGE?.optionalDependencies ?? {}),
+                ...Object.keys($PACKAGE?.peerDependencies ?? {})
+              ],
+              filename,
+              minify: path.extname(name) === '.min',
+              production: env === 'production',
+              quiet: true,
+              target: options.build.compilerOptions?.target,
+              // ! type check already performed above
+              transpileOnly: true
+            })
 
-        if (!dryRun) {
-          const { code } = await ncc(`${CWD}/${filename}`, {
-            esm: format === 'esm',
-            externals: Object.keys($PACKAGE?.peerDependencies ?? {}),
-            filename,
-            minify: path.extname(name) === '.min',
-            production: env === 'production',
-            quiet: true,
-            target: options.build.compilerOptions?.target,
-            // ! @vercel/ncc not compatible with typescript@4.5.0-beta
-            transpileOnly: true
-          })
+            await fs.writeFile(bundle, code, { flag: 'wx+' })
+            await fs.copyFile(`${format}/index.d.ts`, `${format}/${name}.d.ts`)
+            await replace.replaceInFile({
+              files: bundle,
+              from: ';// CONCATENATED MODULE: ./src/',
+              to: ';// CONCATENATED MODULE: ../src/'
+            })
+          }
 
-          await fs.writeFile(bundle, code, { flag: 'wx+' })
-          await fs.copyFile(`${format}/index.d.ts`, `${format}/${name}.d.ts`)
-          await replace.replaceInFile({
-            files: bundle,
-            from: ';// CONCATENATED MODULE: ./src/',
-            to: ';// CONCATENATED MODULE: ../src/'
-          })
-        }
+          return bundle
+        })
 
-        return bundle
-      })
+        // Complete bundle promises
+        logger(argv, `bundle ${format}`, await Promise.all(BUNDLES))
 
-      // Complete bundle promises
-      logger(argv, `bundle ${format}`, await Promise.all(BUNDLES))
-
-      // Convert TypeScript output to .cjs or .mjs
-      !dryRun && (await trext<'js', 'cjs' | 'mjs'>(format, options.trext))
-      logger(argv, `use .${options.trext.to} extensions`)
+        // Convert TypeScript output to .cjs or .mjs
+        !dryRun && (await trext<'js', typeof extension>(format, options.trext))
+        logger(argv, `use .${extension} extensions`)
+      }
     }
-  }
-
-  // Pack project
-  if (tarball) {
-    const { install, out: outFile, prepack } = argv
-
-    // Pack command flags
-    const flags = [
-      `${dryRun ? '--dry-run' : ''}`,
-      `--out ${outFile}`,
-      `${install ? '--install-if-needed' : ''}`
-    ]
-
-    // Check if package has postinstall and prepack scripts
-    const has_postinstall = typeof $PACKAGE.scripts?.postinstall === 'string'
-    const has_prepack = typeof $PACKAGE.scripts?.prepack === 'string'
-
-    // Check if prepack script should be disabled
-    const disable_prepack = has_prepack && !prepack
-
-    // Disable postinstall script
-    has_postinstall && exec('toggle-scripts -postinstall', dryRun)
-    has_postinstall && logger(argv, 'disable postinstall script')
-
-    // Disable prepack script
-    disable_prepack && exec('toggle-scripts -prepack', dryRun)
-    disable_prepack && logger(argv, 'disable prepack script')
-
-    // Execute pack command
-    exec(`${COMMAND_PACK} ${flags.join(' ')}`.trim(), dryRun)
-    logger(argv, 'create tarball')
-
-    // Renable postinstall script
-    has_postinstall && exec('toggle-scripts +postinstall', dryRun)
-    has_postinstall && logger(argv, 'renable postinstall script')
-
-    // Renable prepack script
-    disable_prepack && exec('toggle-scripts +prepack', dryRun)
-    disable_prepack && logger(argv, 'renable prepack script')
-  }
-} catch (err) {
-  const error = err as Error & { code?: number; stderr?: string }
-
-  if (!error.stderr) logger(argv, error.message, [], LogLevel.ERROR)
-  sh.echo(error.stderr || ch.red(inspect(error, false, null)))
-  sh.exit(error?.code ?? 1)
+  })
 }
 
-// Log workflow end
-logger(argv, 'build workflow complete', [$WORKSPACE], LogLevel.INFO)
+buildPackage()
