@@ -39,11 +39,7 @@
       "import": "./esm/exceptions.mjs",
       "require": "./cjs/exceptions.cjs"
     },
-    "./": {
-      "import": "./esm/*.mjs",
-      "require": "./cjs/*.cjs"
-    },
-    "./cjs/*": "./cjs/*.cjs",
+    "./": "./",
     "./dtos": {
       "import": "./esm/dtos/index.mjs",
       "require": "./cjs/dtos/index.cjs"
@@ -60,7 +56,6 @@
       "import": "./esm/enums/*.mjs",
       "require": "./cjs/enums/*.cjs"
     },
-    "./esm/*": "./esm/*.mjs",
     "./exceptions": {
       "import": "./esm/exceptions/index.mjs",
       "require": "./cjs/exceptions/index.cjs"
