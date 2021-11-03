@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/flex-development/exceptions/compare/exceptions@6.0.1...exceptions@7.0.0) (2021-11-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **typescript:** drop `EmptyString`
+
+### :hammer: Build
+
+* **deps:** use `@flex-development/tutils@4.2.3` ([52c1630](https://github.com/flex-development/exceptions/commit/52c1630e05b583de090b7ed91855aa6483ec151b))
+
+
+### :recycle: Code Improvements
+
+* **typescript:** drop `EmptyString` ([3a53a6f](https://github.com/flex-development/exceptions/commit/3a53a6f3c2efd58ee7b1a72f94b15f43d288e3a6))
+
+
+### :pencil2: Housekeeping
+
+* **tools:** reorganize build workflow ([8749385](https://github.com/flex-development/exceptions/commit/8749385518d2acb0b0d3537ccdc076d922540205))
+* **typescript:** fix `axios/lib/core/createError` typings ([7452efd](https://github.com/flex-development/exceptions/commit/7452efd0b4146018761bb277a6b4c756a13d9eeb))
+
+
+### :bug: Fixes
+
+* **exceptions:** provide `AggregateError` polyfill ([c682683](https://github.com/flex-development/exceptions/commit/c682683e579bb6b1de1fa58ef1e9b1f60fe2c307))
+* package exports ([3c07221](https://github.com/flex-development/exceptions/commit/3c07221b381aef7875df9bf0d194f3f6e8b3f02d))
+
 ### [6.0.1](https://github.com/flex-development/exceptions/compare/exceptions@6.0.0...exceptions@6.0.1) (2021-10-16)
 
 
@@ -41,7 +69,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### :recycle: Code Improvements
 
 * **guards:** move type guards to separate directory ([611d70f](https://github.com/flex-development/exceptions/commit/611d70f9983b6e86bdff0dabd5ff77de2fdf73a7))
-* **typescript:** `FirebaseError` ([c602e7d](https://github.com/flex-development/exceptions/commit/c602e7d00c981afa24d750bb67005afa44465966)), closes [#L42](https://github.com/flex-development/exceptions/issues/L42) [#L74](https://github.com/flex-development/exceptions/issues/L74)
+* **typescript:** `FirebaseError` ([c602e7d](https://github.com/flex-development/exceptions/commit/c602e7d00c981afa24d750bb67005afa44465966))
 * **typescript:** drop all axios type definitions ([c774c01](https://github.com/flex-development/exceptions/commit/c774c01e6a528a269214ddcdac99c72b257ad3ba))
 
 

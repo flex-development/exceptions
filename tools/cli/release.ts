@@ -173,7 +173,8 @@ logger(
 )
 
 // Run release workflow
-grease(merge({}, options, argv)).catch((error: any) => {
+// @ts-expect-error Property 'default' does not exist on type
+grease.default(merge({}, options, argv)).catch((error: any) => {
   if (error.stderr) return
   else sh.echo(ch.bold.red(inspect(error, false, null)))
 })
