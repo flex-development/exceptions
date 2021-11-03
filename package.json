@@ -22,7 +22,7 @@
     "bootstrap": ". ./.env && yarn prepack",
     "postinstall": "is-ci || chmod +x .husky/* && husky install",
     "prepack": "yarn workspaces foreach -iv --topological-dev run prepack",
-    "check:ci": "yarn check:types && yarn check:format && yarn check:style && yarn build --tarball && rimraf packages/*/*.tgz",
+    "check:ci": "yarn check:types && yarn check:format && yarn check:style && yarn test && yarn build --tarball && rimraf packages/*/*.tgz",
     "check:dedupe": "yarn dedupe --check",
     "check:format": "prettier --check .",
     "check:install": "yarn dlx @yarnpkg/doctor .",

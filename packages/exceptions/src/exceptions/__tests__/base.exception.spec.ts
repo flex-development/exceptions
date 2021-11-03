@@ -126,6 +126,12 @@ describe('unit:exceptions/Exception', () => {
         expect(Subject.message).toBe(expected)
       })
     })
+
+    describe('#name', () => {
+      it('should set #name to "Exception"', () => {
+        expect(new TestSubject().name).toBe('Exception')
+      })
+    })
   })
 
   describe('.findIdByCode', () => {

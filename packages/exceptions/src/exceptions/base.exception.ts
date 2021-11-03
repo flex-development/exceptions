@@ -16,6 +16,7 @@ import {
   NextError
 } from '@packages/exceptions/interfaces'
 import { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
+import AggregateError from 'es-aggregate-error'
 import omit from 'lodash.omit'
 import pick from 'lodash.pick'
 import { DEM } from './constants.exceptions'
@@ -35,29 +36,41 @@ import { DEM } from './constants.exceptions'
 // eslint-disable-next-line unicorn/custom-error-definition
 export default class Exception<T = any> extends AggregateError {
   /**
+   * @readonly
    * @property {ExceptionErrors<T>} errors - Aggregated errors
    */
-  override errors: ExceptionErrors<T>
+  declare readonly errors: ExceptionErrors<T>
 
   /**
+   * @readonly
+   * @property {'Exception'} name - Constructor name
+   */
+  // @ts-expect-error '"Exception"' is not assignable to type '"AggregateError"
+  override readonly name: 'Exception' = 'Exception'
+
+  /**
+   * @readonly
    * @property {ExceptionClassName} className - Associated CSS class name
    */
-  className: ExceptionClassName
+  readonly className: ExceptionClassName
 
   /**
+   * @readonly
    * @property {ExceptionCode} code - HTTP error response status code
    */
-  code: ExceptionCode
+  readonly code: ExceptionCode
 
   /**
+   * @readonly
    * @property {ExceptionData} data - Custom error data
    */
-  data: ExceptionData
+  readonly data: ExceptionData
 
   /**
+   * @readonly
    * @property {ExceptionId} id - HTTP error response status code name
    */
-  id: ExceptionId
+  readonly id: ExceptionId
 
   /**
    * Instantiates a new Exception.
@@ -77,7 +90,6 @@ export default class Exception<T = any> extends AggregateError {
   ) {
     super([data.errors || []].flat(), data.message || message || DEM)
 
-    this.name = 'Exception'
     this.code = Exception.formatCode(code)
     this.data = omit(data, ['errors', 'message'])
     this.id = Exception.findIdByCode(this.code)

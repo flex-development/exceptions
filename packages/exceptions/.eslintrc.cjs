@@ -25,6 +25,7 @@ module.exports = {
           'firebase',
           'oauth',
           'parallelization',
+          'readonly',
           'resform',
           'saml',
           'satisfiable',

@@ -96,6 +96,8 @@
   },
   "dependencies": {
     "@flex-development/tutils": "4.2.3",
+    "@types/es-aggregate-error": "1.0.2",
+    "es-aggregate-error": "1.0.7",
     "lodash.isplainobject": "4.0.6",
     "lodash.omit": "4.5.0",
     "lodash.pick": "4.4.0"

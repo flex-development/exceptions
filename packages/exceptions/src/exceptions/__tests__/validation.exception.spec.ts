@@ -53,11 +53,12 @@ describe('unit:exceptions/ValidationException', () => {
     const { dto, expected } = testcase
 
     // Act
-    const result = new TestSubject('Model', { ...dto, errors: ERRORS }).toJSON()
+    const result = new TestSubject('Model', { ...dto, errors: ERRORS })
 
     // Expect
     expect(result.code).toBe(expected.code)
-    expect(result.data).toStrictEqual(expected.data)
+    expect(result.toJSON().data).toStrictEqual(expected.data)
     expect(result.message).toBe(expected.message)
+    expect(result.name).toBe('ValidationException')
   })
 })

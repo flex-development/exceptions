@@ -19,9 +19,17 @@ import Exception from './base.exception'
  */
 export default class ValidationException extends Exception<ValidationError> {
   /**
+   * @readonly
    * @property {ValidationExceptionErrors} errors - Aggregated validation errors
    */
-  declare errors: ValidationExceptionErrors
+  declare readonly errors: ValidationExceptionErrors
+
+  /**
+   * @readonly
+   * @property {'ValidationException'} name - Constructor name
+   */
+  // @ts-expect-error '"ValidationException"' !== '"Exception"
+  override readonly name: 'ValidationException' = 'ValidationException'
 
   /**
    * Instantiates a new `ValidationException`.
@@ -50,11 +58,13 @@ export default class ValidationException extends Exception<ValidationError> {
 
     // Set message if custom message wasn't provided
     if (!dto.message) {
-      this.message = `${model} validation failure`
+      let message = `${model} validation failure`
 
       if (this.errors.length > 0) {
-        this.message += `: [${this.errors.map(e => e.property)}]`
+        message += `: [${this.errors.map(error => error.property)}]`
       }
+
+      Object.assign(this, { message })
     }
   }
 }
