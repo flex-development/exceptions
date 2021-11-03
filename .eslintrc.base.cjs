@@ -74,6 +74,8 @@ module.exports = {
           'Exception',
           'ExceptionJSON',
           'NodeJS',
+          'PackageResolverOptions',
+          'PackageResolverPath',
           'never'
         ]
       }
