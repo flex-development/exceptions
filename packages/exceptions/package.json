@@ -96,9 +96,8 @@
     "postpublish": "toggle-scripts +prepack"
   },
   "dependencies": {
+    "@flex-development/aggregate-error-ponyfill": "workspace:packages/aggregate-error-ponyfill",
     "@flex-development/tutils": "4.2.3",
-    "@types/es-aggregate-error": "1.0.2",
-    "es-aggregate-error": "1.0.7",
     "lodash.isplainobject": "4.0.6",
     "lodash.omit": "4.5.0",
     "lodash.pick": "4.4.0"
@@ -129,7 +128,7 @@
   },
   "peerDependencies": {
     "@firebase/util": ">=1.4.0",
-    "@types/node": ">=15.0.0",
+    "@types/node": ">=12.0.0",
     "axios": ">=0.23.0",
     "class-validator": ">=0.13.1",
     "firebase-admin": ">=10.0.0",
@@ -156,7 +155,7 @@
     }
   },
   "engines": {
-    "node": ">=15.0.0",
+    "node": ">=12.22.0",
     "npm": "use-yarn",
     "yarn": "3.0.2"
   },

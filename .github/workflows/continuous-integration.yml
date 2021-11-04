@@ -50,18 +50,15 @@ jobs:
       - id: check-style
         name: Check code style
         run: yarn check:style
-      - id: check-types
-        name: Check types
-        run: yarn check:types
+      # - id: check-tests
+      #   name: Check test suites
+      #   run: yarn test
       - id: env
-        name: Set environment variables
+        name: Set build environment variables
         run: node ./tools/cli/loadenv.cjs -gc=test
-      - id: check-tests
-        name: Check test suites
-        run: yarn test
       - id: check-build
         name: Check builds
         run: yarn prepack --tarball --env=test
       - id: env-post
-        name: Post Set environment variables
+        name: Post Set build environment variables
         run: echo "NODE_OPTIONS=''" >> $GITHUB_ENV

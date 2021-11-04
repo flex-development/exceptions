@@ -1,3 +1,4 @@
+import AggregateError from '@flex-development/aggregate-error-ponyfill'
 import type { JSONObject, JSONValue } from '@flex-development/tutils'
 import { NullishString } from '@flex-development/tutils'
 import { ExceptionDataDTO } from '@packages/exceptions/dtos'
@@ -16,7 +17,6 @@ import {
   NextError
 } from '@packages/exceptions/interfaces'
 import { ExceptionData, ExceptionErrors } from '@packages/exceptions/types'
-import AggregateError from 'es-aggregate-error'
 import omit from 'lodash.omit'
 import pick from 'lodash.pick'
 import { DEM } from './constants.exceptions'
@@ -31,10 +31,10 @@ import { DEM } from './constants.exceptions'
  *
  * @template T - Error type
  *
- * @extends {AggregateError}
+ * @extends {AggregateError<T>}
  */
 // eslint-disable-next-line unicorn/custom-error-definition
-export default class Exception<T = any> extends AggregateError {
+export default class Exception<T = any> extends AggregateError<T> {
   /**
    * @readonly
    * @property {ExceptionErrors<T>} errors - Aggregated errors
@@ -45,7 +45,7 @@ export default class Exception<T = any> extends AggregateError {
    * @readonly
    * @property {'Exception'} name - Constructor name
    */
-  // @ts-expect-error '"Exception"' is not assignable to type '"AggregateError"
+  // @ts-expect-error '"Exception"' !== '"AggregateError"
   override readonly name: 'Exception' = 'Exception'
 
   /**
@@ -88,7 +88,7 @@ export default class Exception<T = any> extends AggregateError {
     data: ExceptionDataDTO<T> = {},
     stack: string = ''
   ) {
-    super([data.errors || []].flat(), data.message || message || DEM)
+    super([data.errors || []].flat() as T[], data.message || message || DEM)
 
     this.code = Exception.formatCode(code)
     this.data = omit(data, ['errors', 'message'])

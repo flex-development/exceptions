@@ -8,4 +8,4 @@
  *
  * @template T - Error type
  */
-export type ExceptionErrors<T = any> = ReadonlyArray<T>
+export type ExceptionErrors<T = any> = Array<T>

@@ -705,12 +705,12 @@ __metadata:
   resolution: "@flex-development/exceptions@workspace:packages/exceptions"
   dependencies:
     "@firebase/util": 1.4.0
+    "@flex-development/aggregate-error-ponyfill": "workspace:packages/aggregate-error-ponyfill"
     "@flex-development/tutils": 4.2.3
     "@mochajs/json-file-reporter": 1.3.0
     "@packages/exceptions": "link:src"
     "@tests/utils": "link:../../__tests__/utils"
     "@types/chai": 4.2.22
-    "@types/es-aggregate-error": 1.0.2
     "@types/faker": 5.5.9
     "@types/lodash.isplainobject": 4.0.6
     "@types/lodash.omit": 4.5.6
@@ -721,7 +721,6 @@ __metadata:
     axios: 0.24.0
     chai: 4.3.4
     class-validator: 0.13.1
-    es-aggregate-error: 1.0.7
     faker: 5.5.3
     firebase-admin: 10.0.0
     lodash.isplainobject: 4.0.6
@@ -734,7 +733,7 @@ __metadata:
     typescript: 4.5.0-beta
   peerDependencies:
     "@firebase/util": ">=1.4.0"
-    "@types/node": ">=15.0.0"
+    "@types/node": ">=12.0.0"
     axios: ">=0.23.0"
     class-validator: ">=0.13.1"
     firebase-admin: ">=10.0.0"
@@ -1406,15 +1405,6 @@ __metadata:
   dependencies:
     "@types/es-to-primitive": "*"
   checksum: 08f8dfa778d03202f39cb7ca342a56d36f8851b20fef3003285c60d6db4772522c13954331f9a3e60c874325b7b635c491b75136a4d14fcb4387230bad2b77ec
-  languageName: node
-  linkType: hard
-
-"@types/es-aggregate-error@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@types/es-aggregate-error@npm:1.0.2"
-  dependencies:
-    "@types/node": "*"
-  checksum: 076fd59b595f33c8c7e7eb68ec55bd43cf8b2cf7bbc6778e25d7ae1a5fa0538a0a56f149015f403d7bbcefe59f1d8182351685b59c1fe719fd46d0dd8a9737fa
   languageName: node
   linkType: hard
 
@@ -3504,20 +3494,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-aggregate-error@npm:1.0.7":
-  version: 1.0.7
-  resolution: "es-aggregate-error@npm:1.0.7"
-  dependencies:
-    define-properties: ^1.1.3
-    es-abstract: ^1.19.0
-    function-bind: ^1.1.1
-    functions-have-names: ^1.2.2
-    get-intrinsic: ^1.1.1
-    globalthis: ^1.0.2
-  checksum: 16b89fefdf56c0478cd21577249156cf83e44c2220c057cbfddd99c01e15e03d6d90a85ce73dece4728a5bfcb022dc160e04a66b1f83a620f140842c6f8325f9
-  languageName: node
-  linkType: hard
-
 "es-to-primitive@npm:^1.2.1":
   version: 1.2.1
   resolution: "es-to-primitive@npm:1.2.1"
@@ -4314,13 +4290,6 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"functions-have-names@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "functions-have-names@npm:1.2.2"
-  checksum: 25f44b6d1c41ac86ffdf41f25d1de81c0a5b4a3fcf4307a33cdfb23b9d4bd5d0d8bf312eaef5ad368c6500c8a9e19f692b8ce9f96aaab99db9dd936554165558
-  languageName: node
-  linkType: hard
-
 "gauge@npm:~2.7.3":
   version: 2.7.4
   resolution: "gauge@npm:2.7.4"
@@ -4578,15 +4547,6 @@ fsevents@~2.3.2:
   dependencies:
     type-fest: ^0.20.2
   checksum: 1f959abb11117916468a1afcba527eead152900cad652c8383c4e8976daea7ec55e1ee30c086f48d1b8655719f214e9d92eca083c3a43b5543bc4056e7e5fccf
-  languageName: node
-  linkType: hard
-
-"globalthis@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "globalthis@npm:1.0.2"
-  dependencies:
-    define-properties: ^1.1.3
-  checksum: 5a5f3c7ab94708260a98106b35946b74bb57f6b2013e39668dc9e8770b80a3418103b63a2b4aa01c31af15fdf6a2940398ffc0a408573c34c2304f928895adff
   languageName: node
   linkType: hard
 
