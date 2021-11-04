@@ -93,7 +93,7 @@ export type BuildWorflow<O extends BuildOptions = BuildOptions> = {
 /** @property {BuildContext} context - Build context */
 export const CONTEXT: BuildContext = {
   cwd: process.cwd(),
-  pwd: process.env.PROJECT_CWD as string
+  pwd: process.env.GITHUB_WORKSPACE as string
 }
 
 /** @property {BuildArgs} args - Project working directory */

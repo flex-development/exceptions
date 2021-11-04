@@ -13,18 +13,14 @@ export type TsCascadeConfig = [string, 'json' | `${string}.json`]
  * Deep merges TypeScript config files.
  *
  * @param {TsCascadeConfig[]} [configs=[]] - Array of suffix config items
- * @param {boolean} [root_paths=true] - Make aliases relative to `PROJECT_CWD`
  * @return {TsConfig} Tsconfig object
  */
-const tsconfigCascade = (
-  configs: TsCascadeConfig[] = [],
-  root_paths: boolean = true
-): TsConfig => {
+const tsconfigCascade = (configs: TsCascadeConfig[] = []): TsConfig => {
   const $: TsCascadeConfig[] = configs.map(c => [c[0], `tsconfig.${c[1]}`])
   const tsconfig = merge(...($.map(arg => load(...arg).config) as [TsConfig]))
 
-  if (root_paths && tsconfig.compilerOptions?.paths) {
-    const root = process.env.PROJECT_CWD
+  if (tsconfig.compilerOptions?.paths) {
+    const root = process.env.GITHUB_WORKSPACE
     const { paths } = tsconfig.compilerOptions
 
     for (const alias of Object.keys(paths)) {

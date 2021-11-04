@@ -4,7 +4,7 @@
  * @see https://mochajs.org/#configuration-format
  */
 
-const PWD = process.env.PROJECT_CWD
+const PWD = process.env.GITHUB_WORKSPACE
 const TYPES = ['', 'e2e', 'functional', 'integration']
 
 /** @type {Mocha.MochaInstanceOptions} */

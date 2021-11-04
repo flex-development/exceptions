@@ -130,7 +130,7 @@ const argv: ReleaseArgv = await args.argv
 const options: IGreaseOptions = {
   commitAll: true,
   gitTagFallback: false,
-  gitdir: process.env.PROJECT_CWD,
+  gitdir: process.env.GITHUB_WORKSPACE,
   lernaPackage: $WNS,
   releaseAssets: ['./*.tgz'],
   releaseBranchWhitelist: ['release/*'],

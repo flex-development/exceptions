@@ -16,7 +16,7 @@ error handling solutions found throughout Flex Development projects.
 ## Usage
 
 This project is organized as a monorepo. For detailed usage instructions, see
-one of the project workspaces below:
+one of the workspaces below:
 
 - [@flex-development/aggregate-error-ponyfill][1]
 - [@flex-development/exceptions][2]

@@ -15,7 +15,7 @@ import { workspaces as GLOBS } from '../../package.json'
 const workspaces = (): string[] => {
   return GLOBS.map(g => g.split('/')[0]).flatMap((proj?: string): string[] => {
     // Get path to Yarn project directory
-    const dir = path.resolve(process.env.PROJECT_CWD as string, proj as string)
+    const dir = path.resolve(workspaces.ROOT, proj as string)
 
     // Add subdirectories under Yarn project directory
     return readdirSync(dir).filter(workspace => {
@@ -24,5 +24,7 @@ const workspaces = (): string[] => {
     })
   })
 }
+
+workspaces.ROOT = process.env.GITHUB_WORKSPACE as string
 
 export default workspaces
