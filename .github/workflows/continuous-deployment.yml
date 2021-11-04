@@ -49,7 +49,7 @@ jobs:
 
             const { 0: workspace_no_scope, 1: version } = tag.split('@')
 
-            const dir = workspace_no_scope.split('-')[1] || workspace_no_scope
+            const dir = workspace_no_scope
             const workspace = `@${context.repo.owner}/${workspace_no_scope}`
 
             core.exportVariable('tag', tag)

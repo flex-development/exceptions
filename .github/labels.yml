@@ -60,6 +60,10 @@
   description: Type guards
   color: 74cefc
 
+- name: scope:ponyfill
+  description: '@flex-development/aggregate-error-ponyfill'
+  color: 74cefc
+
 - name: scope:tests
   description: Testing
   color: 74cefc

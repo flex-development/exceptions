@@ -12,11 +12,11 @@
   "homepage": "https://github.com/flex-development/exceptions/tree/next/packages/aggregate-error-ponyfill",
   "repository": {
     "type": "git",
-    "url": "git@github.com:flex-development/aggregate-error-ponyfill.git",
+    "url": "git@github.com:flex-development/exceptions.git",
     "directory": "packages/aggregate-error-ponyfill"
   },
   "bugs": {
-    "url": "https://github.com/flex-development/aggregate-error-ponyfill/issues"
+    "url": "https://github.com/flex-development/exceptions/issues"
   },
   "license": "BSD-3-Clause",
   "contributors": [
