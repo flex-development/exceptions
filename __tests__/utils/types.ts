@@ -39,13 +39,3 @@
 export interface Testcase<Expected = any> {
   expected: Expected
 }
-
-/**
- * Represents a `toBeCalled*` test case.
- *
- * @see https://jestjs.io/docs/expect#tohavebeencalled
- * @see https://jestjs.io/docs/expect#tohavebeencalledtimesnumber
- */
-export interface TestcaseCalled extends Testcase<number> {
-  call: 'call' | 'not call'
-}

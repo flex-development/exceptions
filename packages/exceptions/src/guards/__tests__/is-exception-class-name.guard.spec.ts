@@ -8,7 +8,7 @@ import testSubject from '../is-exception-class-name.guard'
  * @module exceptions/guards/tests/unit/isExceptionClassName
  */
 
-describe('unit:guards/isExceptionClassName', () => {
+describe('exceptions/unit:guards/isExceptionClassName', () => {
   type Case = Testcase<boolean> & { value: any }
 
   const cases: Case[] = [
@@ -16,11 +16,9 @@ describe('unit:guards/isExceptionClassName', () => {
     { expected: true, value: ExceptionClassName.URI_TOO_LONG }
   ]
 
-  it.each<Case>(cases)('should return $expected given $value', testcase => {
-    // Arrange
-    const { expected, value } = testcase
-
-    // Act + Expect
-    expect(testSubject(value)).toBe(expected)
+  cases.forEach(({ expected, value }) => {
+    it(`should return ${expected} given [${value}]`, () => {
+      expect(testSubject(value)).to.equal(expected)
+    })
   })
 })

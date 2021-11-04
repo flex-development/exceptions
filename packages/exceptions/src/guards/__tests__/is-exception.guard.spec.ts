@@ -8,7 +8,7 @@ import testSubject from '../is-exception.guard'
  * @module exceptions/guards/tests/unit/isException
  */
 
-describe('unit:guards/isException', () => {
+describe('exceptions/unit:guards/isException', () => {
   type Case = Testcase<boolean> & {
     is: 'is' | 'is not'
     value: any
@@ -19,13 +19,9 @@ describe('unit:guards/isException', () => {
     { expected: true, is: 'is', value: new Exception() }
   ]
 
-  const name = 'should return $expected if error $is Exception'
-
-  it.each<Case>(cases)(name, testcase => {
-    // Arrange
-    const { value, expected } = testcase
-
-    // Act + Expect
-    expect(testSubject(value)).toBe(expected)
+  cases.forEach(({ expected, is, value }) => {
+    it(`should return ${expected} if error ${is} Exception`, () => {
+      expect(testSubject(value)).to.deep.equal(expected)
+    })
   })
 })

@@ -1,6 +1,6 @@
 /**
- * @file Test Utilities - Global
- * @module tests/utils/global
+ * @file Test Utilities - stringifyType
+ * @module tests/utils/stringifyType
  */
 
 /**
@@ -11,7 +11,9 @@
  * @param {any} value - Value to stringify type
  * @return {string} Value type as string
  */
-export const stringifyType = (value: any): string => {
+const stringifyType = (value: any): string => {
   const obj = typeof value === 'object' && (value?.constructor ?? false)
   return `${obj ? value.constructor.name : typeof value}`
 }
+
+export default stringifyType

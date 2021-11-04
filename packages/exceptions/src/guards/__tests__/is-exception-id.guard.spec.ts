@@ -8,7 +8,7 @@ import testSubject from '../is-exception-id.guard'
  * @module exceptions/guards/tests/unit/isExceptionId
  */
 
-describe('unit:guards/isExceptionId', () => {
+describe('exceptions/unit:guards/isExceptionId', () => {
   type Case = Testcase<boolean> & { value: any }
 
   const cases: Case[] = [
@@ -16,11 +16,9 @@ describe('unit:guards/isExceptionId', () => {
     { expected: true, value: ExceptionId.I_AM_A_TEAPOT }
   ]
 
-  it.each<Case>(cases)('should return $expected given $value', testcase => {
-    // Arrange
-    const { expected, value } = testcase
-
-    // Act + Expect
-    expect(testSubject(value)).toBe(expected)
+  cases.forEach(({ expected, value }) => {
+    it(`should return ${expected} given [${value}]`, () => {
+      expect(testSubject(value)).to.equal(expected)
+    })
   })
 })

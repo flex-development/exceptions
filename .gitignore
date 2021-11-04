@@ -71,8 +71,7 @@ jspm_packages/
 # Environment variables
 .env*.local
 
-### Jest ###
-coverage/
+### Testing ###
 **/__tests__/results.json
 
 ### TypeScript ###

@@ -10,7 +10,7 @@ import TestSubject from '../validation.exception'
  * @module exceptions/exceptions/tests/unit/ValidationException
  */
 
-describe('unit:exceptions/ValidationException', () => {
+describe('exceptions/unit:exceptions/ValidationException', () => {
   type Case = Testcase<Pick<ExceptionJSON, 'code' | 'data' | 'message'>> & {
     do: string
     dto: Partial<ValidationExceptionDTO>
@@ -48,17 +48,16 @@ describe('unit:exceptions/ValidationException', () => {
     }
   ]
 
-  it.each<Case>(cases)('should $do', testcase => {
-    // Arrange
-    const { dto, expected } = testcase
+  cases.forEach(({ do: do_action, dto, expected }) => {
+    it(`should ${do_action}`, () => {
+      // Act
+      const result = new TestSubject('Model', { ...dto, errors: ERRORS })
 
-    // Act
-    const result = new TestSubject('Model', { ...dto, errors: ERRORS })
-
-    // Expect
-    expect(result.code).toBe(expected.code)
-    expect(result.toJSON().data).toStrictEqual(expected.data)
-    expect(result.message).toBe(expected.message)
-    expect(result.name).toBe('ValidationException')
+      // Expect
+      expect(result.code).to.equal(expected.code)
+      expect(result.toJSON().data).to.deep.equal(expected.data)
+      expect(result.message).to.equal(expected.message)
+      expect(result.name).to.equal('ValidationException')
+    })
   })
 })

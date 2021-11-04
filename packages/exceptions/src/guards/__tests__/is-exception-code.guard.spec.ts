@@ -8,7 +8,7 @@ import testSubject from '../is-exception-code.guard'
  * @module exceptions/guards/tests/unit/isExceptionCode
  */
 
-describe('unit:guards/isExceptionCode', () => {
+describe('exceptions/unit:guards/isExceptionCode', () => {
   type Case = Testcase<boolean> & { value: any }
 
   const cases: Case[] = [
@@ -16,11 +16,9 @@ describe('unit:guards/isExceptionCode', () => {
     { expected: true, value: ExceptionCode.PAYLOAD_TOO_LARGE }
   ]
 
-  it.each<Case>(cases)('should return $expected given $value', testcase => {
-    // Arrange
-    const { expected, value } = testcase
-
-    // Act + Expect
-    expect(testSubject(value)).toBe(expected)
+  cases.forEach(({ expected, value }) => {
+    it(`should return ${expected} given [${value}]`, () => {
+      expect(testSubject(value)).to.equal(expected)
+    })
   })
 })

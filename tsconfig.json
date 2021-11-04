@@ -58,7 +58,7 @@
     "packages/*/esm",
     "packages/*/types"
   ],
-  "files": ["typings/jest.d.ts"],
+  "files": ["typings/chai/expect.d.ts", "typings/globals/global.d.ts"],
   "include": [
     "**/*.cjs",
     "**/*.cts",

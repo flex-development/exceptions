@@ -28,7 +28,7 @@ import { DEM } from '../constants.exceptions'
  * @module exceptions/exceptions/tests/unit/Exception
  */
 
-describe('unit:exceptions/Exception', () => {
+describe('exceptions/unit:exceptions/Exception', () => {
   describe('constructor', () => {
     describe('#data', () => {
       it('should omit dto.data.errors and dto.data.message', () => {
@@ -39,7 +39,7 @@ describe('unit:exceptions/Exception', () => {
         const Subject = new TestSubject(ExceptionCode.NOT_FOUND, null, data)
 
         // Expect
-        expect(Subject.data).toContainAllEntries([])
+        expect(Subject.data).to.deep.equal({})
       })
 
       it('should use dto.data properties if dto.data is ExceptionJSON', () => {
@@ -50,8 +50,8 @@ describe('unit:exceptions/Exception', () => {
         const Subject = new TestSubject(undefined, message, EJSON)
 
         // Expect
-        expect(Subject.id).toBe(EJSON.name)
-        expect(Subject.toJSON()).toStrictEqual(EJSON)
+        expect(Subject.id).to.equal(EJSON.name)
+        expect(Subject.toJSON()).to.deep.equal(EJSON)
       })
     })
 
@@ -74,26 +74,23 @@ describe('unit:exceptions/Exception', () => {
         }
       ]
 
-      const name = 'should be array if dto.data.errors $array array'
+      cases.forEach(({ array, data, expected }) => {
+        it(`should be array if dto.data.errors ${array} array`, () => {
+          // Act
+          const Subject = new TestSubject(undefined, undefined, data)
 
-      it.each<Case>(cases)(name, testcase => {
-        // Arrange
-        const { data, expected } = testcase
-
-        // Act
-        const Subject = new TestSubject(undefined, undefined, data)
-
-        // Expect
-        expect(Subject.errors).toIncludeSameMembers(expected)
+          // Expect
+          expect(Subject.errors).to.have.deep.ordered.members(expected)
+        })
       })
     })
 
     describe('#message', () => {
       type Case = Testcase<string> & {
-        data: ExceptionDataDTO
-        message: string | undefined
         be: 'be' | 'not be'
+        data: ExceptionDataDTO
         defined: 'defined' | 'not defined'
+        message: string | undefined
       }
 
       const cases: Case[] = [
@@ -113,23 +110,20 @@ describe('unit:exceptions/Exception', () => {
         }
       ]
 
-      const name = 'should $be overridden if dto.data.message is $defined'
+      cases.forEach(({ be, data, defined, expected, message }) => {
+        it(`should ${be} overridden if dto.data.message is ${defined}`, () => {
+          // Act
+          const Subject = new TestSubject(undefined, message, data)
 
-      it.each<Case>(cases)(name, testcase => {
-        // Arrange
-        const { data, expected, message } = testcase
-
-        // Act
-        const Subject = new TestSubject(undefined, message, data)
-
-        // Expect
-        expect(Subject.message).toBe(expected)
+          // Expect
+          expect(Subject.message).to.equal(expected)
+        })
       })
     })
 
     describe('#name', () => {
       it('should set #name to "Exception"', () => {
-        expect(new TestSubject().name).toBe('Exception')
+        expect(new TestSubject().name).to.equal('Exception')
       })
     })
   })
@@ -145,12 +139,10 @@ describe('unit:exceptions/Exception', () => {
       }))
     ]
 
-    it.each<Case>(cases)("should return '$expected' given $code", testcase => {
-      // Arrange
-      const { code, expected } = testcase
-
-      // Act + Expect
-      expect(TestSubject.findIdByCode(code)).toBe(expected)
+    cases.forEach(({ code, expected }) => {
+      it(`should return '${expected}' given [${code}]`, () => {
+        expect(TestSubject.findIdByCode(code)).to.equal(expected)
+      })
     })
   })
 
@@ -165,12 +157,10 @@ describe('unit:exceptions/Exception', () => {
       }))
     ]
 
-    it.each<Case>(cases)('should return $expected given $code', testcase => {
-      // Arrange
-      const { code, expected } = testcase
-
-      // Act + Expect
-      expect(TestSubject.formatCode(code)).toBe(expected)
+    cases.forEach(({ code, expected }) => {
+      it(`should return ${expected} given [${code}]`, () => {
+        expect(TestSubject.formatCode(code)).to.equal(expected)
+      })
     })
   })
 
@@ -251,17 +241,14 @@ describe('unit:exceptions/Exception', () => {
       }
     ]
 
-    const name = 'should convert error $with response into Exception'
+    cases.forEach(({ error, expected, with: $with }) => {
+      it(`should convert error ${$with} response into Exception`, () => {
+        // Act
+        const result = TestSubject.fromAxiosError(error).toJSON()
 
-    it.each<Case>(cases)(name, testcase => {
-      // Arrange
-      const { error, expected } = testcase
-
-      // Act
-      const result = TestSubject.fromAxiosError(error).toJSON()
-
-      // Expect
-      expect(result).toStrictEqual(expected)
+        // Expect
+        expect(result).to.deep.equal(expected)
+      })
     })
   })
 
@@ -306,17 +293,14 @@ describe('unit:exceptions/Exception', () => {
       }
     ]
 
-    const name = 'should convert error with $code code into Exception'
+    cases.forEach(({ code, error, expected }) => {
+      it(`should convert error with ${code} code into Exception`, () => {
+        // Act
+        const result = TestSubject.fromFirebaseError(error).toJSON()
 
-    it.each<Case>(cases)(name, testcase => {
-      // Arrange
-      const { error, expected } = testcase
-
-      // Act
-      const result = TestSubject.fromFirebaseError(error).toJSON()
-
-      // Expect
-      expect(result).toStrictEqual(expected)
+        // Expect
+        expect(result).to.deep.equal(expected)
+      })
     })
   })
 
@@ -359,17 +343,14 @@ describe('unit:exceptions/Exception', () => {
       }
     ]
 
-    const name = 'should convert error $with statusCode into Exception'
+    cases.forEach(({ error, expected, with: $with }) => {
+      it(`should convert error ${$with} statusCode into Exception`, () => {
+        // Act
+        const result = TestSubject.fromNextError(error).toJSON()
 
-    it.each<Case>(cases)(name, testcase => {
-      // Arrange
-      const { error, expected } = testcase
-
-      // Act
-      const result = TestSubject.fromNextError(error).toJSON()
-
-      // Expect
-      expect(result).toStrictEqual(expected)
+        // Expect
+        expect(result).to.deep.equal(expected)
+      })
     })
   })
 
@@ -381,7 +362,7 @@ describe('unit:exceptions/Exception', () => {
       const message = 'Test error message'
 
       // Act + Expect
-      expect(new TestSubject(code, message, data).toJSON()).toStrictEqual({
+      expect(new TestSubject(code, message, data).toJSON()).deep.equal({
         className: ExceptionClassName.I_AM_A_TEAPOT,
         code,
         data: { foo: data.foo, isExceptionJSON: true },

@@ -1,7 +1,6 @@
 # ESLint Ignore
 # https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
 
-**/coverage/*
 **/node_modules/*
 
 .yarn/*

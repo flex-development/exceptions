@@ -229,12 +229,14 @@ be part of your code review.
 
 ### Testing
 
-This project uses [Jest][15] as its test runner. To run _all_ the tests in this
-project, run `yarn test` from the project root.
+This project uses [Mocha][15] x [Chai][16] testing workflow.
 
-Husky is configured to run tests before every push. Use [`describe.skip`][16] or
-[`it.skip`][17] if you need to create a new issue regarding the test, or need to
-make a `wip` commit.
+- run project-level test suites: `yarn test`
+- run workspace-level test suites: `yarn test:<package.json#name-no-scope>`
+
+Husky is configured to run tests before every push. If you need to create a new
+issue regarding a test, or need to make a `wip` commit, use Mocha's [inclusive
+tests feature][17] to mark your tests or suites as pending.
 
 ### Getting Help
 
@@ -362,7 +364,7 @@ Before releasing, the following steps must be completed:
    - once the PR is merged, the deployment workflow will be triggered
    - the maintainer who approved the PR should check to make sure the workflow
      completes all jobs as expected. if successful, the workflow will:
-     - publish package to the [GitHub Package Registry][19] and
+     - publish package to the [GitHub Package Registry][18] and
      - update the production branch (merge branch `next` into `main`)
      - publish the drafted release
    - the maintainer who approved the PR should go through the PR's linked issues
@@ -385,8 +387,8 @@ Before releasing, the following steps must be completed:
 [12]: https://eslint.org
 [13]: https://jsdoc.app
 [14]: https://github.com/gajus/eslint-plugin-jsdoc
-[15]: https://jestjs.io
-[16]: https://jestjs.io/docs/api#describeskipname-fn
-[17]: https://jestjs.io/docs/api#testskipname-fn
+[15]: https://mochajs.org
+[16]: https://www.chaijs.com
+[17]: https://mochajs.org/#inclusive-tests
 [18]: https://www.conventionalcommits.org/en/v1.0.0
 [19]: https://github.com/features/packages

@@ -1,7 +1,6 @@
 # Prettier Ignore
 # See: https://prettier.io/docs/en/ignore.html
 
-**/coverage/*
 **/node_modules/*
 .husky/_/*
 .yarn/*

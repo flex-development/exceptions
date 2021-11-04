@@ -8,7 +8,7 @@ import testSubject from '../is-exception-json.guard'
  * @module exceptions/guards/tests/unit/isExceptionJSON
  */
 
-describe('unit:guards/isExceptionJSON', () => {
+describe('exceptions/unit:guards/isExceptionJSON', () => {
   type Case = Testcase<boolean> & {
     is: 'is' | 'is not'
     value: any
@@ -19,13 +19,9 @@ describe('unit:guards/isExceptionJSON', () => {
     { expected: true, is: 'is', value: EJSON }
   ]
 
-  const name = 'should return $expected if ejson $is ExceptionJSON'
-
-  it.each<Case>(cases)(name, testcase => {
-    // Arrange
-    const { expected, value } = testcase
-
-    // Act + Expect
-    expect(testSubject(value)).toBe(expected)
+  cases.forEach(({ expected, is, value }) => {
+    it(`should return ${expected} if ejson ${is} ExceptionJSON`, () => {
+      expect(testSubject(value)).to.deep.equal(expected)
+    })
   })
 })
