@@ -28,6 +28,18 @@ import tsconfigCascade from '../helpers/tsconfig-cascade'
 
 export type BuildPkgOptions = BuildOptions & {
   /**
+   * Bundle build output with [`@vercel/ncc`][1].
+   *
+   * [1]: https://github.com/vercel/ncc
+   *
+   * @default true
+   */
+  bundle?: boolean
+
+  /** @see BuildPkgOptions.bundle */
+  b?: BuildPkgOptions['bundle']
+
+  /**
    * Specify module build formats.
    *
    * @default ['cjs','esm','types']
@@ -53,6 +65,12 @@ const BUILD_FORMATS: BuildPkgFormat[] = ['cjs', 'esm', 'types']
 
 /** @property {BuildPkgArgs} args - CLI arguments parser */
 const args = bargs
+  .option('bundle', {
+    alias: 'b',
+    default: true,
+    describe: 'bundle build output with @vercel/ncc',
+    type: 'boolean'
+  })
   .option('formats', {
     alias: 'f',
     choices: BUILD_FORMATS,
@@ -71,7 +89,7 @@ const args = bargs
  */
 async function buildPackage(): Promise<void> {
   await build<BuildPkgOptions>(args.argv, async (argv, context) => {
-    const { dryRun, env, formats = [] } = argv
+    const { bundle, dryRun, env, formats = [] } = argv
     const { cwd, pwd } = context
 
     // Build project, convert output extensions, create bundles
@@ -80,11 +98,14 @@ async function buildPackage(): Promise<void> {
       !dryRun && rimraf.sync(format)
       logger(argv, `remove stale ${format} directory`)
 
+      // Check if types output is being built
+      const TYPES = format === 'types'
+
       // Get config file suffix
       const suffix: `${string}.json` = `prod.${format}.json`
 
       // Get output extension
-      const extension: 'cjs' | 'mjs' = `${format === 'cjs' ? 'c' : 'm'}js`
+      const ext: 'cjs' | 'mjs' = `${format === 'cjs' ? 'c' : 'm'}js`
 
       // Get module format build options
       // See: https://github.com/jeremyben/tsc-prog
@@ -117,7 +138,7 @@ async function buildPackage(): Promise<void> {
             babel: { sourceMaps: 'inline' as const },
             from: 'js',
             pattern: /.js$/,
-            to: extension
+            to: ext
           }
         } as BuildModuleFormatOptions
       })()
@@ -162,7 +183,8 @@ async function buildPackage(): Promise<void> {
       // Transform paths
       tsRemap(options.remap)
 
-      if (format !== 'types') {
+      // Bundle build output
+      if (!TYPES && bundle) {
         // Create bundles
         // See: https://github.com/vercel/ncc
         const BUNDLES = [$WNS, `${$WNS}.min`].map(async name => {
@@ -199,11 +221,14 @@ async function buildPackage(): Promise<void> {
 
         // Complete bundle promises
         logger(argv, `bundle ${format}`, await Promise.all(BUNDLES))
-
-        // Convert TypeScript output to .cjs or .mjs
-        !dryRun && (await trext<'js', typeof extension>(format, options.trext))
-        logger(argv, `use .${extension} extensions`)
       }
+
+      // Check if extensions should be converted
+      const extensions = !TYPES && !dryRun
+
+      // Convert TypeScript output to .cjs or .mjs
+      extensions && (await trext<'js', typeof ext>(format, options.trext))
+      !TYPES && logger(argv, `use .${ext} extensions`)
     }
   })
 }

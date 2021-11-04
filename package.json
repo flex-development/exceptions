@@ -33,10 +33,13 @@
     "fix:format": "prettier --write .",
     "fix:style": "yarn check:style --fix --cache",
     "test": "bash tools/scripts/mocha.sh",
+    "test:aggregate-error-ponyfill": "yarn workspace @flex-development/aggregate-error-ponyfill test",
     "test:coverage": "yarn workspace @flex-development/$0 test:coverage",
     "test:exceptions": "yarn workspace @flex-development/exceptions test",
     "build": "yarn workspaces foreach -iv --topological-dev run build",
+    "build:aggregate-error-ponyfill": "yarn workspace @flex-development/aggregate-error-ponyfill build",
     "build:exceptions": "yarn workspace @flex-development/exceptions build",
+    "release:aggregate-error-ponyfill": "yarn workspace @flex-development/aggregate-error-ponyfill release",
     "release:exceptions": "yarn workspace @flex-development/exceptions release"
   },
   "devDependencies": {

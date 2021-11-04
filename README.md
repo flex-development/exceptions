@@ -1,4 +1,4 @@
-# :exclamation: Flexceptions [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![TypeScript](https://badgen.net/badge/-/typescript?icon=typescript&label)](https://www.typescriptlang.org/)
+# flexceptions [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![TypeScript](https://badgen.net/badge/-/typescript?icon=typescript&label)](https://www.typescriptlang.org/)
 
 Exception data models and error handling solutions
 
@@ -10,7 +10,7 @@ Exception data models and error handling solutions
 
 ## Getting Started
 
-The Flexceptions project focuses on consolidating exception data models and
+The flexceptions project focuses on consolidating exception data models and
 error handling solutions found throughout Flex Development projects.
 
 ## Usage
@@ -18,4 +18,8 @@ error handling solutions found throughout Flex Development projects.
 This project is organized as a monorepo. For detailed usage instructions, see
 one of the project workspaces below:
 
-- [@flex-development/exceptions](packages/exceptions/README.md#usage)
+- [@flex-development/aggregate-error-ponyfill][1]
+- [@flex-development/exceptions][2]
+
+[1]: packages/aggregate-error-ponyfill/README.md#usage
+[2]: packages/exceptions/README.md#usage

@@ -90,6 +90,7 @@ packages/*/dist/
 packages/*/esm/
 packages/*/esm5/
 packages/*/esm2015/
+packages/*/package
 packages/*/types/
 
 *.zip

@@ -56,6 +56,7 @@ const config: UserConfig = {
         'github',
         'guards',
         'hybrid',
+        'ponyfill',
         'release',
         'scripts',
         'tests',

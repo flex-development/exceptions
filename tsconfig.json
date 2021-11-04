@@ -21,14 +21,14 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "paths": {
-      "@flex-development/grease": [
-        "node_modules/@flex-development/grease/cjs/index"
-      ],
       "@flex-development/grease/*": [
         "node_modules/@flex-development/grease/cjs/*"
       ],
-      "@flex-development/log": ["node_modules/@flex-development/log/esm/index"],
+      "@flex-development/grease": [
+        "node_modules/@flex-development/grease/cjs/index"
+      ],
       "@flex-development/log/*": ["node_modules/@flex-development/log/esm/*"],
+      "@flex-development/log": ["node_modules/@flex-development/log/esm/index"],
       "@packages/exceptions/tests/fixtures/*": [
         "packages/exceptions/__tests__/__fixtures__/*"
       ],

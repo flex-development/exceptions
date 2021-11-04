@@ -4,6 +4,7 @@
     "skipLibCheck": true,
     "typeRoots": [
       "node_modules/@types",
+      "packages/aggregate-error-ponyfill/node_modules/@types",
       "packages/exceptions/node_modules/@types"
     ]
   },

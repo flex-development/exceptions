@@ -651,6 +651,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/aggregate-error-ponyfill@workspace:packages/aggregate-error-ponyfill":
+  version: 0.0.0-use.local
+  resolution: "@flex-development/aggregate-error-ponyfill@workspace:packages/aggregate-error-ponyfill"
+  dependencies:
+    "@mochajs/json-file-reporter": 1.3.0
+    "@packages/aggregate-error-ponyfill": "link:src"
+    "@tests/utils": "link:../../__tests__/utils"
+    "@types/chai": 4.2.22
+    "@types/es-abstract": 1.17.3
+    "@types/mocha": 9.0.0
+    "@types/node": 16.0.0
+    "@vates/toggle-scripts": 1.0.0
+    chai: 4.3.4
+    es-abstract: 1.19.1
+    mocha: 9.1.3
+    mocha-multi-reporters: 1.5.1
+    serve: 12.0.1
+    ts-node: 10.4.0
+    typescript: 4.5.0-beta
+  peerDependencies:
+    typescript: 4.5.0-beta
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@flex-development/dtag@npm:1.0.0":
   version: 1.0.0
   resolution: "@flex-development/dtag@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fdtag%2F1.0.0%2F2dadc14814c6a35919c867b60089e6dca7d3124e8608416a8a3258b93fa3be9f"
@@ -1136,6 +1163,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@packages/aggregate-error-ponyfill@link:src::locator=%40flex-development%2Faggregate-error-ponyfill%40workspace%3Apackages%2Faggregate-error-ponyfill":
+  version: 0.0.0-use.local
+  resolution: "@packages/aggregate-error-ponyfill@link:src::locator=%40flex-development%2Faggregate-error-ponyfill%40workspace%3Apackages%2Faggregate-error-ponyfill"
+  languageName: node
+  linkType: soft
+
 "@packages/exceptions@link:src::locator=%40flex-development%2Fexceptions%40workspace%3Apackages%2Fexceptions":
   version: 0.0.0-use.local
   resolution: "@packages/exceptions@link:src::locator=%40flex-development%2Fexceptions%40workspace%3Apackages%2Fexceptions"
@@ -1227,6 +1260,12 @@ __metadata:
   checksum: f9bf3163d13aaa3b6f5e6fbf37a116e094ea021c0e1f2a7ccd0e12a29e2ce08dafba4e8b36e13f8ed7397e1591610ce880ed1289af4d66cf4ace8a36a9557278
   languageName: node
   linkType: hard
+
+"@tests/utils@link:../../__tests__/utils::locator=%40flex-development%2Faggregate-error-ponyfill%40workspace%3Apackages%2Faggregate-error-ponyfill":
+  version: 0.0.0-use.local
+  resolution: "@tests/utils@link:../../__tests__/utils::locator=%40flex-development%2Faggregate-error-ponyfill%40workspace%3Apackages%2Faggregate-error-ponyfill"
+  languageName: node
+  linkType: soft
 
 "@tests/utils@link:../../__tests__/utils::locator=%40flex-development%2Fexceptions%40workspace%3Apackages%2Fexceptions":
   version: 0.0.0-use.local
@@ -1361,12 +1400,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/es-abstract@npm:1.17.3":
+  version: 1.17.3
+  resolution: "@types/es-abstract@npm:1.17.3"
+  dependencies:
+    "@types/es-to-primitive": "*"
+  checksum: 08f8dfa778d03202f39cb7ca342a56d36f8851b20fef3003285c60d6db4772522c13954331f9a3e60c874325b7b635c491b75136a4d14fcb4387230bad2b77ec
+  languageName: node
+  linkType: hard
+
 "@types/es-aggregate-error@npm:1.0.2":
   version: 1.0.2
   resolution: "@types/es-aggregate-error@npm:1.0.2"
   dependencies:
     "@types/node": "*"
   checksum: 076fd59b595f33c8c7e7eb68ec55bd43cf8b2cf7bbc6778e25d7ae1a5fa0538a0a56f149015f403d7bbcefe59f1d8182351685b59c1fe719fd46d0dd8a9737fa
+  languageName: node
+  linkType: hard
+
+"@types/es-to-primitive@npm:*":
+  version: 1.2.4
+  resolution: "@types/es-to-primitive@npm:1.2.4"
+  checksum: 39f718560db1cb8aeb07e40efcf908ef15852aad996bfe67765532a2a4b656363517648beb46b2d88f5d2ef823a660969b98c5cd36d974616ed017edd0a1ecce
   languageName: node
   linkType: hard
 
@@ -3421,7 +3476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.19.0, es-abstract@npm:^1.19.1":
+"es-abstract@npm:1.19.1, es-abstract@npm:^1.19.0, es-abstract@npm:^1.19.1":
   version: 1.19.1
   resolution: "es-abstract@npm:1.19.1"
   dependencies:

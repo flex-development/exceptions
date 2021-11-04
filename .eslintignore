@@ -9,7 +9,5 @@ packages/*/cjs/*
 packages/*/esm/*
 packages/*/types/*
 
-**/CHANGELOG.md
-
 !packages/src/types/*
 !**/.*.*
