@@ -10,6 +10,7 @@
     "*.d.cts": "typescript",
     "*.d.mts": "typescript",
     ".env*": "shellscript",
+    ".nycrc*": "json",
     "commit-msg": "shellscript",
     "pre-commit": "shellscript",
     "pre-push": "shellscript"
@@ -45,6 +46,11 @@
       "extensions": [".mocharc.base.cjs", ".mocharc.cjs"],
       "format": "svg",
       "icon": "mocha"
+    },
+    {
+      "extensions": [".nycrc.base", ".nycrc.react"],
+      "format": "svg",
+      "icon": "nyc"
     },
     {
       "extensions": [

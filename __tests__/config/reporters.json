@@ -2,5 +2,5 @@
   "mochajsJsonFileReporterReporterOptions": {
     "output": "__tests__/results.json"
   },
-  "reporterEnabled": "spec, @mochajs/json-file-reporter"
+  "reporterEnabled": "spec,@mochajs/json-file-reporter"
 }

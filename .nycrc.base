@@ -1,0 +1,9 @@
+{
+  "all": false,
+  "cache": false,
+  "exclude": ["**/__tests__/*", "**/index.ts", "*.fixture.ts", "*.spec.ts"],
+  "extension": [".ts"],
+  "reporter": ["lcov", "text"],
+  "skip-full": false,
+  "temp-dir": "./.nyc"
+}

@@ -72,6 +72,8 @@ jspm_packages/
 .env*.local
 
 ### Testing ###
+**/.nyc/
+**/coverage/
 **/__tests__/results.json
 
 ### TypeScript ###

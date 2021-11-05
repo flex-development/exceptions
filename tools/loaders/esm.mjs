@@ -1,3 +1,4 @@
+import * as istanbul from '@istanbuljs/esm-loader-hook'
 import path from 'node:path'
 import { createMatchPath, loadConfig } from 'tsconfig-paths'
 import pkg from '../../package.json'
@@ -9,6 +10,8 @@ import pkg from '../../package.json'
  * @see https://github.com/TypeStrong/ts-node/issues/1007
  * @see https://nodejs.org/docs/latest-v12.x/api/all.html#esm_hooks
  */
+
+const TEST = process.env.NODE_ENV === 'test'
 
 /**
  * Determines if `url` should be interpreted as a CommonJS or ES module.
@@ -83,4 +86,11 @@ export const resolve = async (specifier, ctx, fn) => {
  * @param {EsmLoader.Hooks.TransformSource} fn - Default transform fn
  * @return {Promise<EsmLoader.HookResult.TransformSource>} Source code
  */
-export const transformSource = hooks.transformSource
+export const transformSource = async (source, ctx, fn) => {
+  source = (await hooks.transformSource(source, ctx, fn)).source
+
+  /** @see https://github.com/istanbuljs/esm-loader-hook */
+  if (TEST) source = (await istanbul.transformSource(source, ctx, fn)).source
+
+  return { source }
+}

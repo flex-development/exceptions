@@ -143,6 +143,7 @@ module.exports = {
           'mts',
           'namespace',
           'ncc',
+          'nycrc',
           'perf',
           'pnv',
           'ponyfill',
