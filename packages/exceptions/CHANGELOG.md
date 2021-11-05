@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/flex-development/exceptions/compare/exceptions@7.0.0...exceptions@7.0.1) (2021-11-05)
+
+
+### :bug: Fixes
+
+* **exceptions:** `AggregateError` polyfill ([a147836](https://github.com/flex-development/exceptions/commit/a1478365a0664935fa72633e817e3f9d8d292167))
+
+
+### :pencil2: Housekeeping
+
+* **tests:** add coverage workflow ([bee90a0](https://github.com/flex-development/exceptions/commit/bee90a0b26b9fe9761e3d32bdc0b4b1b187805ba))
+* **tests:** mocha-chai migration ([df3fffe](https://github.com/flex-development/exceptions/commit/df3fffe44763fef57a02b7f91ac8e6bb4ed48c87))
+
 ## [7.0.0](https://github.com/flex-development/exceptions/compare/exceptions@6.0.1...exceptions@7.0.0) (2021-11-03)
 
 
