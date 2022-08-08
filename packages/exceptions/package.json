@@ -119,7 +119,7 @@
     "chai": "4.3.4",
     "class-validator": "0.13.1",
     "faker": "5.5.3",
-    "firebase-admin": "10.0.0",
+    "firebase-admin": "11.0.1",
     "mocha": "9.1.3",
     "mocha-multi-reporters": "1.5.1",
     "nyc": "15.1.0",
