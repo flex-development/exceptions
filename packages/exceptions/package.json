@@ -115,7 +115,7 @@
     "@types/mocha": "9.0.0",
     "@types/node": "16.0.0",
     "@vates/toggle-scripts": "1.0.0",
-    "axios": "0.24.0",
+    "axios": "0.27.2",
     "chai": "4.3.4",
     "class-validator": "0.13.1",
     "faker": "5.5.3",
