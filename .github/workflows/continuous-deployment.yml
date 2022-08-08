@@ -37,7 +37,7 @@ jobs:
     steps:
       - id: release
         name: Get release details
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           script: |
             let tag
@@ -66,7 +66,7 @@ jobs:
       - id: publish_args
         name: Get publish arguments
         if: ${{ steps.directory_check.outputs.files_exists }} == 'true'
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           script: |
             const workspace = process.env.workspace
@@ -162,7 +162,7 @@ jobs:
     steps:
       - id: publish
         name: Publish GitHub release
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         env:
           tag: ${{ needs.deployment-info.outputs.tag }}
         with:
