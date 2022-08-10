@@ -109,7 +109,7 @@
     "@tests/utils": "link:../../__tests__/utils",
     "@types/chai": "4.2.22",
     "@types/faker": "5.5.9",
-    "@types/lodash.isplainobject": "4.0.6",
+    "@types/lodash.isplainobject": "4.0.7",
     "@types/lodash.omit": "4.5.6",
     "@types/lodash.pick": "4.4.6",
     "@types/mocha": "9.0.0",
