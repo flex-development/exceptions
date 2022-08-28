@@ -1,3 +1,36 @@
+## [exceptions@8.0.0-alpha.1](https://github.com/flex-development/exceptions/compare/exceptions@7.0.1...exceptions@8.0.0-alpha.1) (2022-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* use default exports
+* **dtos:** remove `.dto` file extension
+* **types:** remove `.type` file extension
+* **interfaces:** remove `.interface` file extension
+* **guards:** remove `.guard` file extension
+* **enums:** remove `.enum` file extension
+* move constants to `config` directory
+
+### :robot: Continuous Integration
+
+* **deps:** bump actions/github-script from 6.1.1 to 6.2.0 ([#39](https://github.com/flex-development/exceptions/issues/39)) ([698b514](https://github.com/flex-development/exceptions/commit/698b514eb0d34ea08117940590710e422d895810))
+
+
+### :house_with_garden: Housekeeping
+
+* refactor project architecture ([50ad1d7](https://github.com/flex-development/exceptions/commit/50ad1d74e99807cbed78cdd1385f1e511f83127e))
+
+
+### :zap: Refactors
+
+* move constants to `config` directory ([2cad8f2](https://github.com/flex-development/exceptions/commit/2cad8f23db5763cd8d87566bb699cf91d6d337b8))
+* use default exports ([1aa6433](https://github.com/flex-development/exceptions/commit/1aa6433746ee486b090e32fc939e0b14a3b48f20))
+* **dtos:** remove `.dto` file extension ([0920a64](https://github.com/flex-development/exceptions/commit/0920a64cf38b0a085876821f0d2dcac839987bd2))
+* **enums:** remove `.enum` file extension ([91dfcfc](https://github.com/flex-development/exceptions/commit/91dfcfcbfcb88e48719e25795e4aeffc036c7370))
+* **guards:** remove `.guard` file extension ([2c738f8](https://github.com/flex-development/exceptions/commit/2c738f8e62025b5a082a1455a96e6c0fc93e8ed8))
+* **interfaces:** remove `.interface` file extension ([a7d5bb6](https://github.com/flex-development/exceptions/commit/a7d5bb67eff5c05339030fe0e0a5da2b1f2e6cc2))
+* **types:** remove `.type` file extension ([8ea82cc](https://github.com/flex-development/exceptions/commit/8ea82cc3c53bf1477e9102845d4bbb5d37afe85a))
+
 ## [7.0.1](https://github.com/flex-development/exceptions/compare/exceptions@7.0.0...exceptions@7.0.1) (2021-11-05)
 
 
