@@ -5,7 +5,7 @@
 
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ClientRequest } from 'node:http'
-import type { AxiosErrorJSON } from './axios-error-json.interface'
+import type { AxiosErrorJSON } from './axios-error-json'
 
 /**
  * Error from Axios HTTP client.

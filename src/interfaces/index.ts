@@ -3,8 +3,8 @@
  * @module exceptions/interfaces
  */
 
-export type { AxiosErrorJSON } from './axios-error-json.interface'
-export type { AxiosError } from './axios-error.interface'
-export type { ExceptionJSON } from './exception-json.interface'
-export type { FirebaseError } from './firebase-error.interface'
-export type { NextError } from './next-error.interface'
+export type { AxiosError } from './axios-error'
+export type { AxiosErrorJSON } from './axios-error-json'
+export type { ExceptionJSON } from './exception-json'
+export type { FirebaseError } from './firebase-error'
+export type { NextError } from './next-error'
