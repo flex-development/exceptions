@@ -9,13 +9,13 @@
 > **Custom error classes.**
 > \
 > \
-> The base class, `Exception`, is a subclass of the standard JavaScript `Error`
-> object. In addition to creating exceptions, it can also convert [Axios][1],
-> [Firebase][2], and [Next.js][3] error objects to `Exception` class errors.
+> The base class, `Exception`, extends [`AggregateError`][1]. In addition to
+> creating exceptions, it can also convert [Axios][2], [Firebase][3], and
+> [Next.js][4] error objects to `Exception` class errors.
 > \
 > \
 > The `ExceptionJSON` interface, a JSON representation of `Exception`, parallels
-> error interfaces defined in [`@feathersjs/errors`][4], but has more
+> error interfaces defined in [`@feathersjs/errors`][5], but has more
 > opinionated type definitions.
 
 ## Install
@@ -29,7 +29,7 @@ yarn add @flex-development/exceptions
 To install from the GitHub Package Registry, setup a `.npmrc` or `.yarnrc.yml`
 file to authenticate with the registry.
 
-A [Personal Access Token with the `read:packages` scope][5] is required.
+A [Personal Access Token with the `read:packages` scope][6] is required.
 
 #### `.npmrc`
 
@@ -53,7 +53,7 @@ npmScopes:
 
 ### Git
 
-See [npm-install][6] or [Git - Protocols | Yarn][7] for details on requesting a
+See [npm-install][7] or [Git - Protocols | Yarn][8] for details on requesting a
 specific branch, commit, or tag.
 
 #### NPM
@@ -101,12 +101,13 @@ const ejson: ExceptionJSON = {
 }
 ```
 
-[1]: https://github.com/axios/axios
-[2]:
+[1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
+[2]: https://github.com/axios/axios
+[3]:
     https://github.com/firebase/firebase-admin-node/blob/master/src/firebase-namespace-api.ts
-[3]: https://nextjs.org/docs/advanced-features/custom-error-page
-[4]: https://github.com/feathersjs/feathers/tree/dove/packages/errors
-[5]:
+[4]: https://nextjs.org/docs/advanced-features/custom-error-page
+[5]: https://github.com/feathersjs/feathers/tree/dove/packages/errors
+[6]:
     https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries
-[6]: https://docs.npmjs.com/cli/v8/commands/npm-install#description
-[7]: https://yarnpkg.com/features/protocols#git
+[7]: https://docs.npmjs.com/cli/v8/commands/npm-install#description
+[8]: https://yarnpkg.com/features/protocols#git
