@@ -5,7 +5,7 @@
 
 import createError from 'axios/lib/core/createError'
 import type { ClientRequest } from 'node:http'
-import ExceptionCode from 'src/enums/exception-code.enum'
+import ExceptionCode from 'src/enums/exception-code'
 import type { AxiosError as AxiosErrorType } from 'src/interfaces'
 
 const RESPONSE = {

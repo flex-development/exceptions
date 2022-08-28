@@ -3,9 +3,9 @@
  * @module exceptions/interfaces/ExceptionJSON
  */
 
-import type ExceptionClassName from 'src/enums/exception-class-name.enum'
-import type ExceptionCode from 'src/enums/exception-code.enum'
-import type ExceptionId from 'src/enums/exception-id.enum'
+import type ExceptionClassName from 'src/enums/exception-class-name'
+import type ExceptionCode from 'src/enums/exception-code'
+import type ExceptionId from 'src/enums/exception-id'
 import type { ExceptionData, ExceptionErrors } from 'src/types'
 
 /**

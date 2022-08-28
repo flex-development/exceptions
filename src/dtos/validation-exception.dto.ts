@@ -4,7 +4,7 @@
  */
 
 import type { ValidationError } from 'class-validator'
-import type ExceptionCode from 'src/enums/exception-code.enum'
+import type ExceptionCode from 'src/enums/exception-code'
 import type { ExceptionDataDTO } from './exception-data.dto'
 
 /**

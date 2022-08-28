@@ -4,7 +4,7 @@
  */
 
 import type { AxiosRequestConfig } from 'axios'
-import type ExceptionCode from 'src/enums/exception-code.enum'
+import type ExceptionCode from 'src/enums/exception-code'
 
 /**
  * JSON representation of an `AxiosError`.

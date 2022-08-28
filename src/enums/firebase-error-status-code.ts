@@ -3,7 +3,7 @@
  * @module exceptions/enums/FirebaseErrorStatusCode
  */
 
-import ExceptionCode from './exception-code.enum'
+import ExceptionCode from './exception-code'
 
 /**
  * Names of Firebase error codes mapped to HTTP error response status codes.

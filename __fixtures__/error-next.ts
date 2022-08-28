@@ -3,7 +3,7 @@
  * @module fixtures/ERROR_NEXT
  */
 
-import ExceptionCode from 'src/enums/exception-code.enum'
+import ExceptionCode from 'src/enums/exception-code'
 import type { NextError } from 'src/interfaces'
 
 export default Object.assign(new Error('Test Next.js error with statusCode'), {

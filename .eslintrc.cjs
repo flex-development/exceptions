@@ -20,7 +20,7 @@ const config = {
       }
     },
     {
-      files: ['src/enums/firebase-error-status-code.enum.ts'],
+      files: ['src/enums/firebase-error-status-code.ts'],
       rules: {
         '@typescript-eslint/prefer-literal-enum-member': 0
       }

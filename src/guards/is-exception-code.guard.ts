@@ -3,8 +3,8 @@
  * @module exceptions/guards/isExceptionCode
  */
 
-import ExceptionCode from 'src/enums/exception-code.enum'
-import ExceptionId from 'src/enums/exception-id.enum'
+import ExceptionCode from 'src/enums/exception-code'
+import ExceptionId from 'src/enums/exception-id'
 
 /**
  * Checks if `value` is a valid `ExceptionCode`.
