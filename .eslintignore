@@ -1,15 +1,16 @@
-# ESLint Ignore
+# ESLINT IGNORE
 # https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
 
-**/.nyc/*
-**/coverage/*
-**/node_modules/*
-
+# DIRECTORIES & FILES
+**/*.snap
+**/.DS_Store
+.eslintcache
 .yarn/*
-packages/*/build/
-packages/*/cjs/*
-packages/*/esm/*
-packages/*/types/*
+__tests__/report.json
+coverage/*
+dist/*
+node_modules/*
+yarn.lock
 
-!packages/src/types/*
-!**/.*.*
+# NEGATED PATTERNS
+!/.*

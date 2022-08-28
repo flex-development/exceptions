@@ -2,55 +2,35 @@
 #
 # References:
 #
-# - https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
+# - https://docs.github.com/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
 
 version: 2
-registries:
-  npm-github:
-    type: npm-registry
-    url: https://npm.pkg.github.com
-    username: flexdevelopment
-    password: ${{ secrets.PAT_GPR_ADMIN }}
-  npm-npmjs:
-    type: npm-registry
-    url: https://registry.npmjs.org
-    username: flexdevelopment
-    password: ${{ secrets.NPM_TOKEN_ADMIN }}
 updates:
-  # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
     directory: /
-    registries:
-      - npm-github
-      - npm-npmjs
     schedule:
       interval: daily
     commit-message:
       prefix: ci
       include: scope
     labels:
-      - scope:ci
-    open-pull-requests-limit: 10
-    pull-request-branch-name:
-      separator: /
-    rebase-strategy: auto
-    target-branch: next
-  # Maintain dependencies for Yarn
+      - scope:dependencies
+      - type:ci
+    reviewers:
+      - flex-development/dependabot-review
+      - flexdevelopment
   - package-ecosystem: npm
     directory: /
-    registries:
-      - npm-github
-      - npm-npmjs
     schedule:
       interval: daily
     commit-message:
       prefix: build
       include: scope
+    ignore:
+      - dependency-name: typescript
     labels:
-      - scope:deps
+      - scope:dependencies
       - type:build
-    open-pull-requests-limit: 10
-    pull-request-branch-name:
-      separator: /
-    rebase-strategy: auto
-    target-branch: next
+    reviewers:
+      - flex-development/dependabot-review
+      - flexdevelopment

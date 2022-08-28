@@ -1,5 +1,0 @@
-{
-  "extends": "../../.nycrc.base",
-  "include": ["src"],
-  "report-dir": "./coverage"
-}
