@@ -14,8 +14,8 @@ import EJSON from 'fixtures/exception-json'
 import { ExceptionClassName, ExceptionCode, ExceptionId } from 'src/enums'
 import type { ExceptionJSON } from 'src/interfaces'
 import type { Testcase, TestcaseFn } from 'tests/interfaces'
+import { DEM } from '../../config/constants'
 import TestSubject from '../base.exception'
-import { DEM } from '../constants.exceptions'
 
 describe('exceptions/unit:exceptions/Exception', () => {
   describe('constructor', () => {

@@ -1,6 +1,6 @@
 /**
- * @file Exceptions - Constant Values
- * @module exceptions/exceptions/constants
+ * @file Config - Constant Values
+ * @module exceptions/config/constants
  */
 
 /**

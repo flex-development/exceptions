@@ -35,6 +35,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./config/*": {
+      "types": "./dist/config/*.d.ts",
+      "import": "./dist/config/*.mjs",
+      "require": "./dist/config/*.cjs"
+    },
     "./dtos": {
       "types": "./dist/dtos/index.d.ts",
       "import": "./dist/dtos/index.mjs",

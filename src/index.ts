@@ -3,6 +3,7 @@
  * @module exceptions
  */
 
+export * from './config/constants'
 export * from './dtos'
 export * from './enums'
 export * from './exceptions'

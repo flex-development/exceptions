@@ -24,7 +24,7 @@ import type {
   NextError
 } from 'src/interfaces'
 import type { ExceptionData, ExceptionErrors } from 'src/types'
-import { DEM } from './constants.exceptions'
+import { DEM } from '../config/constants'
 
 /**
  * Custom error class.
