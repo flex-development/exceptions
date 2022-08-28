@@ -3,6 +3,6 @@
  * @module exceptions/types
  */
 
-export type { ExceptionData } from './exception-data.type'
-export type { ExceptionErrors } from './exception-errors.type'
-export type { ValidationExceptionErrors } from './validation-exception-errors.type'
+export type { ExceptionData } from './exception-data'
+export type { ExceptionErrors } from './exception-errors'
+export type { ValidationExceptionErrors } from './validation-exception-errors'

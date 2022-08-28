@@ -4,7 +4,7 @@
  */
 
 import type { ValidationError } from 'class-validator'
-import type { ExceptionErrors } from './exception-errors.type'
+import type { ExceptionErrors } from './exception-errors'
 
 /**
  * Aggregated `ValidationException` errors.
