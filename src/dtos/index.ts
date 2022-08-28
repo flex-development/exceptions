@@ -3,5 +3,5 @@
  * @module exceptions/dtos
  */
 
-export type { ExceptionDataDTO } from './exception-data.dto'
-export type { ValidationExceptionDTO } from './validation-exception.dto'
+export type { ExceptionDataDTO } from './exception-data'
+export type { ValidationExceptionDTO } from './validation-exception'
