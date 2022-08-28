@@ -1,26 +1,23 @@
-# Prettier Ignore
-# See: https://prettier.io/docs/en/ignore.html
+# PRETTIER IGNORE
+# https://prettier.io/docs/en/ignore.html
 
-**/.nyc/*
-**/coverage/*
-**/node_modules/*
-.husky/_/*
-.yarn/*
-packages/*/build/*
-packages/*/cjs/*
-packages/*/esm/*
-packages/*/types/*
-
-**/CHANGELOG.md
-
-**/.eslintignore
-**/.env.*
-**/.env
-**/.gitconfig
+# DIRECTORIES & FILES
+**/*.hbs
+**/*.md
+**/*.snap
 **/.gitignore
 **/.gitkeep
-**/.prettierignore
-**/*.markdownlintignore
+**/.npmignore
+.eslintcache
+.eslintignore
+.husky/_/*
+.markdownlintignore
+.nvmrc
+.prettierignore
+.yarn/*
+Brewfile
+__tests__/report.json
+coverage/*
+dist/*
+node_modules/*
 yarn.lock
-
-!packages/src/types/*

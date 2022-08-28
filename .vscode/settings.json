@@ -1,66 +1,127 @@
 {
+  "[handlebars]": {
+    "editor.defaultFormatter": "Greenbyte.handlebars-preview",
+    "editor.rulers": [100],
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100,
+    "rewrap.wrappingColumn": 100
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jest-snapshot]": {
+    "editor.rulers": [120],
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 120,
+    "rewrap.wrappingColumn": 120
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[properties]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[txt]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.rulers": [100],
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100,
+    "rewrap.wrappingColumn": 100
+  },
+  "cSpell.enabled": true,
+  "editor.autoClosingBrackets": "always",
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.enable": true,
+  "eslint.nodePath": "./node_modules/eslint",
   "eslint.options": {
-    "extensions": [".cjs", ".cts", ".js", ".md", ".mjs", ".mts", ".ts"],
+    "extensions": [
+      "cjs",
+      "cts",
+      "gql",
+      "json",
+      "jsonc",
+      "md",
+      "mjs",
+      "ts",
+      "yml"
+    ],
     "overrideConfigFile": "./.eslintrc.cjs"
   },
-  "eslint.packageManager": "yarn",
-  "eslint.validate": ["javascript", "markdown", "typescript"],
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "eslint.validate": [
+    "graphql",
+    "javascript",
+    "json",
+    "jsonc",
+    "markdown",
+    "typescript",
+    "yaml"
+  ],
   "files.associations": {
-    "*.d.cts": "typescript",
-    "*.d.mts": "typescript",
-    ".env*": "shellscript",
-    ".nycrc*": "json",
+    "*.snap": "jest-snapshot",
+    ".env.zsh": "shellscript",
+    ".markdownlintignore": "ignore",
     "commit-msg": "shellscript",
     "pre-commit": "shellscript",
     "pre-push": "shellscript"
   },
-  "prettier.configPath": "./.prettierrc.cjs",
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/yarn.lock": true
+  },
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "markdownlint.ignore": "./.markdownlintignore",
+  "npm-intellisense.scanDevDependencies": true,
+  "prettier.configPath": "./.prettierrc.json",
+  "prettier.enable": true,
+  "prettier.ignorePath": "./.prettierignore",
+  "prettier.prettierPath": "./node_modules/prettier",
+  "prettier.resolveGlobalModules": false,
+  "prettier.useEditorConfig": true,
+  "shellformat.flag": "-ci -fn -i=2 -sr",
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeJSDocs": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
   "vsicons.associations.files": [
     {
-      "extensions": [".commitlintrc.ts"],
-      "format": "svg",
-      "icon": "commitlint"
-    },
-    {
-      "extensions": [".d.cts", ".d.mts"],
-      "format": "svg",
-      "icon": "typescriptdef"
-    },
-    {
-      "extensions": [
-        ".eslintrc.base.cjs",
-        ".eslintrc.react.cjs",
-        ".eslintrc.web.cjs"
-      ],
+      "extensions": [".eslintrc.base.cjs"],
       "format": "svg",
       "icon": "eslint"
     },
     {
-      "extensions": [".lintstagedrc.cjs"],
+      "extensions": [".graphqlrc.cts"],
       "format": "svg",
-      "icon": "lintstagedrc"
+      "icon": "graphql"
     },
     {
-      "extensions": [".mocharc.base.cjs", ".mocharc.cjs"],
-      "format": "svg",
-      "icon": "mocha"
-    },
-    {
-      "extensions": [".nycrc.base", ".nycrc.react"],
-      "format": "svg",
-      "icon": "nyc"
-    },
-    {
-      "extensions": [
-        "build.json",
-        "prod.cjs.json",
-        "prod.esm.json",
-        "prod.types.json"
-      ],
+      "extensions": ["tsnode.json"],
       "format": "svg",
       "icon": "tsconfig"
+    },
+    {
+      "extensions": ["snap"],
+      "format": "svg",
+      "icon": "vitest"
     },
     {
       "extensions": ["yarnrc.yml"],
@@ -70,19 +131,29 @@
   ],
   "vsicons.associations.folders": [
     {
-      "extensions": ["__doubles__"],
+      "extensions": ["__fixtures__"],
       "format": "svg",
-      "icon": "mock"
+      "icon": "data"
     },
     {
-      "extensions": ["__fixtures__", "dtos"],
+      "extensions": ["__snapshots__"],
       "format": "svg",
-      "icon": "db"
+      "icon": "temp"
+    },
+    {
+      "extensions": ["setup"],
+      "format": "svg",
+      "icon": "config"
     },
     {
       "extensions": ["types"],
       "format": "svg",
       "icon": "typings"
     }
-  ]
+  ],
+  "workbench.iconTheme": "vscode-icons",
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-issue-config": "/.github/ISSUE_TEMPLATE/config.yml",
+    "https://json.schemastore.org/github-workflow": "/.github/workflows/*.yml"
+  }
 }

@@ -1,81 +1,72 @@
 {
+  // https://github.com/tsconfig/bases/blob/main/bases/node16.json
+  // https://github.com/tsconfig/bases/blob/main/bases/esm.json
+  // https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": false,
+    "alwaysStrict": false,
     "baseUrl": "./",
     "checkJs": false,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": false,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "es2021"],
-    "module": "es2022",
+    "isolatedModules": false,
+    "lib": ["es2021"],
+    "module": "esnext",
     "moduleResolution": "node",
+    "newLine": "lf",
     "noEmit": true,
+    "noEmitOnError": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
-    // Must be disabled to use type-only imports
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "outDir": "dist",
     "paths": {
-      "@flex-development/grease/*": [
-        "node_modules/@flex-development/grease/cjs/*"
-      ],
-      "@flex-development/grease": [
-        "node_modules/@flex-development/grease/cjs/index"
-      ],
-      "@flex-development/log/*": ["node_modules/@flex-development/log/esm/*"],
-      "@flex-development/log": ["node_modules/@flex-development/log/esm/index"],
-      "@packages/exceptions/tests/fixtures/*": [
-        "packages/exceptions/__tests__/__fixtures__/*"
-      ],
-      "@packages/exceptions/tests/*": ["packages/exceptions/__tests__/*"],
-      "@packages/exceptions/*": ["packages/exceptions/src/*"],
-      "@packages/exceptions": ["packages/exceptions/src/index"],
-      "@tests/fixtures/*": ["__tests__/__fixtures__/*"],
-      "@tests/*": ["__tests__/*"]
+      "fixtures/*": ["__fixtures__/*"],
+      "src": ["src/index"],
+      "src/*": ["src/*"],
+      "tests/*": ["__tests__/*"]
     },
     "preserveConstEnums": true,
+    "preserveSymlinks": true,
     "pretty": true,
-    // Should work with NODE_OPTIONS='--experimental-json-modules' flag
-    // See: https://nodejs.org/api/esm.html#esm_json_modules
     "resolveJsonModule": true,
-    "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "rootDir": "./",
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    // Node.js 15
-    "target": "es2021"
+    "strictPropertyInitialization": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es2021",
+    "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": true
   },
-  "exclude": [
-    "**/coverage/**/*",
-    "**/node_modules/**/*",
-    "packages/*/build",
-    "packages/*/cjs",
-    "packages/*/esm",
-    "packages/*/types"
-  ],
-  "files": ["typings/chai/expect.d.ts", "typings/globals/global.d.ts"],
+  "exclude": ["./coverage", "./dist", "./node_modules"],
   "include": [
-    "**/*.cjs",
-    "**/*.cts",
-    "**/*.mjs",
-    "**/*.mts",
-    "**/*.ts",
-    "**/.*.cjs",
-    "**/.*.ts"
+    "**/**/*.cjs",
+    "**/**/*.cts",
+    "**/**/*.mjs",
+    "**/**/*.ts",
+    "**/**/.*.cjs",
+    "**/**/.*.cts",
+    "**/**/.*.ts"
   ],
-  // See: https://typestrong.org/ts-node/docs/configuration
+  // SEE: https://typestrong.org/ts-node/docs/configuration
   "ts-node": {
     "compilerOptions": {},
-    "moduleTypes": {
-      ".commitlintrc.ts": "cjs",
-      "tools/helpers/workspaces.ts": "cjs"
-    },
-    "require": ["tsconfig-paths/register"],
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "moduleTypes": {},
+    "require": ["./helpers/tsconfig-paths.cjs"],
     "transpileOnly": true
   }
 }

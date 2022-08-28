@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "outDir": "./types",
-    "removeComments": false
-  },
-  "extends": "./tsconfig.prod.json"
-}

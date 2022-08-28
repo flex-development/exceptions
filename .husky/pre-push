@@ -1,8 +1,11 @@
-# Pre Commit Hook
+#!/bin/sh
+
+# Pre-Push Workflow
 #
 # References:
 #
-# - https://typicode.github.io/husky
+# - https://vitest.dev/guide/cli.html#changed
 
 yarn check:types
-yarn test
+yarn test --changed HEAD^
+yarn build
