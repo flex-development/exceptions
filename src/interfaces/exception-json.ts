@@ -13,7 +13,7 @@ import type { ExceptionData, ExceptionErrors } from 'src/types'
  *
  * @template T - Aggergated error type(s)
  */
-export interface ExceptionJSON<T = any> {
+interface ExceptionJSON<T = any> {
   readonly className: ExceptionClassName
   readonly code: ExceptionCode
   readonly data: Readonly<ExceptionData & { isExceptionJSON: true }>
@@ -21,3 +21,5 @@ export interface ExceptionJSON<T = any> {
   readonly message: string
   readonly name: ExceptionId
 }
+
+export type { ExceptionJSON as default }

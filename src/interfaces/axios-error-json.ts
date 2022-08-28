@@ -15,7 +15,7 @@ import type ExceptionCode from 'src/enums/exception-code'
  *
  * @extends {Error}
  */
-export interface AxiosErrorJSON<Data = any> extends Error {
+interface AxiosErrorJSON<Data = any> extends Error {
   readonly code?: string
   readonly columnNumber?: number
   readonly config: AxiosRequestConfig<Data>
@@ -25,3 +25,5 @@ export interface AxiosErrorJSON<Data = any> extends Error {
   readonly number?: number
   readonly status: ExceptionCode | null
 }
+
+export type { AxiosErrorJSON as default }

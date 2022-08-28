@@ -5,7 +5,7 @@
 
 import type { ValidationError } from 'class-validator'
 import type ExceptionCode from 'src/enums/exception-code'
-import type { ExceptionDataDTO } from './exception-data'
+import type ExceptionDataDTO from './exception-data'
 
 /**
  * `ValidationExceptionData` data transfer object.
@@ -21,3 +21,5 @@ export interface ValidationExceptionDTO
    */
   code?: ExceptionCode
 }
+
+export type { ValidationExceptionDTO as default }

@@ -6,4 +6,6 @@
 /**
  * Custom `Exception` data.
  */
-export type ExceptionData = Record<string, any>
+type ExceptionData = Record<string, any>
+
+export type { ExceptionData as default }

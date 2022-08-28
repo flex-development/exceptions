@@ -8,4 +8,6 @@
  *
  * @template T - Aggergated error type(s)
  */
-export type ExceptionErrors<T = any> = T[]
+type ExceptionErrors<T = any> = T[]
+
+export type { ExceptionErrors as default }

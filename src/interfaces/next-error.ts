@@ -12,6 +12,8 @@ import type ExceptionCode from 'src/enums/exception-code'
  *
  * @extends {Error}
  */
-export interface NextError extends Error {
+interface NextError extends Error {
   readonly statusCode?: ExceptionCode
 }
+
+export type { NextError as default }

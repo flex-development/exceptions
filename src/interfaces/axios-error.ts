@@ -5,7 +5,7 @@
 
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { ClientRequest } from 'node:http'
-import type { AxiosErrorJSON } from './axios-error-json'
+import type AxiosErrorJSON from './axios-error-json'
 
 /**
  * Error from Axios HTTP client.
@@ -17,7 +17,7 @@ import type { AxiosErrorJSON } from './axios-error-json'
  *
  * @extends {Error}
  */
-export interface AxiosError<Payload = any, Data = any> extends Error {
+interface AxiosError<Payload = any, Data = any> extends Error {
   readonly code?: string
   readonly config: AxiosRequestConfig<Data>
   readonly isAxiosError: boolean
@@ -25,3 +25,5 @@ export interface AxiosError<Payload = any, Data = any> extends Error {
   readonly response?: AxiosResponse<Payload, Data>
   toJSON(): AxiosErrorJSON<Data>
 }
+
+export type { AxiosError as default }

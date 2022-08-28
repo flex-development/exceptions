@@ -14,7 +14,7 @@ import type { FirebaseError as ErrorA } from 'firebase-admin/lib/utils/error'
  *
  * @extends {Error}
  */
-export interface FirebaseError extends Error {
+interface FirebaseError extends Error {
   /**
    * Firebase error code.
    */
@@ -51,3 +51,5 @@ export interface FirebaseError extends Error {
    */
   toJSON?(): { code: FirebaseError['code']; message: FirebaseError['message'] }
 }
+
+export type { FirebaseError as default }

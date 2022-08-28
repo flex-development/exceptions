@@ -13,7 +13,7 @@ import type { ExceptionData } from 'src/types'
  *
  * @extends {ExceptionData}
  */
-export interface ExceptionDataDTO<T = any> extends ExceptionData {
+interface ExceptionDataDTO<T = any> extends ExceptionData {
   /**
    * Single error or group of errors.
    */
@@ -24,3 +24,5 @@ export interface ExceptionDataDTO<T = any> extends ExceptionData {
    */
   message?: string
 }
+
+export type { ExceptionDataDTO as default }
