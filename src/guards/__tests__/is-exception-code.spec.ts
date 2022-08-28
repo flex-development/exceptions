@@ -6,7 +6,7 @@
 import ExceptionCode from 'src/enums/exception-code'
 import ExceptionId from 'src/enums/exception-id'
 import type { TestcaseFn } from 'tests/interfaces'
-import testSubject from '../is-exception-code.guard'
+import testSubject from '../is-exception-code'
 
 describe('exceptions/unit:guards/isExceptionCode', () => {
   interface Case extends TestcaseFn<typeof testSubject> {}

@@ -6,7 +6,7 @@
 import ERROR_AXIOS_404 from 'fixtures/error-axios-404'
 import EJSON from 'fixtures/exception-json'
 import type { TestcaseFn } from 'tests/interfaces'
-import testSubject from '../is-exception-json.guard'
+import testSubject from '../is-exception-json'
 
 describe('exceptions/unit:guards/isExceptionJSON', () => {
   interface Case extends TestcaseFn<typeof testSubject> {

@@ -6,7 +6,7 @@
 import ERROR from 'fixtures/error'
 import Exception from 'src/exceptions/base.exception'
 import type { TestcaseFn } from 'tests/interfaces'
-import testSubject from '../is-exception.guard'
+import testSubject from '../is-exception'
 
 describe('exceptions/unit:guards/isException', () => {
   interface Case extends TestcaseFn<typeof testSubject> {

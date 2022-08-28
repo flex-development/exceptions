@@ -14,7 +14,7 @@ const config = {
   overrides: [
     ...require('./.eslintrc.base.cjs').overrides,
     {
-      files: ['__fixtures__/error.ts', 'src/guards/is-exception.guard.ts'],
+      files: ['__fixtures__/error.ts', 'src/guards/is-exception.ts'],
       rules: {
         'unicorn/error-message': 0
       }
@@ -49,17 +49,14 @@ const config = {
       }
     },
     {
-      files: [
-        'src/guards/is-exception-json.guard.ts',
-        'src/guards/is-exception.guard.ts'
-      ],
+      files: ['src/guards/is-exception-json.ts', 'src/guards/is-exception.ts'],
       rules: {
         '@typescript-eslint/no-unnecessary-condition': 0,
         '@typescript-eslint/no-unsafe-member-access': 0
       }
     },
     {
-      files: ['src/guards/is-exception.guard.ts'],
+      files: ['src/guards/is-exception.ts'],
       rules: {
         '@typescript-eslint/no-unsafe-call': 0
       }
