@@ -132,7 +132,6 @@
     "@types/eslint": "8.4.6",
     "@types/git-raw-commits": "2.0.1",
     "@types/is-ci": "3.0.0",
-    "@types/lodash.isplainobject": "4.0.7",
     "@types/lodash.omit": "4.5.7",
     "@types/lodash.pick": "4.4.7",
     "@types/node-notifier": "8.0.2",

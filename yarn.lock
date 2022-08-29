@@ -1028,7 +1028,6 @@ __metadata:
     "@types/eslint": "npm:8.4.6"
     "@types/git-raw-commits": "npm:2.0.1"
     "@types/is-ci": "npm:3.0.0"
-    "@types/lodash.isplainobject": "npm:4.0.7"
     "@types/lodash.omit": "npm:4.5.7"
     "@types/lodash.pick": "npm:4.4.7"
     "@types/node-notifier": "npm:8.0.2"
@@ -2142,15 +2141,6 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 3f15a76cd58fb56272cdcb1cf475e8f03b3127000ed9c49670b7be450a24460edeef6fa69837bb7feee554c1ead7d9ff4584eef0ea48d810282872dcfa03508e
-  languageName: node
-  linkType: hard
-
-"@types/lodash.isplainobject@npm:4.0.7":
-  version: 4.0.7
-  resolution: "@types/lodash.isplainobject@npm:4.0.7"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: cea633b8fc97c46fd5b70c3426e694b40b29a49c8d4481fcacf0e58d2d47047bbd2a86ea4a1a29ae15c500fea49cfb3ef9159850488eceff7e944a4b5baf05d7
   languageName: node
   linkType: hard
 
