@@ -1067,7 +1067,6 @@ __metadata:
     is-ci: "npm:3.0.1"
     jsonc-eslint-parser: "npm:2.1.0"
     lint-staged: "npm:13.0.3"
-    lodash.isplainobject: "npm:4.0.6"
     lodash.omit: "npm:4.5.0"
     lodash.pick: "npm:4.4.0"
     node-notifier: "npm:10.0.1"
@@ -6991,7 +6990,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isplainobject@npm:4.0.6, lodash.isplainobject@npm:^4.0.6":
+"lodash.isplainobject@npm:^4.0.6":
   version: 4.0.6
   resolution: "lodash.isplainobject@npm:4.0.6"
   checksum: fd98cdf396efd994340f99a968553f6d37ca5a0e6bcf1e6cbe5953c1ef2ad04dca0503d6979f38938aad0d865940fdfddda85cbc365850d114187afac29f8d04
