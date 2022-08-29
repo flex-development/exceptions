@@ -101,6 +101,12 @@ const ejson: ExceptionJSON = {
 }
 ```
 
+## Built With
+
+- [`@flex-development/aggregate-error-ponyfill`][9]
+- [`@flex-development/tutils`][10]
+- [`radash`][11]
+
 [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError
 [2]: https://github.com/axios/axios
 [3]:
@@ -111,3 +117,6 @@ const ejson: ExceptionJSON = {
     https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries
 [7]: https://docs.npmjs.com/cli/v8/commands/npm-install#description
 [8]: https://yarnpkg.com/features/protocols#git
+[9]: https://github.com/flex-development/aggregate-error-ponyfill
+[10]: https://github.com/flex-development/tutils
+[11]: https://github.com/rayepps/radash
