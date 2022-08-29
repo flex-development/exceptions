@@ -31,70 +31,58 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./config/*": {
-      "types": "./dist/config/*.d.ts",
       "import": "./dist/config/*.mjs",
       "require": "./dist/config/*.cjs"
     },
     "./dtos": {
-      "types": "./dist/dtos/index.d.ts",
       "import": "./dist/dtos/index.mjs",
       "require": "./dist/dtos/index.cjs"
     },
     "./dtos/*": {
-      "types": "./dist/dtos/*.d.ts",
       "import": "./dist/dtos/*.mjs",
       "require": "./dist/dtos/*.cjs"
     },
     "./enums": {
-      "types": "./dist/enums/index.d.ts",
       "import": "./dist/enums/index.mjs",
       "require": "./dist/enums/index.cjs"
     },
     "./enums/*": {
-      "types": "./dist/enums/*.d.ts",
       "import": "./dist/enums/*.mjs",
       "require": "./dist/enums/*.cjs"
     },
     "./exceptions": {
-      "types": "./dist/exceptions/index.d.ts",
       "import": "./dist/exceptions/index.mjs",
       "require": "./dist/exceptions/index.cjs"
     },
     "./exceptions/*": {
-      "types": "./dist/exceptions/*.d.ts",
       "import": "./dist/exceptions/*.mjs",
       "require": "./dist/exceptions/*.cjs"
     },
     "./interfaces": {
-      "types": "./dist/interfaces/index.d.ts",
       "import": "./dist/interfaces/index.mjs",
       "require": "./dist/interfaces/index.cjs"
     },
     "./interfaces/*": {
-      "types": "./dist/interfaces/*.d.ts",
       "import": "./dist/interfaces/*.mjs",
       "require": "./dist/interfaces/*.cjs"
     },
     "./package.json": "./package.json",
     "./types": {
-      "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.cjs"
     },
     "./types/*": {
-      "types": "./dist/types/*.d.ts",
       "import": "./dist/types/*.mjs",
       "require": "./dist/types/*.cjs"
     }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "scripts": {
     "build": "unbuild",
     "check:ci": "yarn dedupe --check && yarn check:format && yarn check:lint && yarn check:spelling && yarn check:types && yarn test && NODE_ENV=production yarn pack -o %s-%v.tgz && yarn clean:pack",
