@@ -1,3 +1,25 @@
+## [exceptions@8.0.0-alpha.2](https://github.com/flex-development/exceptions/compare/exceptions@8.0.0-alpha.1...exceptions@8.0.0-alpha.2) (2022-08-29)
+
+
+### :package: Build
+
+* **deps:** remove @types/lodash.isplainobject ([cafbfb7](https://github.com/flex-development/exceptions/commit/cafbfb7e631c5719d070d467af3e9ad0c6706e03))
+* **deps:** remove lodash.isplainobject ([810aca0](https://github.com/flex-development/exceptions/commit/810aca049610fd26ad290cb91c179956c4c5be11))
+* **deps:** replace lodash dependencies with radash ([13a351c](https://github.com/flex-development/exceptions/commit/13a351c5050a1b0d854eee32e3f3fe1e559623b3))
+* **exports:** remove `.d.ts` outputs ([b0b8cbc](https://github.com/flex-development/exceptions/commit/b0b8cbceaab28172123a1425a06a670f65dc9103))
+
+
+### :pencil: Documentation
+
+* built with ([956dd03](https://github.com/flex-development/exceptions/commit/956dd036aa5351908c2ad79cc2d4a711b4194973))
+* **exceptions:** `class Exception<T = any> extends AggregateError<T>` ([6fa084c](https://github.com/flex-development/exceptions/commit/6fa084c75bb9437f46d3166f5e574ad685286994))
+
+
+### :bug: Fixes
+
+* tsconfig path resolution in build files ([6bf6e3d](https://github.com/flex-development/exceptions/commit/6bf6e3d2a834a6b2e2bca7e142694e2c854c1f90))
+* **interfaces:** add `XMLHttpRequest` to `AxiosError#request` definition ([edaa93f](https://github.com/flex-development/exceptions/commit/edaa93f6b822d5dcccd5a3a7ee0166be1911329c))
+
 ## [exceptions@8.0.0-alpha.1](https://github.com/flex-development/exceptions/compare/exceptions@7.0.1...exceptions@8.0.0-alpha.1) (2022-08-28)
 
 
