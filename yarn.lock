@@ -1028,8 +1028,6 @@ __metadata:
     "@types/eslint": "npm:8.4.6"
     "@types/git-raw-commits": "npm:2.0.1"
     "@types/is-ci": "npm:3.0.0"
-    "@types/lodash.omit": "npm:4.5.7"
-    "@types/lodash.pick": "npm:4.4.7"
     "@types/node-notifier": "npm:8.0.2"
     "@types/prettier": "npm:2.7.0"
     "@typescript-eslint/eslint-plugin": "npm:5.35.1"
@@ -1066,12 +1064,11 @@ __metadata:
     is-ci: "npm:3.0.1"
     jsonc-eslint-parser: "npm:2.1.0"
     lint-staged: "npm:13.0.3"
-    lodash.omit: "npm:4.5.0"
-    lodash.pick: "npm:4.4.0"
     node-notifier: "npm:10.0.1"
     prettier: "npm:2.7.1"
     prettier-plugin-sh: "npm:0.12.8"
     pretty-format: "npm:29.0.1"
+    radash: "npm:7.0.0"
     resolve-tspaths: "npm:0.7.4"
     trash-cli: "npm:5.0.0"
     ts-dedent: "npm:2.2.0"
@@ -2141,31 +2138,6 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 3f15a76cd58fb56272cdcb1cf475e8f03b3127000ed9c49670b7be450a24460edeef6fa69837bb7feee554c1ead7d9ff4584eef0ea48d810282872dcfa03508e
-  languageName: node
-  linkType: hard
-
-"@types/lodash.omit@npm:4.5.7":
-  version: 4.5.7
-  resolution: "@types/lodash.omit@npm:4.5.7"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 447d964c47216f6af9cb6b90a58fac71a20e991808ae81580551de71432400e1397162c69abedfdffd1a3c1f5c8a483a6be43e0fe5641ac664e911ae77afae78
-  languageName: node
-  linkType: hard
-
-"@types/lodash.pick@npm:4.4.7":
-  version: 4.4.7
-  resolution: "@types/lodash.pick@npm:4.4.7"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 513c48bc9962ee61b5a4fef68b49f8ab3d7cdc8a29a236870afaa278469781a9fb9c43cfe042f96a7f21c9105c257a8d198ed0b009a6f1d231c45d495834eb0e
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.14.184
-  resolution: "@types/lodash@npm:4.14.184"
-  checksum: acee0bd73f0067cafb7b7a12995e868f64d95c2b6e5361be7d51440e8dafb4ad2be3b2cac352e4e42d777ffc305c46807148cba50072a1fb5a4ab770d4ec2fc2
   languageName: node
   linkType: hard
 
@@ -7008,24 +6980,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.omit@npm:4.5.0":
-  version: 4.5.0
-  resolution: "lodash.omit@npm:4.5.0"
-  checksum: 877a363b41174a9a59efc00429a3f3c13729df9f78534ceb5859eea84af70bab21604d5839a1394648f92ebd168722b112018b1d7034906f9a234b1707e00190
-  languageName: node
-  linkType: hard
-
 "lodash.once@npm:^4.0.0":
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: 210c440af77b8f34fa8c7a559b4e7de9b9baef1c9d2fc1e9eae1440034cf0030eca115e81abf164ce6039e4872e0b4b5ade7729394e93aa7545094fc46ea2a29
-  languageName: node
-  linkType: hard
-
-"lodash.pick@npm:4.4.0":
-  version: 4.4.0
-  resolution: "lodash.pick@npm:4.4.0"
-  checksum: b48b403749e80338291f4eb5dc669a45ea07032555dfd16f664f860b96fd5037549e1fe1d043a78b0bac54d6ca99ea4e86b8e8228a5c5b4a8dc8d1c1d7a45c6c
   languageName: node
   linkType: hard
 
@@ -8421,6 +8379,13 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: fefb921f96c5cdf650d25d80b709072122e7a24c374aa08b35c4347f319b7614f331002c1107d337651107fadea4a2b8a66774070645a179f6fc6b21edc2085a
+  languageName: node
+  linkType: hard
+
+"radash@npm:7.0.0":
+  version: 7.0.0
+  resolution: "radash@npm:7.0.0"
+  checksum: 3ef635cddbbb9352843fade976741177cb704a68996ae73010b50c0fbf613d9f058f406dc2b8f073cf51cb82de25900347241ef6dbb8c255e97b5006551b8e49
   languageName: node
   linkType: hard
 

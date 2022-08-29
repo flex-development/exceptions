@@ -5,8 +5,7 @@
 
 import AggregateError from '@flex-development/aggregate-error-ponyfill'
 import type { NullishString, OneOrMany } from '@flex-development/tutils'
-import omit from 'lodash.omit'
-import pick from 'lodash.pick'
+import { omit } from 'radash'
 import type { ExceptionDataDTO } from 'src/dtos'
 import {
   ExceptionClassName,
@@ -227,15 +226,7 @@ export default class Exception<T = any> extends AggregateError<T> {
 
     // request was made, but no response was received
     if (!request) data.message = 'No response received.'
-    else {
-      data.request = pick(request, [
-        'aborted',
-        'code',
-        'host',
-        'path',
-        'protocol'
-      ])
-    }
+    else data.request = request
 
     return new Exception<T>(code, message, data, stack)
   }
