@@ -20,6 +20,6 @@ export default createError(
   'Request failed with status code 404',
   RESPONSE.config,
   undefined,
-  {} as unknown as ClientRequest,
+  {} as ClientRequest | XMLHttpRequest,
   RESPONSE
 ) as AxiosErrorType

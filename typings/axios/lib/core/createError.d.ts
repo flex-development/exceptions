@@ -7,7 +7,7 @@ declare module 'axios/lib/core/createError' {
     message: string,
     config: AxiosRequestConfig<Data>,
     code?: string,
-    request?: ClientRequest,
+    request?: ClientRequest | XMLHttpRequest,
     response?: AxiosResponse<Payload, Data>
   ): AxiosError<Payload, Data>
 }

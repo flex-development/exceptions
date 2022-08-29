@@ -15,7 +15,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
-    "lib": ["es2021"],
+    "lib": ["dom", "es2021"],
     "module": "esnext",
     "moduleResolution": "node",
     "newLine": "lf",

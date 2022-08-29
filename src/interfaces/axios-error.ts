@@ -21,7 +21,7 @@ interface AxiosError<Payload = any, Data = any> extends Error {
   readonly code?: string
   readonly config: AxiosRequestConfig<Data>
   readonly isAxiosError: boolean
-  readonly request?: ClientRequest
+  readonly request?: ClientRequest | XMLHttpRequest
   readonly response?: AxiosResponse<Payload, Data>
   toJSON(): AxiosErrorJSON<Data>
 }

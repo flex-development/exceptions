@@ -13,5 +13,5 @@ export default createError(
   'Request failed with status code 500',
   config,
   'ECONNABORTED',
-  {} as unknown as ClientRequest
+  {} as ClientRequest | XMLHttpRequest
 )
