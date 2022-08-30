@@ -112,7 +112,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@flex-development/aggregate-error-ponyfill": "2.0.0-alpha.2",
+    "@flex-development/aggregate-error-ponyfill": "2.0.0-alpha.4",
     "@flex-development/tutils": "5.0.0",
     "radash": "7.0.0"
   },

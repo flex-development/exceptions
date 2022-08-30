@@ -997,13 +997,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.2":
-  version: 2.0.0-alpha.2
-  resolution: "@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Faggregate-error-ponyfill%2F2.0.0-alpha.2%2Fdc043ab89137e686a0a207df869e2ce3f947f56e"
+"@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.4":
+  version: 2.0.0-alpha.4
+  resolution: "@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Faggregate-error-ponyfill%2F2.0.0-alpha.4%2Fea408cd7e483198886053ac08021c66a214409a5"
   dependencies:
     "@types/es-abstract": "npm:1.17.3"
     es-abstract: "npm:1.19.1"
-  checksum: 8b7fa9de4175135f835e168e7f62e797ff8e1fa0f5b5df65b2362d0cbc1de89eeb8c6a24a0bf2fa77c687b158eabbca31ba44bb8129c83846f280b26ab9b0979
+  checksum: 9393940e7a6158afe4140900a75e4d1c08c5e7f23045f79981bec494e316b983ccb8ebaafcde2cdbea5e36ee65555754710ea25ee0dd0411cf53a5669b1d1aef
   languageName: node
   linkType: hard
 
@@ -1016,7 +1016,7 @@ __metadata:
     "@commitlint/types": "npm:17.0.0"
     "@faker-js/faker": "npm:7.4.0"
     "@firebase/util": "npm:>=1.4.0"
-    "@flex-development/aggregate-error-ponyfill": "npm:2.0.0-alpha.2"
+    "@flex-development/aggregate-error-ponyfill": "npm:2.0.0-alpha.4"
     "@flex-development/tutils": "npm:5.0.0"
     "@graphql-eslint/eslint-plugin": "npm:3.10.7"
     "@types/chai": "npm:4.3.3"
