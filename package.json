@@ -109,7 +109,7 @@
   },
   "dependencies": {
     "@flex-development/aggregate-error-ponyfill": "2.0.0-alpha.4",
-    "@flex-development/tutils": "5.0.0",
+    "@flex-development/tutils": "5.0.1",
     "radash": "7.0.0"
   },
   "devDependencies": {
