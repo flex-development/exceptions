@@ -3,7 +3,7 @@
  * @module exceptions/guards/isExceptionJSON
  */
 
-import type { ExceptionJSON } from 'src/interfaces'
+import type { ExceptionJSON } from '#src/interfaces'
 
 /**
  * Checks if `value` is an `ExceptionJSON` object.

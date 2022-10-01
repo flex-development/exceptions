@@ -3,27 +3,27 @@
  * @module exceptions/exceptions/Exception
  */
 
-import AggregateError from '@flex-development/aggregate-error-ponyfill'
-import type { NullishString, OneOrMany } from '@flex-development/tutils'
-import { omit } from 'radash'
-import type { ExceptionDataDTO } from 'src/dtos'
+import { DEM } from '#src/config/constants'
+import type { ExceptionDataDTO } from '#src/dtos'
 import {
   ExceptionClassName,
   ExceptionCode,
   ExceptionId,
   FirebaseErrorCode,
   FirebaseErrorStatusCode
-} from 'src/enums'
-import { isExceptionCode, isExceptionJSON } from 'src/guards'
+} from '#src/enums'
+import { isExceptionCode, isExceptionJSON } from '#src/guards'
 import type {
   AxiosError,
   AxiosErrorJSON,
   ExceptionJSON,
   FirebaseError,
   NextError
-} from 'src/interfaces'
-import type { ExceptionData, ExceptionErrors } from 'src/types'
-import { DEM } from '../config/constants'
+} from '#src/interfaces'
+import type { ExceptionData, ExceptionErrors } from '#src/types'
+import AggregateError from '@flex-development/aggregate-error-ponyfill'
+import type { Nullable, OneOrMany } from '@flex-development/tutils'
+import { omit } from 'radash'
 
 /**
  * Custom error class.
@@ -81,7 +81,7 @@ export default class Exception<T = any> extends AggregateError<T> {
    * Instantiates a new Exception.
    *
    * @param {ExceptionCode} [code=500] - HTTP error response status code
-   * @param {NullishString} [message=DEM] - Exception message
+   * @param {Nullable<string>} [message=DEM] - Exception message
    * @param {ExceptionDataDTO<T>} [data={}] - Custom error data
    * @param {OneOrMany<T>} [data.errors] - Single error or aggregated errors
    * @param {string} [data.message] - Custom message. Overrides `message`
@@ -89,7 +89,7 @@ export default class Exception<T = any> extends AggregateError<T> {
    */
   constructor(
     code: ExceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR,
-    message: NullishString = DEM,
+    message: Nullable<string> = DEM,
     data: ExceptionDataDTO<T> = {},
     stack: string = ''
   ) {

@@ -3,7 +3,7 @@
  * @module exceptions/guards/isExceptionId
  */
 
-import ExceptionId from 'src/enums/exception-id'
+import ExceptionId from '#src/enums/exception-id'
 
 /**
  * Checks if `value` is a valid `ExceptionId`.

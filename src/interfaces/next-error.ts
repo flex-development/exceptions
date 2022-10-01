@@ -3,7 +3,7 @@
  * @module exceptions/interfaces/NextError
  */
 
-import type ExceptionCode from 'src/enums/exception-code'
+import type ExceptionCode from '#src/enums/exception-code'
 
 /**
  * Error object thrown by [Next.js][1].

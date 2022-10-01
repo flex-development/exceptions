@@ -3,17 +3,17 @@
  * @module exceptions/exceptions/tests/unit/Exception
  */
 
-import ERROR from 'fixtures/error'
-import ERROR_AXIOS_404 from 'fixtures/error-axios-404'
-import ERROR_AXIOS from 'fixtures/error-axios-no-res'
-import ERROR_FIREBASE_404 from 'fixtures/error-firebase-404'
-import ERROR_FIREBASE_INVALID_CODE from 'fixtures/error-firebase-invalid-code'
-import ERROR_NEXT from 'fixtures/error-next'
-import ERROR_NEXT_NO_STATUS from 'fixtures/error-next-no-status'
-import EJSON from 'fixtures/exception-json'
-import { ExceptionClassName, ExceptionCode, ExceptionId } from 'src/enums'
-import type { ExceptionJSON } from 'src/interfaces'
-import type { Testcase, TestcaseFn } from 'tests/interfaces'
+import ERROR from '#fixtures/error'
+import ERROR_AXIOS_404 from '#fixtures/error-axios-404'
+import ERROR_AXIOS from '#fixtures/error-axios-no-res'
+import ERROR_FIREBASE_404 from '#fixtures/error-firebase-404'
+import ERROR_FIREBASE_INVALID_CODE from '#fixtures/error-firebase-invalid-code'
+import ERROR_NEXT from '#fixtures/error-next'
+import ERROR_NEXT_NO_STATUS from '#fixtures/error-next-no-status'
+import EJSON from '#fixtures/exception-json'
+import { ExceptionClassName, ExceptionCode, ExceptionId } from '#src/enums'
+import type { ExceptionJSON } from '#src/interfaces'
+import type { Testcase, TestcaseFn } from '#tests/interfaces'
 import { DEM } from '../../config/constants'
 import TestSubject from '../base.exception'
 

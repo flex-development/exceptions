@@ -1,7 +1,7 @@
 declare module 'axios/lib/core/createError' {
+  import type { AxiosError } from '#src/interfaces'
   import type { AxiosRequestConfig, AxiosResponse } from 'axios'
   import type { ClientRequest } from 'node:http'
-  import type { AxiosError } from 'src/interfaces'
 
   export default function <Payload = any, Data = any>(
     message: string,

@@ -3,9 +3,9 @@
  * @module exceptions/exceptions/tests/unit/ValidationException
  */
 
-import ERRORS from 'fixtures/validation-errors'
-import type { ValidationExceptionDTO } from 'src/dtos'
-import { ExceptionCode } from 'src/enums'
+import ERRORS from '#fixtures/validation-errors'
+import type { ValidationExceptionDTO } from '#src/dtos'
+import { ExceptionCode } from '#src/enums'
 import TestSubject from '../validation.exception'
 
 describe('exceptions/unit:exceptions/ValidationException', () => {

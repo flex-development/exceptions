@@ -3,8 +3,8 @@
  * @module exceptions/dtos/ExceptionDataDTO
  */
 
+import type { ExceptionData } from '#src/types'
 import type { OneOrMany } from '@flex-development/tutils'
-import type { ExceptionData } from 'src/types'
 
 /**
  * `Exception` data transfer object.

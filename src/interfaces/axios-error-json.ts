@@ -3,8 +3,8 @@
  * @module exceptions/interfaces/AxiosErrorJSON
  */
 
+import type ExceptionCode from '#src/enums/exception-code'
 import type { AxiosRequestConfig } from 'axios'
-import type ExceptionCode from 'src/enums/exception-code'
 
 /**
  * JSON representation of an `AxiosError`.

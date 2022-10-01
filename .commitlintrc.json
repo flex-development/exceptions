@@ -11,6 +11,7 @@
       [
         "cjs",
         "deps",
+        "deps-bundle",
         "deps-dev",
         "deps-opt",
         "deps-peer",
@@ -21,7 +22,6 @@
         "exports",
         "github",
         "guards",
-        "helpers",
         "hybrid",
         "interfaces",
         "pkg",

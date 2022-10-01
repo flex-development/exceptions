@@ -3,11 +3,11 @@
  * @module exceptions/exceptions/ValidationException
  */
 
+import type { ValidationExceptionDTO } from '#src/dtos'
+import ExceptionCode from '#src/enums/exception-code'
+import { isExceptionCode } from '#src/guards'
+import type { ValidationExceptionErrors } from '#src/types'
 import type { ValidationError } from 'class-validator'
-import type { ValidationExceptionDTO } from 'src/dtos'
-import ExceptionCode from 'src/enums/exception-code'
-import { isExceptionCode } from 'src/guards'
-import type { ValidationExceptionErrors } from 'src/types'
 import Exception from './base.exception'
 
 /**

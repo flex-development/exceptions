@@ -3,10 +3,10 @@
  * @module fixtures/EJSON
  */
 
-import ClassName from 'src/enums/exception-class-name'
-import ExceptionCode from 'src/enums/exception-code'
-import ExceptionId from 'src/enums/exception-id'
-import type { ExceptionJSON } from 'src/interfaces'
+import ClassName from '#src/enums/exception-class-name'
+import ExceptionCode from '#src/enums/exception-code'
+import ExceptionId from '#src/enums/exception-id'
+import type { ExceptionJSON } from '#src/interfaces'
 
 export default Object.freeze({
   className: ClassName.NOT_FOUND,

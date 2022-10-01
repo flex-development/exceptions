@@ -3,7 +3,7 @@
  * @module exceptions/guards/isException
  */
 
-import type Exception from 'src/exceptions/base.exception'
+import type Exception from '#src/exceptions/base.exception'
 
 /**
  * Checks if `error` is an `Exception` class object.

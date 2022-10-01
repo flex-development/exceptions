@@ -3,7 +3,7 @@
  * @module fixtures/ERROR_FIREBASE_INVALID_CODE
  */
 
-import type { FirebaseError } from 'src/interfaces'
+import type { FirebaseError } from '#src/interfaces'
 
 const ERROR = new Error('Test Firebase error with invalid code')
 Object.assign(ERROR, { code: '' })

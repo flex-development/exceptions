@@ -17,7 +17,6 @@ dessant
 dohm
 dtos
 ejson
-ejson
 esbenp
 fbca
 feathersjs
@@ -31,7 +30,6 @@ larsgw
 lcov
 micnncim
 mkdist
-mkdist
 nocheck
 npmrc
 nums
@@ -40,9 +38,7 @@ ohmyzsh
 pkgs
 preid
 safecrlf
-serializr
 syncer
-tsnode
 tspaths
 vates
 vitest

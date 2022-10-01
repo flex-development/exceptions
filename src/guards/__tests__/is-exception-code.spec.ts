@@ -3,9 +3,9 @@
  * @module exceptions/guards/tests/unit/isExceptionCode
  */
 
-import ExceptionCode from 'src/enums/exception-code'
-import ExceptionId from 'src/enums/exception-id'
-import type { TestcaseFn } from 'tests/interfaces'
+import ExceptionCode from '#src/enums/exception-code'
+import ExceptionId from '#src/enums/exception-id'
+import type { TestcaseFn } from '#tests/interfaces'
 import testSubject from '../is-exception-code'
 
 describe('exceptions/unit:guards/isExceptionCode', () => {

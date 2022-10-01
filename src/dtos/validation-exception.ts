@@ -3,8 +3,8 @@
  * @module exceptions/dtos/ValidationExceptionDTO
  */
 
+import type ExceptionCode from '#src/enums/exception-code'
 import type { ValidationError } from 'class-validator'
-import type ExceptionCode from 'src/enums/exception-code'
 import type ExceptionDataDTO from './exception-data'
 
 /**
