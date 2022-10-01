@@ -35,13 +35,6 @@ interface FirebaseError extends Error {
    * [1]: https://github.com/firebase/firebase-js-sdk
    */
   customData?: ErrorS['customData']
-
-  /**
-   * Function that returns error definition. Exclusive to [firebase-admin][1].
-   *
-   * [1]: https://github.com/firebase/firebase-admin-node
-   */
-  toJSON?(): { code: FirebaseError['code']; message: FirebaseError['message'] }
 }
 
 export type { FirebaseError as default }
