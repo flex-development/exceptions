@@ -4,7 +4,6 @@
  */
 
 import type { FirebaseError as ErrorS } from '@firebase/util'
-import type { FirebaseError as ErrorA } from 'firebase-admin/lib/utils/error'
 
 /**
  * Error objects thrown by [firebase-admin][1] and [Firebase SDKs][2].
@@ -19,13 +18,6 @@ interface FirebaseError extends Error {
    * Firebase error code.
    */
   readonly code: string
-
-  /**
-   * Object containing error definition. Exclusive to [firebase-admin][1].
-   *
-   * [1]: https://github.com/firebase/firebase-admin-node
-   */
-  readonly errorInfo?: ErrorA['errorInfo']
 
   /**
    * Error name.
