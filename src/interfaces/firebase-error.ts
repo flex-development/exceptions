@@ -3,38 +3,46 @@
  * @module exceptions/interfaces/FirebaseError
  */
 
-import type { FirebaseError as ErrorS } from '@firebase/util'
+import type { FirebaseError as FirebaseSdkError } from '@firebase/util'
 
 /**
- * Error objects thrown by [firebase-admin][1] and [Firebase SDKs][2].
+ * Object representing a Firebase error.
  *
- * [1]: https://github.com/firebase/firebase-admin-node
- * [2]: https://github.com/firebase/firebase-js-sdk
+ * @see https://github.com/firebase/firebase-admin-node
+ * @see https://github.com/firebase/firebase-js-sdk
  *
  * @extends {Error}
  */
 interface FirebaseError extends Error {
   /**
    * Firebase error code.
+   *
+   * Format: `<service>/<string-code>`
+   *
+   * @example
+   *  'auth/invalid-uid'
+   * @example
+   *  'storage/invalid-emulator-host'
    */
   readonly code: string
 
   /**
    * Error name.
    *
-   * When using [Firebase SDKs][1], the name will be 'FirebaseError'. Otherwise,
-   * the name will be 'Error'.
+   * **Note**: `FirebaseError` when using [Firebase SDKs][1], `Error` otherwise.
    *
    * [1]: https://github.com/firebase/firebase-js-sdk
    */
   readonly name: 'Error' | 'FirebaseError'
 
   /**
-   * Object containing additional error information. Exclusive to [SDKs][1].
+   * Object containing additional error information.
+   *
+   * Exclusive to [Firebase SDKs][1].
    *
    * [1]: https://github.com/firebase/firebase-js-sdk
    */
-  customData?: ErrorS['customData']
+  customData?: FirebaseSdkError['customData']
 }
 
 export type { FirebaseError as default }
