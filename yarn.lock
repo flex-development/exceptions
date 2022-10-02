@@ -883,13 +883,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.4":
-  version: 2.0.0-alpha.4
-  resolution: "@flex-development/aggregate-error-ponyfill@npm:2.0.0-alpha.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Faggregate-error-ponyfill%2F2.0.0-alpha.4%2Fea408cd7e483198886053ac08021c66a214409a5"
+"@flex-development/aggregate-error-ponyfill@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@flex-development/aggregate-error-ponyfill@npm:2.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Faggregate-error-ponyfill%2F2.0.1%2F01f81cb1d57e71541227f46a5db8db6ee9ed13de"
   dependencies:
     "@types/es-abstract": "npm:1.17.3"
     es-abstract: "npm:1.19.1"
-  checksum: 9393940e7a6158afe4140900a75e4d1c08c5e7f23045f79981bec494e316b983ccb8ebaafcde2cdbea5e36ee65555754710ea25ee0dd0411cf53a5669b1d1aef
+  checksum: 74329fd3e214deaab29eb1318c3d632bb428e436fcdbf916212f1001bf5b21964f69ebfd436902144ba9df57c5377171addf7d70624a1f626cc7801a0e7dd12d
   languageName: node
   linkType: hard
 
@@ -902,7 +902,7 @@ __metadata:
     "@commitlint/types": "npm:17.0.0"
     "@faker-js/faker": "npm:7.5.0"
     "@firebase/util": "npm:>=1.4.0"
-    "@flex-development/aggregate-error-ponyfill": "npm:2.0.0-alpha.4"
+    "@flex-development/aggregate-error-ponyfill": "npm:2.0.1"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.6"
     "@flex-development/toggle-pkg-type": "npm:1.0.0"
     "@flex-development/tutils": "npm:5.0.1"
