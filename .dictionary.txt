@@ -18,6 +18,7 @@ dohm
 dtos
 ejson
 esbenp
+esbuild
 fbca
 feathersjs
 fpnv
@@ -29,7 +30,7 @@ keyid
 larsgw
 lcov
 micnncim
-mkdist
+mkbuild
 nocheck
 npmrc
 nums
@@ -39,7 +40,6 @@ pkgs
 preid
 safecrlf
 syncer
-tspaths
 vates
 vitest
 vsicons

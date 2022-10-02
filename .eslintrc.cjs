@@ -60,24 +60,6 @@ const config = {
       rules: {
         '@typescript-eslint/no-unsafe-call': 0
       }
-    },
-    {
-      files: ['src/index.ts'],
-      rules: {
-        /**
-         * mkdist converts `exports.default` to `module.exports = _default`.
-         *
-         * `exports.default` statements are only output if `export default ...`
-         * is used for default exports.
-         *
-         * this means that `export { default } from '...'` should **not** be
-         * used where default exports should be supported, as with the package
-         * entry point.
-         *
-         * @see https://github.com/unjs/mkdist/blob/v0.3.13/src/loaders/js.ts#L40
-         */
-        'unicorn/prefer-export-from': 0
-      }
     }
   ]
 }
