@@ -1,12 +1,11 @@
 /**
  * @file Build Config
  * @module config/build
- * @see https://github.com/flex-development/mkbuild#configuration
+ * @see https://github.com/flex-development/mkbuild
  */
 
 import { defineBuildConfig, type Config } from '@flex-development/mkbuild'
 import pkg from './package.json' assert { type: 'json' }
-import tsconfig from './tsconfig.build.json' assert { type: 'json' }
 
 /**
  * Build configuration options.
@@ -16,12 +15,9 @@ import tsconfig from './tsconfig.build.json' assert { type: 'json' }
 const config: Config = defineBuildConfig({
   entries: [{}, { ext: '.cjs', format: 'cjs' }],
   platform: 'node',
-  sourcemap: 'external',
+  sourcemap: true,
   sourcesContent: false,
-  target: [
-    tsconfig.compilerOptions.target,
-    'node' + pkg.engines.node.replace(/^\D+/, '')
-  ],
+  target: 'node' + pkg.engines.node.replace(/^\D+/, ''),
   treeShaking: true,
   tsconfig: 'tsconfig.build.json'
 })

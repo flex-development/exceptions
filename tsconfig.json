@@ -12,8 +12,9 @@
     "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
-    "lib": ["dom", "es2021"],
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": true,
+    "lib": ["dom", "es2020"],
     "module": "esnext",
     "moduleDetection": "force",
     "moduleResolution": "node",
@@ -50,7 +51,14 @@
     "useUnknownInCatchVariables": true
   },
   "exclude": ["./coverage", "./dist", "./node_modules"],
-  "include": ["**/**.cjs", "**/**.cts", "**/**.mjs", "**/**.ts", "**/.*.cjs"],
+  "include": [
+    "**/**.cjs",
+    "**/**.cts",
+    "**/**.mjs",
+    "**/**.mts",
+    "**/**.ts",
+    "**/.*.cjs"
+  ],
   "ts-node": {
     "compilerOptions": {},
     "esm": true,
