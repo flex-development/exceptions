@@ -9,7 +9,6 @@
  * @const config - ESLint configuration object
  */
 const config = {
-  root: true,
   extends: ['./.eslintrc.base.cjs'],
   overrides: [
     ...require('./.eslintrc.base.cjs').overrides,
@@ -60,8 +59,15 @@ const config = {
       rules: {
         '@typescript-eslint/no-unsafe-call': 0
       }
+    },
+    {
+      files: ['typings/axios/lib/core/createError.d.ts'],
+      rules: {
+        'unicorn/filename-case': 0
+      }
     }
-  ]
+  ],
+  root: true
 }
 
 module.exports = config

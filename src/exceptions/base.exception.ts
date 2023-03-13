@@ -1,5 +1,5 @@
 /**
- * @file Exceptions - Exception Base Class
+ * @file Exceptions - Exception
  * @module exceptions/exceptions/Exception
  */
 
@@ -23,7 +23,7 @@ import type {
 import type { ExceptionData, ExceptionErrors } from '#src/types'
 import AggregateError from '@flex-development/aggregate-error-ponyfill'
 import type { Nullable, OneOrMany } from '@flex-development/tutils'
-import { omit } from 'radash'
+import { get, omit } from 'radash'
 
 /**
  * Custom error class.
@@ -119,10 +119,10 @@ export default class Exception<T = any> extends AggregateError<T> {
    * @public
    * @static
    *
-   * @param {ExceptionCode} code - HTTP status code
+   * @param {number} code - HTTP status code
    * @return {ExceptionId} - Exception id
    */
-  public static findIdByCode(code: ExceptionCode): ExceptionId {
+  public static findIdByCode(code: number): ExceptionId {
     /**
      * Default exception id.
      *
@@ -134,11 +134,11 @@ export default class Exception<T = any> extends AggregateError<T> {
     /**
      * Possible exception ids.
      *
-     * @const {string[]} ids
+     * @const {ExceptionId[]} ids
      */
-    const ids: string[] = Object.keys(ExceptionId)
+    const ids: ExceptionId[] = Object.values(ExceptionId)
 
-    return (ids.find(id => ExceptionCode[id] === code) ?? id) as ExceptionId
+    return ids.find(id => ExceptionCode[id] === code) ?? id
   }
 
   /**
@@ -165,7 +165,7 @@ export default class Exception<T = any> extends AggregateError<T> {
    * @template T - Aggergated error type(s)
    *
    * @param {AxiosError} error - Axios error to transform
-   * @return {Exception<T>} AxiosError as Exception
+   * @return {Exception<T>} `error` as {@linkcode Exception}
    */
   public static fromAxiosError<T = any>(error: AxiosError): Exception<T> {
     const { isAxiosError = true, message, request, response, stack } = error
@@ -242,7 +242,7 @@ export default class Exception<T = any> extends AggregateError<T> {
    * @template T - Aggergated error type(s)
    *
    * @param {FirebaseError} error - Firebase error to transform
-   * @return {Exception<T>} FirebaseError as Exception
+   * @return {Exception<T>} `error` as {@linkcode Exception}
    */
   public static fromFirebaseError<T = any>(error: FirebaseError): Exception<T> {
     const { code, customData, message, stack } = error
@@ -253,17 +253,17 @@ export default class Exception<T = any> extends AggregateError<T> {
      * @const {string | undefined} name
      */
     const name: string | undefined = Object.keys(FirebaseErrorCode).find(k => {
-      return FirebaseErrorCode[k] === code.split('/')[1]
+      return get(FirebaseErrorCode, k) === code.split('/')[1]
     })
 
     /**
      * Exception status code.
      *
-     * @const {ExceptionCode | FirebaseErrorStatusCode} status
+     * @const {ExceptionCode} status
      */
-    const status: ExceptionCode | FirebaseErrorStatusCode = name
-      ? this.formatCode(FirebaseErrorStatusCode[name])
-      : FirebaseErrorStatusCode.UNKNOWN_ERROR
+    const status: ExceptionCode = name
+      ? this.formatCode(get(FirebaseErrorStatusCode, name))
+      : ExceptionCode.INTERNAL_SERVER_ERROR
 
     /**
      * Exception data.
@@ -272,7 +272,7 @@ export default class Exception<T = any> extends AggregateError<T> {
      */
     const data: ExceptionData = { code, customData, isFirebaseError: true }
 
-    return new Exception<T>(status as ExceptionCode, message, data, stack)
+    return new Exception<T>(status, message, data, stack)
   }
 
   /**
@@ -284,7 +284,7 @@ export default class Exception<T = any> extends AggregateError<T> {
    * @template T - Aggergated error type(s)
    *
    * @param {NextError} error - Next.js error to transform
-   * @return {Exception<T>} NextError as Exception
+   * @return {Exception<T>} `error` as {@linkcode Exception}
    */
   public static fromNextError<T = any>(error: NextError): Exception<T> {
     /**

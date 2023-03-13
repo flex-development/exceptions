@@ -8,7 +8,7 @@ import type { ValidationExceptionDTO } from '#src/dtos'
 import { ExceptionCode } from '#src/enums'
 import TestSubject from '../validation.exception'
 
-describe('exceptions/unit:exceptions/ValidationException', () => {
+describe('unit:exceptions/ValidationException', () => {
   describe('constructor', () => {
     it('should construct ValidationException with defaults', () => {
       // Act

@@ -6,7 +6,7 @@
 /**
  * Names of HTTP error status codes.
  *
- * @enum {Lowercase<string>}
+ * @enum {Uppercase<string>}
  */
 enum ExceptionId {
   BAD_REQUEST = 'BAD_REQUEST',

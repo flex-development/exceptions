@@ -5,20 +5,14 @@
 
 import ExceptionCode from '#src/enums/exception-code'
 import ExceptionId from '#src/enums/exception-id'
-import type { TestcaseFn } from '#tests/interfaces'
 import testSubject from '../is-exception-code'
 
-describe('exceptions/unit:guards/isExceptionCode', () => {
-  interface Case extends TestcaseFn<typeof testSubject> {}
+describe('unit:guards/isExceptionCode', () => {
+  it('should return false given non-ExceptionCode value', () => {
+    expect(testSubject(ExceptionId.I_AM_A_TEAPOT)).to.be.false
+  })
 
-  const cases: Case[] = [
-    { expected: false, parameters: [ExceptionId.I_AM_A_TEAPOT] },
-    { expected: true, parameters: [ExceptionCode.PAYLOAD_TOO_LARGE] }
-  ]
-
-  cases.forEach(({ expected, parameters }) => {
-    it(`should return ${expected} given ${pf(parameters)}`, () => {
-      expect(testSubject(...parameters)).to.equal(expected)
-    })
+  it('should return true given ExceptionCode value', () => {
+    expect(testSubject(ExceptionCode.PAYLOAD_TOO_LARGE)).to.be.true
   })
 })

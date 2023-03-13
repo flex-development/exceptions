@@ -11,13 +11,13 @@ import ERROR_FIREBASE_INVALID_CODE from '#fixtures/error-firebase-invalid-code'
 import ERROR_NEXT from '#fixtures/error-next'
 import ERROR_NEXT_NO_STATUS from '#fixtures/error-next-no-status'
 import EJSON from '#fixtures/exception-json'
+import { DEM } from '#src/config/constants'
+import type { ExceptionDataDTO } from '#src/dtos'
 import { ExceptionClassName, ExceptionCode, ExceptionId } from '#src/enums'
 import type { ExceptionJSON } from '#src/interfaces'
-import type { Testcase, TestcaseFn } from '#tests/interfaces'
-import { DEM } from '../../config/constants'
 import TestSubject from '../base.exception'
 
-describe('exceptions/unit:exceptions/Exception', () => {
+describe('unit:exceptions/Exception', () => {
   describe('constructor', () => {
     describe('#data', () => {
       it('should omit dto.data.errors and dto.data.message', () => {
@@ -45,48 +45,36 @@ describe('exceptions/unit:exceptions/Exception', () => {
     })
 
     describe('#errors', () => {
-      interface Case extends Testcase<any[]> {
-        parameters: ConstructorParameters<typeof TestSubject>
-      }
+      it('should set errors property', () => {
+        // Arrange
+        const cases: [...ConstructorParameters<typeof TestSubject>, any[]][] = [
+          [undefined, undefined, { errors: [ERROR] }, undefined, [ERROR]],
+          [undefined, undefined, { errors: ERROR }, undefined, [ERROR]]
+        ]
 
-      const cases: Case[] = [
-        {
-          expected: [ERROR],
-          parameters: [undefined, undefined, { errors: [ERROR] }]
-        },
-        {
-          expected: [ERROR],
-          parameters: [undefined, undefined, { errors: ERROR }]
-        }
-      ]
+        // Act + Expect
+        cases.forEach(([code, message, data, stack, expected]) => {
+          const result = new TestSubject(code, message, data, stack).errors
 
-      cases.forEach(({ expected, parameters }) => {
-        it(`should equal ${pf(expected)} given ${pf(parameters)}`, () => {
-          // Act
-          const subject = new TestSubject(...parameters)
-
-          // Expect
-          expect(subject.errors).to.have.deep.ordered.members(expected)
+          expect(result).to.have.deep.ordered.members(expected)
         })
       })
     })
 
     describe('#message', () => {
-      interface Case extends Testcase<string> {
-        parameters: ConstructorParameters<typeof TestSubject>
-      }
+      it('should set message property', () => {
+        // Arrange
+        const cases: [...ConstructorParameters<typeof TestSubject>, string][] =
+          [
+            [undefined, DEM, {}, '', DEM],
+            [undefined, '', { message: ERROR.message }, '', ERROR.message]
+          ]
 
-      const cases: Case[] = [
-        { expected: DEM, parameters: [undefined, DEM, {}] },
-        {
-          expected: ERROR.message,
-          parameters: [undefined, '', { message: ERROR.message }]
-        }
-      ]
+        // Act + Expect
+        cases.forEach(([code, message, data, stack, expected]) => {
+          const result = new TestSubject(code, message, data, stack).message
 
-      cases.forEach(({ expected, parameters }) => {
-        it(`should equal ${pf(expected)} given ${pf(parameters)}`, () => {
-          expect(new TestSubject(...parameters).message).to.equal(expected)
+          expect(result).to.equal(expected)
         })
       })
     })
@@ -99,190 +87,187 @@ describe('exceptions/unit:exceptions/Exception', () => {
   })
 
   describe('.findIdByCode', () => {
-    interface Case extends TestcaseFn<typeof TestSubject['findIdByCode']> {}
+    it('should return default ExceptionId given unknown code', () => {
+      // Arrange
+      const expected: ExceptionId = ExceptionId.INTERNAL_SERVER_ERROR
 
-    const cases: Case[] = [
-      { expected: ExceptionId.INTERNAL_SERVER_ERROR, parameters: [-1] }
-    ]
-
-    Object.keys(ExceptionId).forEach(k => {
-      cases.push({ expected: k as ExceptionId, parameters: [ExceptionCode[k]] })
+      // Act + Expect
+      expect(TestSubject.findIdByCode(-1)).to.equal(expected)
     })
 
-    cases.forEach(({ expected, parameters }) => {
-      it(`should return ${pf(expected)} given ${pf(parameters)}`, () => {
-        expect(TestSubject.findIdByCode(...parameters)).to.equal(expected)
-      })
+    it('should return ExceptionId given ExceptionCode', () => {
+      // Arrange
+      const code: number = ExceptionCode.I_AM_A_TEAPOT
+
+      // Act + Expect
+      expect(TestSubject.findIdByCode(code)).to.equal(ExceptionId.I_AM_A_TEAPOT)
     })
   })
 
   describe('.formatCode', () => {
-    interface Case extends TestcaseFn<typeof TestSubject['formatCode']> {}
+    it('should return default ExceptionCode given non-ExceptionCode', () => {
+      // Arrange
+      const expected: ExceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR
 
-    const cases: Case[] = [
-      { expected: ExceptionCode.INTERNAL_SERVER_ERROR, parameters: [-1] }
-    ]
-
-    Object.keys(ExceptionId).forEach(k => {
-      cases.push({ expected: ExceptionCode[k], parameters: [ExceptionCode[k]] })
+      // Act + Expect
+      expect(TestSubject.formatCode(-1)).to.equal(expected)
     })
 
-    cases.forEach(({ expected, parameters }) => {
-      it(`should return ${pf(expected)} given ${pf(parameters)}`, () => {
-        expect(TestSubject.formatCode(...parameters)).to.equal(expected)
-      })
+    it('should return ExceptionCode given ExceptionCode', () => {
+      // Arrange
+      const code: number = ExceptionCode.I_AM_A_TEAPOT
+
+      // Act + Expect
+      expect(TestSubject.formatCode(code)).to.equal(code)
     })
   })
 
   describe('.fromAxiosError', () => {
-    interface Case extends Testcase<ExceptionJSON> {
-      parameters: Parameters<typeof TestSubject['fromAxiosError']>
-    }
+    it('should return error as Exception', () => {
+      // Arrange
+      const cases: [
+        ...Parameters<(typeof TestSubject)['fromAxiosError']>,
+        ExceptionJSON
+      ][] = [
+        [
+          ERROR_AXIOS_404,
+          {
+            className: ExceptionClassName.NOT_FOUND,
+            code: ERROR_AXIOS_404.response?.status as ExceptionCode,
+            data: {
+              code: ERROR_AXIOS_404.code,
+              config: ERROR_AXIOS_404.config,
+              headers: {},
+              isAxiosError: true,
+              isExceptionJSON: true,
+              payload: ERROR_AXIOS_404.response?.data,
+              request: ERROR_AXIOS_404.request
+            },
+            errors: [],
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            message: ERROR_AXIOS_404.response?.data.message,
+            name: ExceptionId.NOT_FOUND
+          }
+        ],
+        [
+          ERROR_AXIOS,
+          {
+            className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+            code: ExceptionCode.INTERNAL_SERVER_ERROR,
+            data: {
+              code: ERROR_AXIOS.code,
+              config: ERROR_AXIOS.config,
+              isAxiosError: true,
+              isExceptionJSON: true,
+              request: ERROR_AXIOS.request
+            },
+            errors: [],
+            message: ERROR_AXIOS.message,
+            name: ExceptionId.INTERNAL_SERVER_ERROR
+          }
+        ]
+      ]
 
-    const cases: Case[] = [
-      {
-        expected: {
-          className: ExceptionClassName.NOT_FOUND,
-          code: ERROR_AXIOS_404.response?.status as ExceptionCode,
-          data: {
-            code: ERROR_AXIOS_404.code,
-            config: ERROR_AXIOS_404.config,
-            headers: {},
-            isAxiosError: true,
-            isExceptionJSON: true,
-            payload: ERROR_AXIOS_404.response?.data,
-            request: ERROR_AXIOS_404.request
-          },
-          errors: [],
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          message: ERROR_AXIOS_404.response?.data.message,
-          name: ExceptionId.NOT_FOUND
-        },
-        parameters: [ERROR_AXIOS_404]
-      },
-      {
-        expected: {
-          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
-          code: ExceptionCode.INTERNAL_SERVER_ERROR,
-          data: {
-            code: ERROR_AXIOS.code,
-            config: ERROR_AXIOS.config,
-            isAxiosError: true,
-            isExceptionJSON: true,
-            request: ERROR_AXIOS.request
-          },
-          errors: [],
-          message: ERROR_AXIOS.message,
-          name: ExceptionId.INTERNAL_SERVER_ERROR
-        },
-        parameters: [ERROR_AXIOS]
-      }
-    ]
+      // Act + Expect
+      cases.forEach(([error, expected]) => {
+        const result = TestSubject.fromAxiosError(error).toJSON()
 
-    cases.forEach(({ expected, parameters }) => {
-      it(`should return Exception given ${pf(parameters)}`, () => {
-        // Act
-        const result = TestSubject.fromAxiosError(...parameters).toJSON()
-
-        // Expect
         expect(result).to.deep.equal(expected)
       })
     })
   })
 
   describe('.fromFirebaseError', () => {
-    interface Case extends Testcase<ExceptionJSON> {
-      parameters: Parameters<typeof TestSubject['fromFirebaseError']>
-    }
+    it('should return error as Exception', () => {
+      // Arrange
+      const cases: [
+        ...Parameters<(typeof TestSubject)['fromFirebaseError']>,
+        ExceptionJSON
+      ][] = [
+        [
+          ERROR_FIREBASE_INVALID_CODE,
+          {
+            className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+            code: ExceptionCode.INTERNAL_SERVER_ERROR,
+            data: {
+              code: ERROR_FIREBASE_INVALID_CODE.code,
+              customData: undefined,
+              isExceptionJSON: true,
+              isFirebaseError: true
+            },
+            errors: [],
+            message: ERROR_FIREBASE_INVALID_CODE.message,
+            name: ExceptionId.INTERNAL_SERVER_ERROR
+          }
+        ],
+        [
+          ERROR_FIREBASE_404,
+          {
+            className: ExceptionClassName.NOT_FOUND,
+            code: ExceptionCode.NOT_FOUND,
+            data: {
+              code: ERROR_FIREBASE_404.code,
+              customData: undefined,
+              isExceptionJSON: true,
+              isFirebaseError: true
+            },
+            errors: [],
+            message: ERROR_FIREBASE_404.message,
+            name: ExceptionId.NOT_FOUND
+          }
+        ]
+      ]
 
-    const cases: Case[] = [
-      {
-        expected: {
-          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
-          code: ExceptionCode.INTERNAL_SERVER_ERROR,
-          data: {
-            code: ERROR_FIREBASE_INVALID_CODE.code,
-            customData: undefined,
-            isExceptionJSON: true,
-            isFirebaseError: true
-          },
-          errors: [],
-          message: ERROR_FIREBASE_INVALID_CODE.message,
-          name: ExceptionId.INTERNAL_SERVER_ERROR
-        },
-        parameters: [ERROR_FIREBASE_INVALID_CODE]
-      },
-      {
-        expected: {
-          className: ExceptionClassName.NOT_FOUND,
-          code: ExceptionCode.NOT_FOUND,
-          data: {
-            code: ERROR_FIREBASE_404.code,
-            customData: undefined,
-            isExceptionJSON: true,
-            isFirebaseError: true
-          },
-          errors: [],
-          message: ERROR_FIREBASE_404.message,
-          name: ExceptionId.NOT_FOUND
-        },
-        parameters: [ERROR_FIREBASE_404]
-      }
-    ]
+      // Act + Expect
+      cases.forEach(([error, expected]) => {
+        const result = TestSubject.fromFirebaseError(error).toJSON()
 
-    cases.forEach(({ expected, parameters }) => {
-      it(`should return Exception given ${pf(parameters)}`, () => {
-        // Act
-        const result = TestSubject.fromFirebaseError(...parameters).toJSON()
-
-        // Expect
         expect(result).to.deep.equal(expected)
       })
     })
   })
 
   describe('.fromNextError', () => {
-    interface Case extends Testcase<ExceptionJSON> {
-      parameters: Parameters<typeof TestSubject['fromNextError']>
-    }
+    it('should return error as Exception', () => {
+      // Arrange
+      const cases: [
+        ...Parameters<(typeof TestSubject)['fromNextError']>,
+        ExceptionJSON
+      ][] = [
+        [
+          ERROR_NEXT,
+          {
+            className: ExceptionClassName.BAD_GATEWAY,
+            code: ERROR_NEXT.statusCode!,
+            data: {
+              isExceptionJSON: true,
+              isNextError: true
+            },
+            errors: [],
+            message: ERROR_NEXT.message,
+            name: ExceptionId.BAD_GATEWAY
+          }
+        ],
+        [
+          ERROR_NEXT_NO_STATUS,
+          {
+            className: ExceptionClassName.INTERNAL_SERVER_ERROR,
+            code: ExceptionCode.INTERNAL_SERVER_ERROR,
+            data: {
+              isExceptionJSON: true,
+              isNextError: true
+            },
+            errors: [],
+            message: ERROR_NEXT_NO_STATUS.message,
+            name: ExceptionId.INTERNAL_SERVER_ERROR
+          }
+        ]
+      ]
 
-    const cases: Case[] = [
-      {
-        expected: {
-          className: ExceptionClassName.BAD_GATEWAY,
-          code: ERROR_NEXT.statusCode!,
-          data: {
-            isExceptionJSON: true,
-            isNextError: true
-          },
-          errors: [],
-          message: ERROR_NEXT.message,
-          name: ExceptionId.BAD_GATEWAY
-        },
-        parameters: [ERROR_NEXT]
-      },
-      {
-        expected: {
-          className: ExceptionClassName.INTERNAL_SERVER_ERROR,
-          code: ExceptionCode.INTERNAL_SERVER_ERROR,
-          data: {
-            isExceptionJSON: true,
-            isNextError: true
-          },
-          errors: [],
-          message: ERROR_NEXT_NO_STATUS.message,
-          name: ExceptionId.INTERNAL_SERVER_ERROR
-        },
-        parameters: [ERROR_NEXT_NO_STATUS]
-      }
-    ]
+      // Act + Expect
+      cases.forEach(([error, expected]) => {
+        const result = TestSubject.fromNextError(error).toJSON()
 
-    cases.forEach(({ expected, parameters }) => {
-      it(`should return Exception given ${pf(parameters)}`, () => {
-        // Act
-        const result = TestSubject.fromNextError(...parameters).toJSON()
-
-        // Expect
         expect(result).to.deep.equal(expected)
       })
     })
@@ -291,9 +276,9 @@ describe('exceptions/unit:exceptions/Exception', () => {
   describe('#toJSON', () => {
     it('should return json representation of Exception', () => {
       // Arrange
-      const code = ExceptionCode.I_AM_A_TEAPOT
-      const data = { errors: { test: true }, foo: '' }
-      const message = 'Test error message'
+      const code: ExceptionCode = ExceptionCode.I_AM_A_TEAPOT
+      const data: ExceptionDataDTO = { errors: { test: true }, foo: '' }
+      const message: string = 'Test error message'
 
       // Act + Expect
       expect(new TestSubject(code, message, data).toJSON()).deep.equal({

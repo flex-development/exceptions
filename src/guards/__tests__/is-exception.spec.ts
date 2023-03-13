@@ -5,22 +5,14 @@
 
 import ERROR from '#fixtures/error'
 import Exception from '#src/exceptions/base.exception'
-import type { TestcaseFn } from '#tests/interfaces'
 import testSubject from '../is-exception'
 
-describe('exceptions/unit:guards/isException', () => {
-  interface Case extends TestcaseFn<typeof testSubject> {
-    is: 'is not' | 'is'
-  }
+describe('unit:guards/isException', () => {
+  it('should return false if value is not Exception instance', () => {
+    expect(testSubject(ERROR)).to.be.false
+  })
 
-  const cases: Case[] = [
-    { expected: false, is: 'is not', parameters: [ERROR] },
-    { expected: true, is: 'is', parameters: [new Exception()] }
-  ]
-
-  cases.forEach(({ expected, is, parameters }) => {
-    it(`should return ${expected} if value ${is} Exception`, () => {
-      expect(testSubject(...parameters)).to.deep.equal(expected)
-    })
+  it('should return true if value is Exception instance', () => {
+    expect(testSubject(new Exception())).to.be.true
   })
 })
