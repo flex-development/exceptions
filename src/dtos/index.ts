@@ -4,3 +4,4 @@
  */
 
 export type { default as ExceptionDTO } from './exception'
+export type { default as HttpExceptionDTO } from './exception-http'
