@@ -22,6 +22,7 @@ Custom error classes and utilities.
   - [Data Transfer Objects](#data-transfer-objects)
   - [Enums](#enums)
   - [Interfaces](#interfaces)
+  - [Type Definitions](#type-definitions)
 - [Contribute](#contribute)
 
 ## What is this?
@@ -78,6 +79,10 @@ This package is fully typed with [TypeScript][1].
 
 - [`ExceptionJSON`](src/interfaces/exception-json.ts)
 - [`HttpExceptionJSON`](src/interfaces/exception-json-http.ts)
+
+### Type Definitions
+
+- [`Errors`](src/types/errors.ts)
 
 ## Contribute
 
