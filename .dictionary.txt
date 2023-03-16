@@ -10,6 +10,7 @@ dtos
 ejson
 fbca
 feathersjs
+ggshield
 gpgsign
 hmarr
 iife
