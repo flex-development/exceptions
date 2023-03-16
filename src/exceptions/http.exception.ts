@@ -43,7 +43,7 @@ class HttpException<
   public readonly classname: ClassName
 
   /**
-   * Exception identifier.
+   * Exception status name.
    *
    * @public
    * @readonly

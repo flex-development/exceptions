@@ -10,8 +10,6 @@ import type ExceptionJSON from './exception-json'
 /**
  * JSON representation of an `HttpException`.
  *
- * @todo property documentation
- *
  * @template T - Aggregated error type
  * @template Data - Exception data type
  * @template Cause - Exception cause type
@@ -25,8 +23,19 @@ interface HttpExceptionJSON<
   Cause extends JsonifiableObject = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends ExceptionJSON<T, Data, Cause, Code> {
+  /**
+   * CSS class name.
+   */
   readonly classname: ClassName
+
+  /**
+   * Exception status name.
+   */
   readonly name: StatusName
+
+  /**
+   * Exception status code.
+   */
   readonly status: Status
 }
 

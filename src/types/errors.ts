@@ -1,13 +1,15 @@
 /**
- * @file Type Definitions - ExceptionErrors
- * @module exceptions/types/ExceptionErrors
+ * @file Type Definitions - Errors
+ * @module exceptions/types/Errors
  */
+
+import type { JsonifiableObject } from '@flex-development/tutils'
 
 /**
  * A group of related errors.
  *
  * @template T - Aggregated error type
  */
-type ExceptionErrors<T = any> = T[]
+type Errors<T extends JsonifiableObject = JsonifiableObject> = T[]
 
-export type { ExceptionErrors as default }
+export type { Errors as default }

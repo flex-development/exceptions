@@ -6,6 +6,9 @@
 /**
  * HTTP exception status codes.
  *
+ * @see https://developer.mozilla.org/docs/Web/HTTP/Status#client_error_responses
+ * @see https://developer.mozilla.org/docs/Web/HTTP/Status#server_error_responses
+ *
  * @enum {number}
  */
 enum Status {
