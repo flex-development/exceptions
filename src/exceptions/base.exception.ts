@@ -18,7 +18,7 @@ import {
 import { get, set, shake } from 'radash'
 
 /**
- * Custom error class.
+ * Custom exception model.
  *
  * @template T - Aggregated error type
  * @template Data - Exception data type
