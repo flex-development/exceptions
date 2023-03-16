@@ -60,16 +60,22 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'HTTP_VERSION_NOT_SUPPORTED'>()
   })
 
+  it('should match [IM_A_TEAPOT = "IM_A_TEAPOT"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('IM_A_TEAPOT')
+      .toMatchTypeOf<'IM_A_TEAPOT'>()
+  })
+
+  it('should match [INSUFFICIENT_STORAGE = "INSUFFICIENT_STORAGE"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('INSUFFICIENT_STORAGE')
+      .toMatchTypeOf<'INSUFFICIENT_STORAGE'>()
+  })
+
   it('should match [INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('INTERNAL_SERVER_ERROR')
       .toMatchTypeOf<'INTERNAL_SERVER_ERROR'>()
-  })
-
-  it('should match [I_AM_A_TEAPOT = "I_AM_A_TEAPOT"]', () => {
-    expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('I_AM_A_TEAPOT')
-      .toMatchTypeOf<'I_AM_A_TEAPOT'>()
   })
 
   it('should match [LENGTH_REQUIRED = "LENGTH_REQUIRED"]', () => {
@@ -78,22 +84,46 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'LENGTH_REQUIRED'>()
   })
 
+  it('should match [LOCKED = "LOCKED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('LOCKED')
+      .toMatchTypeOf<'LOCKED'>()
+  })
+
+  it('should match [LOOP_DETECTED = "LOOP_DETECTED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('LOOP_DETECTED')
+      .toMatchTypeOf<'LOOP_DETECTED'>()
+  })
+
   it('should match [METHOD_NOT_ALLOWED = "METHOD_NOT_ALLOWED"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('METHOD_NOT_ALLOWED')
       .toMatchTypeOf<'METHOD_NOT_ALLOWED'>()
   })
 
-  it('should match [MISDIRECTED = "MISDIRECTED"]', () => {
+  it('should match [MISDIRECTED_REQUEST = "MISDIRECTED_REQUEST"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('MISDIRECTED')
-      .toMatchTypeOf<'MISDIRECTED'>()
+      .toHaveProperty('MISDIRECTED_REQUEST')
+      .toMatchTypeOf<'MISDIRECTED_REQUEST'>()
+  })
+
+  it('should match [NETWORK_AUTHENTICATION_REQUIRED = "NETWORK_AUTHENTICATION_REQUIRED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('NETWORK_AUTHENTICATION_REQUIRED')
+      .toMatchTypeOf<'NETWORK_AUTHENTICATION_REQUIRED'>()
   })
 
   it('should match [NOT_ACCEPTABLE = "NOT_ACCEPTABLE"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('NOT_ACCEPTABLE')
       .toMatchTypeOf<'NOT_ACCEPTABLE'>()
+  })
+
+  it('should match [NOT_EXTENDED = "NOT_EXTENDED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('NOT_EXTENDED')
+      .toMatchTypeOf<'NOT_EXTENDED'>()
   })
 
   it('should match [NOT_FOUND = "NOT_FOUND"]', () => {
@@ -126,16 +156,28 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'PRECONDITION_FAILED'>()
   })
 
+  it('should match [PRECONDITION_REQUIRED = "PRECONDITION_REQUIRED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('PRECONDITION_REQUIRED')
+      .toMatchTypeOf<'PRECONDITION_REQUIRED'>()
+  })
+
   it('should match [PROXY_AUTHENTICATION_REQUIRED = "PROXY_AUTHENTICATION_REQUIRED"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('PROXY_AUTHENTICATION_REQUIRED')
       .toMatchTypeOf<'PROXY_AUTHENTICATION_REQUIRED'>()
   })
 
-  it('should match [REQUESTED_RANGE_NOT_SATISFIABLE = "REQUESTED_RANGE_NOT_SATISFIABLE"]', () => {
+  it('should match [RANGE_NOT_SATISFIABLE = "RANGE_NOT_SATISFIABLE"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('REQUESTED_RANGE_NOT_SATISFIABLE')
-      .toMatchTypeOf<'REQUESTED_RANGE_NOT_SATISFIABLE'>()
+      .toHaveProperty('RANGE_NOT_SATISFIABLE')
+      .toMatchTypeOf<'RANGE_NOT_SATISFIABLE'>()
+  })
+
+  it('should match [REQUEST_HEADERS_TOO_LARGE = "REQUEST_HEADERS_TOO_LARGE"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('REQUEST_HEADERS_TOO_LARGE')
+      .toMatchTypeOf<'REQUEST_HEADERS_TOO_LARGE'>()
   })
 
   it('should match [REQUEST_TIMEOUT = "REQUEST_TIMEOUT"]', () => {
@@ -150,6 +192,12 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'SERVICE_UNAVAILABLE'>()
   })
 
+  it('should match [TOO_EARLY = "TOO_EARLY"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('TOO_EARLY')
+      .toMatchTypeOf<'TOO_EARLY'>()
+  })
+
   it('should match [TOO_MANY_REQUESTS = "TOO_MANY_REQUESTS"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('TOO_MANY_REQUESTS')
@@ -162,10 +210,16 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'UNAUTHORIZED'>()
   })
 
-  it('should match [UNPROCESSABLE_ENTITY = "UNPROCESSABLE_ENTITY"]', () => {
+  it('should match [UNAUTHORIZED = "UNAUTHORIZED"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('UNPROCESSABLE_ENTITY')
-      .toMatchTypeOf<'UNPROCESSABLE_ENTITY'>()
+      .toHaveProperty('UNAUTHORIZED')
+      .toMatchTypeOf<'UNAUTHORIZED'>()
+  })
+
+  it('should match [UNAVAILABLE_FOR_LEGAL_REASONS = "UNAVAILABLE_FOR_LEGAL_REASONS"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('UNAVAILABLE_FOR_LEGAL_REASONS')
+      .toMatchTypeOf<'UNAVAILABLE_FOR_LEGAL_REASONS'>()
   })
 
   it('should match [UNSUPPORTED_MEDIA_TYPE = "UNSUPPORTED_MEDIA_TYPE"]', () => {
@@ -174,9 +228,21 @@ describe('unit-d:enums/StatusName', () => {
       .toMatchTypeOf<'UNSUPPORTED_MEDIA_TYPE'>()
   })
 
+  it('should match [UPGRADE_REQUIRED = "UPGRADE_REQUIRED"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('UPGRADE_REQUIRED')
+      .toMatchTypeOf<'UPGRADE_REQUIRED'>()
+  })
+
   it('should match [URI_TOO_LONG = "URI_TOO_LONG"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('URI_TOO_LONG')
       .toMatchTypeOf<'URI_TOO_LONG'>()
+  })
+
+  it('should match [VARIANT_ALSO_NEGOTIATES = "VARIANT_ALSO_NEGOTIATES"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('VARIANT_ALSO_NEGOTIATES')
+      .toMatchTypeOf<'VARIANT_ALSO_NEGOTIATES'>()
   })
 })

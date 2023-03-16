@@ -8,7 +8,7 @@ import testSubject from '../is-status'
 
 describe('unit:guards/isStatus', () => {
   it('should return false if value is not Status', () => {
-    expect(testSubject(StatusName.I_AM_A_TEAPOT)).to.be.false
+    expect(testSubject(StatusName.IM_A_TEAPOT)).to.be.false
   })
 
   it('should return true if value is Status', () => {

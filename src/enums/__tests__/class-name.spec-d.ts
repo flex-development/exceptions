@@ -60,16 +60,22 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'unsupported-http-version'>()
   })
 
+  it('should match [IM_A_TEAPOT = "teapot"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('IM_A_TEAPOT')
+      .toMatchTypeOf<'teapot'>()
+  })
+
+  it('should match [INSUFFICIENT_STORAGE = "insufficient-storage"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('INSUFFICIENT_STORAGE')
+      .toMatchTypeOf<'insufficient-storage'>()
+  })
+
   it('should match [INTERNAL_SERVER_ERROR = "internal-server-error"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('INTERNAL_SERVER_ERROR')
       .toMatchTypeOf<'internal-server-error'>()
-  })
-
-  it('should match [I_AM_A_TEAPOT = "teapot"]', () => {
-    expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('I_AM_A_TEAPOT')
-      .toMatchTypeOf<'teapot'>()
   })
 
   it('should match [LENGTH_REQUIRED = "length-required"]', () => {
@@ -78,16 +84,34 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'length-required'>()
   })
 
+  it('should match [LOCKED = "locked"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('LOCKED')
+      .toMatchTypeOf<'locked'>()
+  })
+
+  it('should match [LOOP_DETECTED = "loop-detected"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('LOOP_DETECTED')
+      .toMatchTypeOf<'loop-detected'>()
+  })
+
   it('should match [METHOD_NOT_ALLOWED = "method-not-allowed"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('METHOD_NOT_ALLOWED')
       .toMatchTypeOf<'method-not-allowed'>()
   })
 
-  it('should match [MISDIRECTED = "misdirected"]', () => {
+  it('should match [MISDIRECTED_REQUEST = "misdirected-request"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('MISDIRECTED')
-      .toMatchTypeOf<'misdirected'>()
+      .toHaveProperty('MISDIRECTED_REQUEST')
+      .toMatchTypeOf<'misdirected-request'>()
+  })
+
+  it('should match [NETWORK_AUTHENTICATION_REQUIRED = "network-auth-required"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('NETWORK_AUTHENTICATION_REQUIRED')
+      .toMatchTypeOf<'network-auth-required'>()
   })
 
   it('should match [NOT_ACCEPTABLE = "not-acceptable"]', () => {
@@ -126,16 +150,28 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'precondition-failed'>()
   })
 
+  it('should match [PRECONDITION_REQUIRED = "precondition-required"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('PRECONDITION_REQUIRED')
+      .toMatchTypeOf<'precondition-required'>()
+  })
+
   it('should match [PROXY_AUTHENTICATION_REQUIRED = "proxy-auth-required"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('PROXY_AUTHENTICATION_REQUIRED')
       .toMatchTypeOf<'proxy-auth-required'>()
   })
 
-  it('should match [REQUESTED_RANGE_NOT_SATISFIABLE = "range-not-satisfiable"]', () => {
+  it('should match [RANGE_NOT_SATISFIABLE = "range-not-satisfiable"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('REQUESTED_RANGE_NOT_SATISFIABLE')
+      .toHaveProperty('RANGE_NOT_SATISFIABLE')
       .toMatchTypeOf<'range-not-satisfiable'>()
+  })
+
+  it('should match [REQUEST_HEADERS_TOO_LARGE = "request-headers-too-large"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('REQUEST_HEADERS_TOO_LARGE')
+      .toMatchTypeOf<'request-headers-too-large'>()
   })
 
   it('should match [REQUEST_TIMEOUT = "timeout"]', () => {
@@ -144,10 +180,16 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'timeout'>()
   })
 
-  it('should match [SERVICE_UNAVAILABLE = "unavailable"]', () => {
+  it('should match [SERVICE_UNAVAILABLE = "service-unavailable"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('SERVICE_UNAVAILABLE')
-      .toMatchTypeOf<'unavailable'>()
+      .toMatchTypeOf<'service-unavailable'>()
+  })
+
+  it('should match [TOO_EARLY = "too-early"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('TOO_EARLY')
+      .toMatchTypeOf<'too-early'>()
   })
 
   it('should match [TOO_MANY_REQUESTS = "too-many-requests"]', () => {
@@ -162,9 +204,15 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'not-authenticated'>()
   })
 
-  it('should match [UNPROCESSABLE_ENTITY = "unprocessable-entity"]', () => {
+  it('should match [UNAVAILABLE_FOR_LEGAL_REASONS = "unavailable-for-legal-reasons"]', () => {
     expectTypeOf<typeof TestSubject>()
-      .toHaveProperty('UNPROCESSABLE_ENTITY')
+      .toHaveProperty('UNAVAILABLE_FOR_LEGAL_REASONS')
+      .toMatchTypeOf<'unavailable-for-legal-reasons'>()
+  })
+
+  it('should match [UNPROCESSABLE_CONTENT = "unprocessable-entity"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('UNPROCESSABLE_CONTENT')
       .toMatchTypeOf<'unprocessable-entity'>()
   })
 
@@ -174,9 +222,21 @@ describe('unit-d:enums/ClassName', () => {
       .toMatchTypeOf<'unsupported-media-type'>()
   })
 
+  it('should match [UPGRADE_REQUIRED = "upgrade-required"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('UPGRADE_REQUIRED')
+      .toMatchTypeOf<'upgrade-required'>()
+  })
+
   it('should match [URI_TOO_LONG = "uri-too-long"]', () => {
     expectTypeOf<typeof TestSubject>()
       .toHaveProperty('URI_TOO_LONG')
       .toMatchTypeOf<'uri-too-long'>()
+  })
+
+  it('should match [VARIANT_ALSO_NEGOTIATES = "variant-also-negotiates"]', () => {
+    expectTypeOf<typeof TestSubject>()
+      .toHaveProperty('VARIANT_ALSO_NEGOTIATES')
+      .toMatchTypeOf<'variant-also-negotiates'>()
   })
 })
