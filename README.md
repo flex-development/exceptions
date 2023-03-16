@@ -1,6 +1,7 @@
 # exceptions
 
 [![npm](https://img.shields.io/npm/v/@flex-development/exceptions.svg)](https://npmjs.com/package/@flex-development/exceptions)
+[![codecov](https://codecov.io/gh/flex-development/exceptions/branch/main/graph/badge.svg?token=ED02ARCVXE)](https://codecov.io/gh/flex-development/exceptions)
 [![module type: cjs+esm](https://img.shields.io/badge/module%20type-cjs%2Besm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 [![license](https://img.shields.io/github/license/flex-development/exceptions.svg)](LICENSE.md)
 [![conventional commits](https://img.shields.io/badge/-conventional%20commits-fe5196?logo=conventional-commits&logoColor=ffffff)](https://conventionalcommits.org/)
