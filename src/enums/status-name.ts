@@ -1,14 +1,14 @@
 /**
- * @file Enums - ExceptionId
- * @module exceptions/enums/ExceptionId
+ * @file Enums - StatusName
+ * @module exceptions/enums/StatusName
  */
 
 /**
- * Names of HTTP error status codes.
+ * HTTP exception status names.
  *
  * @enum {Uppercase<string>}
  */
-enum ExceptionId {
+enum StatusName {
   BAD_REQUEST = 'BAD_REQUEST',
   UNAUTHORIZED = 'UNAUTHORIZED',
   PAYMENT_REQUIRED = 'PAYMENT_REQUIRED',
@@ -40,4 +40,4 @@ enum ExceptionId {
   HTTP_VERSION_NOT_SUPPORTED = 'HTTP_VERSION_NOT_SUPPORTED'
 }
 
-export default ExceptionId
+export default StatusName

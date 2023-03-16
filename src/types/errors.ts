@@ -6,7 +6,7 @@
 /**
  * A group of related errors.
  *
- * @template T - Aggergated error type(s)
+ * @template T - Aggregated error type
  */
 type ExceptionErrors<T = any> = T[]
 

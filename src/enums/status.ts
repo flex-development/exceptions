@@ -1,14 +1,14 @@
 /**
- * @file Enums - ExceptionCode
- * @module exceptions/enums/ExceptionCode
+ * @file Enums - Status
+ * @module exceptions/enums/Status
  */
 
 /**
- * `Exception` ids mapped to HTTP error status codes.
+ * HTTP exception status codes.
  *
  * @enum {number}
  */
-enum ExceptionCode {
+enum Status {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   PAYMENT_REQUIRED = 402,
@@ -40,4 +40,4 @@ enum ExceptionCode {
   HTTP_VERSION_NOT_SUPPORTED = 505
 }
 
-export default ExceptionCode
+export default Status

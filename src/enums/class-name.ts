@@ -1,14 +1,14 @@
 /**
- * @file Enums - ExceptionClassName
- * @module exceptions/enums/ExceptionClassName
+ * @file Enums - ClassName
+ * @module exceptions/enums/ClassName
  */
 
 /**
- * `Exception` ids mapped to CSS class names.
+ * HTTP exception names mapped to CSS class names.
  *
  * @enum {Lowercase<string>}
  */
-enum ExceptionClassName {
+enum ClassName {
   BAD_REQUEST = 'bad-request',
   UNAUTHORIZED = 'not-authenticated',
   PAYMENT_REQUIRED = 'payment-error',
@@ -40,4 +40,4 @@ enum ExceptionClassName {
   HTTP_VERSION_NOT_SUPPORTED = 'unsupported-http-version'
 }
 
-export default ExceptionClassName
+export default ClassName

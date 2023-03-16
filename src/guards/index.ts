@@ -3,8 +3,6 @@
  * @module exceptions/guards
  */
 
-export { default as isException } from './is-exception'
-export { default as isExceptionClassName } from './is-exception-class-name'
-export { default as isExceptionCode } from './is-exception-code'
-export { default as isExceptionId } from './is-exception-id'
-export { default as isExceptionJSON } from './is-exception-json'
+export { default as isClassName } from './is-class-name'
+export { default as isStatus } from './is-status'
+export { default as isStatusName } from './is-status-name'

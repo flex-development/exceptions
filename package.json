@@ -30,69 +30,9 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./config/*": {
-      "import": "./dist/config/*.mjs",
-      "require": "./dist/config/*.cjs"
-    },
-    "./dtos": {
-      "import": "./dist/dtos/index.mjs",
-      "require": "./dist/dtos/index.cjs"
-    },
-    "./dtos/*": {
-      "import": "./dist/dtos/*.mjs",
-      "require": "./dist/dtos/*.cjs"
-    },
-    "./enums": {
-      "import": "./dist/enums/index.mjs",
-      "require": "./dist/enums/index.cjs"
-    },
-    "./enums/*": {
-      "import": "./dist/enums/*.mjs",
-      "require": "./dist/enums/*.cjs"
-    },
-    "./exceptions": {
-      "import": "./dist/exceptions/index.mjs",
-      "require": "./dist/exceptions/index.cjs"
-    },
-    "./exceptions/*": {
-      "import": "./dist/exceptions/*.mjs",
-      "require": "./dist/exceptions/*.cjs"
-    },
-    "./interfaces": {
-      "import": "./dist/interfaces/index.mjs",
-      "require": "./dist/interfaces/index.cjs"
-    },
-    "./interfaces/*": {
-      "import": "./dist/interfaces/*.mjs",
-      "require": "./dist/interfaces/*.cjs"
-    },
-    "./package.json": "./package.json",
-    "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
-    },
-    "./types/*": {
-      "import": "./dist/types/*.mjs",
-      "require": "./dist/types/*.cjs"
-    }
+    "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
-  "typesVersions": {
-    "*": {
-      "*.cjs": [
-        "./dist/*.d.cts",
-        "./dist/*/index.d.cts",
-        "./dist/index.d.cts"
-      ],
-      "*": [
-        "./dist/*.d.mts",
-        "./dist/*/index.d.mts",
-        "./dist/index.d.mts"
-      ]
-    }
-  },
   "scripts": {
     "build": "mkbuild",
     "changelog": "node --loader=./loader.mjs ./config/changelog.config",
@@ -129,7 +69,7 @@
     "typecheck:watch": "vitest typecheck"
   },
   "dependencies": {
-    "@flex-development/aggregate-error-ponyfill": "2.0.1",
+    "@flex-development/aggregate-error-ponyfill": "3.1.1",
     "@flex-development/tutils": "6.0.0-alpha.10",
     "radash": "10.7.1"
   },
@@ -155,7 +95,6 @@
     "@types/node-notifier": "8.0.2",
     "@types/prettier": "2.7.2",
     "@types/semver": "7.3.13",
-    "@types/validator": "13.7.10",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "@typescript-eslint/parser": "5.54.1",
     "@vates/toggle-scripts": "1.0.0",
@@ -212,19 +151,12 @@
     "vitest-github-actions-reporter": "0.10.0",
     "yaml-eslint-parser": "1.2.0"
   },
-  "optionalDependencies": {
-    "@firebase/util": ">=1.4.0",
-    "axios": ">=0.23.0",
-    "class-validator": ">=0.13.1",
-    "firebase-admin": ">=10.0.0"
-  },
   "resolutions": {
     "@ardatan/sync-fetch": "larsgw/sync-fetch#head=worker_threads",
-    "axios": "0.23.0",
     "@flex-development/tutils": "6.0.0-alpha.10"
   },
   "engines": {
-    "node": ">=14.16",
+    "node": ">=14.21.3",
     "yarn": "4.0.0-rc.39"
   },
   "packageManager": "yarn@4.0.0-rc.39",

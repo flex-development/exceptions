@@ -688,7 +688,7 @@ const config = {
         ],
         'unicorn/new-for-builtins': 2,
         'unicorn/no-abusive-eslint-disable': 2,
-        'unicorn/no-array-callback-reference': 2,
+        'unicorn/no-array-callback-reference': 0,
         'unicorn/no-array-for-each': 2,
         'unicorn/no-array-method-this-argument': 2,
         'unicorn/no-array-push-push': 2,
@@ -766,14 +766,7 @@ const config = {
         'unicorn/relative-url-style': [2, 'never'],
         'unicorn/require-array-join-separator': 2,
         'unicorn/require-number-to-fixed-digits-argument': 2,
-        'unicorn/string-content': [
-          2,
-          {
-            patterns: {
-              '^http:\\/\\/': '^https:\\/\\/'
-            }
-          }
-        ],
+        'unicorn/string-content': [2, { patterns: {} }],
         'unicorn/template-indent': [2, { indent: 2 }],
         'unicorn/text-encoding-identifier-case': 2,
         'unicorn/throw-new-error': 2
