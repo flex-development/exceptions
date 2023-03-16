@@ -1,6 +1,6 @@
 {
   "name": "@flex-development/exceptions",
-  "description": "Custom error handling",
+  "description": "Custom error classes and utilities",
   "version": "8.0.0-alpha.2",
   "keywords": [
     "error-handling",

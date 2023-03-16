@@ -180,7 +180,7 @@ repository:
   automated_security_fixes: true
   default_branch: main
   delete_branch_on_merge: false
-  description: 🚧 Custom error handling
+  description: 🚧 Custom error classes and utilities
   has_issues: true
   has_projects: true
   has_wiki: false
