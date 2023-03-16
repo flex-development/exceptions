@@ -20,6 +20,7 @@ Custom error classes and utilities.
 - [API](#api)
 - [Types](#types)
   - [Data Transfer Objects](#data-transfer-objects)
+  - [Enums](#enums)
 - [Contribute](#contribute)
 
 ## What is this?
@@ -65,6 +66,12 @@ This package is fully typed with [TypeScript][1].
 
 - [`ExceptionDTO`](src/dtos/exception.ts)
 - [`HttpExceptionDTO`](src/dtos/exception-http.ts)
+
+### Enums
+
+- [`ClassName`](src/enums/class-name.ts)
+- [`StatusName`](src/enums/status-name.ts)
+- [`Status`](src/enums/status.ts)
 
 ## Contribute
 
