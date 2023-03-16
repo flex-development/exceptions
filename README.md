@@ -19,6 +19,7 @@ Custom error classes and utilities.
 - [Use](#use)
 - [API](#api)
 - [Types](#types)
+  - [Data Transfer Objects](#data-transfer-objects)
 - [Contribute](#contribute)
 
 ## What is this?
@@ -50,15 +51,20 @@ yarn add @flex-development/exceptions@flex-development/exceptions
 
 ## Use
 
-**TODO**: Update documentation.
+**TODO**: usage documentation.
 
 ## API
 
-**TODO**: Update documentation.
+**TODO**: api documentation.
 
 ## Types
 
 This package is fully typed with [TypeScript][1].
+
+### Data Transfer Objects
+
+- [`ExceptionDTO`](src/dtos/exception.ts)
+- [`HttpExceptionDTO`](src/dtos/exception-http.ts)
 
 ## Contribute
 
