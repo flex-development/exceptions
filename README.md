@@ -25,9 +25,6 @@ Custom error classes and utilities.
 
 This package exports a set of custom error classes and utilities.
 
-The base class, `Exception`, extends [`AggregateError`][1]. The `ExceptionJSON` interface, a JSON representation of
-`Exception`, parallels error interfaces defined in [`@feathersjs/errors`][2], but has more opinionated type definitions.
-
 ## When should I use this?
 
 **TODO**: Update documentation.
@@ -61,12 +58,10 @@ yarn add @flex-development/exceptions@flex-development/exceptions
 
 ## Types
 
-This package is fully typed with [TypeScript][3].
+This package is fully typed with [TypeScript][1].
 
 ## Contribute
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-[1]: https://github.com/flex-development/aggregate-error-ponyfill
-[2]: https://github.com/feathersjs/feathers/tree/dove/packages/errors
-[3]: https://www.typescriptlang.org
+[1]: https://www.typescriptlang.org
