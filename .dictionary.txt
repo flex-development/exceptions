@@ -19,7 +19,6 @@ jsonifiable
 keyid
 larsgw
 lcov
-micnncim
 lintstagedrc
 mkbuild
 mlly
@@ -30,7 +29,6 @@ pathe
 pkgs
 pnpm
 preid
-syncer
 tscu
 unstub
 vates
