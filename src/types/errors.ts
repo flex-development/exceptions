@@ -3,13 +3,13 @@
  * @module exceptions/types/Errors
  */
 
-import type { JsonifiableObject } from '@flex-development/tutils'
+import type { JsonifiableObject, ObjectPlain } from '@flex-development/tutils'
 
 /**
  * A group of related errors.
  *
  * @template T - Aggregated error type
  */
-type Errors<T extends JsonifiableObject = JsonifiableObject> = T[]
+type Errors<T extends ObjectPlain = JsonifiableObject> = T[]
 
 export type { Errors as default }

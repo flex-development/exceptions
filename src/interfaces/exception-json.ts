@@ -4,7 +4,11 @@
  */
 
 import type { Errors } from '#src/types'
-import type { JsonifiableObject, Nullable } from '@flex-development/tutils'
+import type {
+  JsonifiableObject,
+  Nullable,
+  ObjectPlain
+} from '@flex-development/tutils'
 
 /**
  * JSON representation of an `Exception`.
@@ -15,9 +19,9 @@ import type { JsonifiableObject, Nullable } from '@flex-development/tutils'
  * @template Code - Exception code type
  */
 interface ExceptionJSON<
-  T extends JsonifiableObject = JsonifiableObject,
-  Data extends JsonifiableObject = JsonifiableObject,
-  Cause extends JsonifiableObject = JsonifiableObject,
+  T extends ObjectPlain = JsonifiableObject,
+  Data extends ObjectPlain = JsonifiableObject,
+  Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > {
   /**

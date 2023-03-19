@@ -10,6 +10,7 @@ import type {
   JsonifiableObject,
   Nilable,
   Nullable,
+  ObjectPlain,
   ObjectUnknown,
   OneOrMany
 } from '@flex-development/tutils'
@@ -24,8 +25,8 @@ import type {
  * @extends {aggregate.Options<Cause>}
  */
 interface ExceptionDTO<
-  T extends JsonifiableObject = JsonifiableObject,
-  Cause extends JsonifiableObject = JsonifiableObject,
+  T extends ObjectPlain = JsonifiableObject,
+  Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends aggregate.Options<Cause> {
   [key: string]:

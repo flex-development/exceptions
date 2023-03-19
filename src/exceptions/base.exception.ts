@@ -13,6 +13,7 @@ import {
   isString,
   type JsonifiableObject,
   type Nullable,
+  type ObjectPlain,
   type OneOrMany
 } from '@flex-development/tutils'
 import { get, set, shake } from 'radash'
@@ -29,9 +30,9 @@ import { get, set, shake } from 'radash'
  * @extends {AggregateError<T,Cause&{code:Code}>}
  */
 class Exception<
-  T extends JsonifiableObject = JsonifiableObject,
-  Data extends JsonifiableObject = JsonifiableObject,
-  Cause extends JsonifiableObject = JsonifiableObject,
+  T extends ObjectPlain = JsonifiableObject,
+  Data extends ObjectPlain = JsonifiableObject,
+  Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends AggregateError<T, Cause & { code: Code }> {
   /**
@@ -137,9 +138,9 @@ class Exception<
    * {@linkcode Exception} instance
    */
   public static is<
-    T extends JsonifiableObject = JsonifiableObject,
-    Data extends JsonifiableObject = JsonifiableObject,
-    Cause extends JsonifiableObject = JsonifiableObject,
+    T extends ObjectPlain = JsonifiableObject,
+    Data extends ObjectPlain = JsonifiableObject,
+    Cause extends ObjectPlain = JsonifiableObject,
     Code extends Nullable<number | string> = string
   >(value: unknown): value is Exception<T, Data, Cause, Code> {
     return value instanceof Exception
@@ -161,9 +162,9 @@ class Exception<
    * {@linkcode ExceptionJSON} object
    */
   public static isJSON<
-    T extends JsonifiableObject = JsonifiableObject,
-    Data extends JsonifiableObject = JsonifiableObject,
-    Cause extends JsonifiableObject = JsonifiableObject,
+    T extends ObjectPlain = JsonifiableObject,
+    Data extends ObjectPlain = JsonifiableObject,
+    Cause extends ObjectPlain = JsonifiableObject,
     Code extends Nullable<number | string> = string
   >(value: unknown): value is ExceptionJSON<T, Data, Cause, Code> {
     /**

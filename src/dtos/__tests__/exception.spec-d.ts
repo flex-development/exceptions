@@ -7,11 +7,16 @@ import type * as aggregate from '@flex-development/aggregate-error-ponyfill'
 import type {
   JsonifiableObject,
   Nilable,
+  ObjectPlain,
   OneOrMany
 } from '@flex-development/tutils'
 import type TestSubject from '../exception'
 
 describe('unit-d:dtos/ExceptionDTO', () => {
+  it('should allow T to exclude index signature', () => {
+    expectTypeOf<TestSubject<Error>>().toMatchTypeOf<TestSubject<ObjectPlain>>()
+  })
+
   it('should extend aggregate.Options<Cause>', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<aggregate.Options>()
   })

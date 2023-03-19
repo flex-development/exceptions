@@ -4,10 +4,14 @@
  */
 
 import type AggregateError from '@flex-development/aggregate-error-ponyfill'
-import type { JsonifiableObject } from '@flex-development/tutils'
+import type { JsonifiableObject, ObjectPlain } from '@flex-development/tutils'
 import type TestSubject from '../base.exception'
 
 describe('unit-d:exceptions/Exception', () => {
+  it('should allow T to exclude index signature', () => {
+    expectTypeOf<TestSubject<Error>>().toMatchTypeOf<TestSubject<ObjectPlain>>()
+  })
+
   it('should extend AggregateError<T, Cause & { code: Code }>', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<
       AggregateError<JsonifiableObject, JsonifiableObject & { code: string }>

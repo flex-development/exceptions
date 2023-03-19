@@ -10,6 +10,7 @@ import type { HttpExceptionJSON } from '#src/interfaces'
 import type {
   JsonifiableObject,
   Nullable,
+  ObjectPlain,
   OneOrMany
 } from '@flex-development/tutils'
 import { get, invert, set } from 'radash'
@@ -27,9 +28,9 @@ import Exception from './base.exception'
  * @extends {Exception<T,Data,Cause,Code>}
  */
 class HttpException<
-  T extends JsonifiableObject = JsonifiableObject,
-  Data extends JsonifiableObject = JsonifiableObject,
-  Cause extends JsonifiableObject = JsonifiableObject,
+  T extends ObjectPlain = JsonifiableObject,
+  Data extends ObjectPlain = JsonifiableObject,
+  Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends Exception<T, Data, Cause, Code> {
   /**
@@ -112,9 +113,9 @@ class HttpException<
    * {@linkcode HttpException} instance
    */
   public static override is<
-    T extends JsonifiableObject = JsonifiableObject,
-    Data extends JsonifiableObject = JsonifiableObject,
-    Cause extends JsonifiableObject = JsonifiableObject,
+    T extends ObjectPlain = JsonifiableObject,
+    Data extends ObjectPlain = JsonifiableObject,
+    Cause extends ObjectPlain = JsonifiableObject,
     Code extends Nullable<number | string> = string
   >(value: unknown): value is HttpException<T, Data, Cause, Code> {
     return value instanceof HttpException
@@ -137,9 +138,9 @@ class HttpException<
    * `value` is {@linkcode HttpExceptionJSON} object
    */
   public static override isJSON<
-    T extends JsonifiableObject = JsonifiableObject,
-    Data extends JsonifiableObject = JsonifiableObject,
-    Cause extends JsonifiableObject = JsonifiableObject,
+    T extends ObjectPlain = JsonifiableObject,
+    Data extends ObjectPlain = JsonifiableObject,
+    Cause extends ObjectPlain = JsonifiableObject,
     Code extends Nullable<number | string> = string
   >(value: unknown): value is HttpExceptionJSON<T, Data, Cause, Code> {
     return (

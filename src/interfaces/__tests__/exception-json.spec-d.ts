@@ -4,10 +4,14 @@
  */
 
 import type { Errors } from '#src/types'
-import type { JsonifiableObject } from '@flex-development/tutils'
+import type { JsonifiableObject, ObjectPlain } from '@flex-development/tutils'
 import type TestSubject from '../exception-json'
 
 describe('unit-d:interfaces/ExceptionJSON', () => {
+  it('should allow T to exclude index signature', () => {
+    expectTypeOf<TestSubject<Error>>().toMatchTypeOf<TestSubject<ObjectPlain>>()
+  })
+
   it('should match [cause: Readonly<Cause & { code: Code }>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('cause')
