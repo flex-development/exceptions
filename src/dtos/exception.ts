@@ -29,7 +29,12 @@ interface ExceptionDTO<
   Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends aggregate.Options<Cause> {
-  [key: string]: Jsonifiable | JsonValue | ObjectUnknown | undefined
+  [key: string]:
+    | Jsonifiable
+    | JsonValue
+    | ObjectUnknown
+    | OneOrMany<T>
+    | undefined
 
   /**
    * Exception code.
