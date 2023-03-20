@@ -6,7 +6,7 @@
 import type * as aggregate from '@flex-development/aggregate-error-ponyfill'
 import type {
   JsonValue,
-  JsonifiableArray,
+  Jsonifiable,
   JsonifiableObject,
   Nilable,
   Nullable,
@@ -29,12 +29,7 @@ interface ExceptionDTO<
   Cause extends ObjectPlain = JsonifiableObject,
   Code extends Nullable<number | string> = string
 > extends aggregate.Options<Cause> {
-  [key: string]:
-    | JsonifiableArray
-    | JsonifiableObject
-    | JsonValue
-    | ObjectUnknown
-    | undefined
+  [key: string]: Jsonifiable | JsonValue | ObjectUnknown | undefined
 
   /**
    * Exception code.
