@@ -1,3 +1,15 @@
+## [exceptions@8.0.0-alpha.5](https://github.com/flex-development/exceptions/compare/exceptions@8.0.0-alpha.4...exceptions@8.0.0-alpha.5) (2023-03-19)
+
+
+### :bug: Fixes
+
+* **dtos:** [`ExceptionDTO`] add `OneOrMany<T>` to index signature type ([76d81c4](https://github.com/flex-development/exceptions/commit/76d81c43953b0550c79014335f9a41910b03f6ad))
+
+
+### :mechanical_arm: Refactors
+
+* **dtos:** [`ExceptionDTO`] allow all `Jsonifiable` types ([e35b81f](https://github.com/flex-development/exceptions/commit/e35b81f0e340e4ee82ccd3ae2593d706e7b28a77))
+
 ## [exceptions@8.0.0-alpha.4](https://github.com/flex-development/exceptions/compare/exceptions@8.0.0-alpha.3...exceptions@8.0.0-alpha.4) (2023-03-19)
 
 
