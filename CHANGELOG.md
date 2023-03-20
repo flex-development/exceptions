@@ -1,3 +1,16 @@
+## [exceptions@8.0.0-alpha.4](https://github.com/flex-development/exceptions/compare/exceptions@8.0.0-alpha.3...exceptions@8.0.0-alpha.4) (2023-03-19)
+
+
+### :package: Build
+
+* **deps-dev:** bump cspell from 6.29.3 to 6.30.0 ([#80](https://github.com/flex-development/exceptions/issues/80)) ([3f5f7da](https://github.com/flex-development/exceptions/commit/3f5f7da0b01d2c876aa2fb0475a17c809812d9e3))
+* **deps-dev:** bump esbuild from 0.17.11 to 0.17.12 ([#79](https://github.com/flex-development/exceptions/issues/79)) ([4f315d4](https://github.com/flex-development/exceptions/commit/4f315d4b6ccf7401e59924490680198156b0435b))
+
+
+### :mechanical_arm: Refactors
+
+* **ts:** allow object types to exclude index signature ([4de8946](https://github.com/flex-development/exceptions/commit/4de8946bd7215fc2f044d2681a00dce328bd17db))
+
 ## [exceptions@8.0.0-alpha.3](https://github.com/flex-development/exceptions/compare/exceptions@8.0.0-alpha.2...exceptions@8.0.0-alpha.3) (2023-03-16)
 
 
