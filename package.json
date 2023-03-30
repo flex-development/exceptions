@@ -74,7 +74,7 @@
   "dependencies": {
     "@flex-development/aggregate-error-ponyfill": "3.1.1",
     "@flex-development/tutils": "6.0.0-alpha.10",
-    "radash": "10.7.1"
+    "radash": "10.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.5.1",
